@@ -134,6 +134,25 @@ body {
 }
 @keyframes wheel { 0%, 100% { transform: translateY(0); opacity: 1; } 50% { transform: translateY(10px); opacity: 0.3; } }
 
+/* ---------- Currently strip ---------- */
+.currently {
+  border-top: 1px solid var(--card-border);
+  border-bottom: 1px solid var(--card-border);
+  background: var(--bg-soft);
+  padding: 20px 0;
+}
+.currently .wrap {
+  display: flex; align-items: center; justify-content: center;
+  gap: 14px; flex-wrap: wrap; text-align: center;
+}
+.currently-label {
+  font-size: 0.78rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--accent-2);
+  border: 1px solid rgba(139, 92, 246, 0.4); border-radius: 999px; padding: 4px 14px;
+}
+.currently span:not(.currently-label) { color: var(--text-dim); font-size: 0.95rem; }
+.currently i { color: var(--accent); font-style: normal; }
+
 /* ---------- Sections ---------- */
 .section { padding: 110px 0; }
 .section-alt { background: var(--bg-soft); }
