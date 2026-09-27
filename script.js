@@ -114,3 +114,33 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowLeft') lbStep(-1);
   if (e.key === 'ArrowRight') lbStep(1);
 });
+
+// 6. Apple-style hero parallax: content drifts up, shrinks and fades as you scroll away
+const heroInner = document.querySelector('.hero-inner');
+const heroSection = document.querySelector('.hero');
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let heroTicking = false;
+
+function heroParallax() {
+  const y = window.scrollY;
+  const h = heroSection.offsetHeight;
+  if (y <= h) {
+    const p = Math.min(y / h, 1);
+    heroInner.style.transform = `translateY(${(y * 0.28).toFixed(1)}px) scale(${(1 - p * 0.05).toFixed(3)})`;
+    heroInner.style.opacity = Math.max(0, 1 - p * 1.15).toFixed(3);
+  }
+  heroTicking = false;
+}
+
+if (!reduceMotion && heroInner && heroSection) {
+  window.addEventListener(
+    'scroll',
+    () => {
+      if (!heroTicking) {
+        window.requestAnimationFrame(heroParallax);
+        heroTicking = true;
+      }
+    },
+    { passive: true }
+  );
+}
