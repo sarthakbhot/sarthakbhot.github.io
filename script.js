@@ -20,6 +20,7 @@ document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el))
 
 // 2. Nav: solid background after scrolling + active section highlight
 const nav = document.getElementById('nav');
+const progressBar = document.getElementById('progress');
 const navAnchors = [...document.querySelectorAll('.nav-links a[href^="#"]')];
 const sections = navAnchors
   .map((a) => document.querySelector(a.getAttribute('href')))
@@ -27,6 +28,9 @@ const sections = navAnchors
 
 window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 24);
+
+  const max = document.documentElement.scrollHeight - window.innerHeight;
+  progressBar.style.transform = `scaleX(${max > 0 ? (window.scrollY / max).toFixed(3) : 0})`;
 
   let current = null;
   sections.forEach((s) => {
