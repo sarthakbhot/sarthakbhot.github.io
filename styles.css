@@ -112,18 +112,6 @@ body {
   display: block;
 }
 
-.scroll-hint {
-  position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
-  width: 26px; height: 42px; border: 2px solid var(--card-border);
-  border-radius: 14px; opacity: 0.8;
-}
-.scroll-hint span {
-  display: block; width: 4px; height: 8px; margin: 7px auto;
-  border-radius: 2px; background: var(--text-dim);
-  animation: wheel 1.8s ease-in-out infinite;
-}
-@keyframes wheel { 0%, 100% { transform: translateY(0); opacity: 1; } 50% { transform: translateY(10px); opacity: 0.3; } }
-
 /* ---------- Currently strip ---------- */
 .currently {
   border-top: 1px solid var(--card-border);
