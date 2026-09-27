@@ -40,10 +40,10 @@
     sy += (tsy - sy) * 0.12;
 
     // Portrait: foreground layer — moves most, true 3D tilt
-    var px = cx * 36;
-    var py = cy * 28 - sy * 70;
-    var rY = cx * 10;
-    var rX = -cy * 8 + sy * 7;
+    var px = cx * 44;
+    var py = cy * 32 - sy * 90;
+    var rY = cx * 12;
+    var rX = -cy * 10 + sy * 9;
     portrait.style.transform =
       "translate(-50%,-50%)" +
       " translate3d(" + px.toFixed(1) + "px," + py.toFixed(1) + "px,0)" +
@@ -55,7 +55,7 @@
       var d = parseFloat(el.getAttribute("data-depth")) || 16;
       el.style.transform =
         "translate3d(" + (cx * d).toFixed(1) + "px," +
-        (cy * d - sy * 24).toFixed(1) + "px,0)";
+        (cy * d - sy * 30).toFixed(1) + "px,0)";
     });
 
     if (Math.abs(tx - cx) > 0.0005 || Math.abs(ty - cy) > 0.0005 || Math.abs(tsy - sy) > 0.0005) {
