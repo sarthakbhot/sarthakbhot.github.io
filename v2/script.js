@@ -21,53 +21,75 @@
     revealEls.forEach(function (el) { el.classList.add("in"); });
   }
 
-  /* ---- Hero cursor-tracking parallax (the hand-made touch) ---- */
+  /* ---- Hero 3D: cursor tilt on desktop, scroll-driven on touch ----
+     The portrait sits in front of the giant type and moves in 3D —
+     tilting toward the cursor, and drifting/tilting as you scroll. */
   var hero = document.querySelector(".hero");
-  var layers = document.querySelectorAll("[data-depth]");
-  if (!hero || !layers.length) return;
-
-  var fine = window.matchMedia("(pointer: fine)").matches;
-  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (!fine || reduce) return;
-
-  var tx = 0, ty = 0, cx = 0, cy = 0, raf = null;
-
-  /* Portrait keeps its centering translate; compose it in */
   var portrait = document.querySelector(".hero-portrait");
-  var basePortrait = "translate(-50%,-50%)";
+  var typeLines = document.querySelectorAll(".hero-type [data-depth]");
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!hero || !portrait || reduceMotion) return;
 
-  function renderPortrait() {
-    if (portrait) {
-      portrait.style.transform =
-        basePortrait + " translate3d(" + (cx * 40).toFixed(2) + "px," + (cy * 40).toFixed(2) + "px,0)";
-    }
-  }
+  var tx = 0, ty = 0, cx = 0, cy = 0;   // cursor target / smoothed (-0.5..0.5)
+  var tsy = 0, sy = 0;                  // scroll target / smoothed (0..1)
+  var raf = null;
 
-  function loop() {
+  function apply() {
     cx += (tx - cx) * 0.08;
     cy += (ty - cy) * 0.08;
-    layers.forEach(function (el) {
-      if (el === portrait) return;
-      var d = parseFloat(el.getAttribute("data-depth")) || 20;
+    sy += (tsy - sy) * 0.12;
+
+    // Portrait: foreground layer — moves most, true 3D tilt
+    var px = cx * 36;
+    var py = cy * 28 - sy * 70;
+    var rY = cx * 10;
+    var rX = -cy * 8 + sy * 7;
+    portrait.style.transform =
+      "translate(-50%,-50%)" +
+      " translate3d(" + px.toFixed(1) + "px," + py.toFixed(1) + "px,0)" +
+      " rotateY(" + rY.toFixed(2) + "deg)" +
+      " rotateX(" + rX.toFixed(2) + "deg)";
+
+    // Headline: background layer — drifts less, for depth
+    typeLines.forEach(function (el) {
+      var d = parseFloat(el.getAttribute("data-depth")) || 16;
       el.style.transform =
-        "translate3d(" + (cx * d).toFixed(2) + "px," + (cy * d).toFixed(2) + "px,0)";
+        "translate3d(" + (cx * d).toFixed(1) + "px," +
+        (cy * d - sy * 24).toFixed(1) + "px,0)";
     });
-    renderPortrait();
-    if (Math.abs(tx - cx) > 0.001 || Math.abs(ty - cy) > 0.001) {
-      raf = requestAnimationFrame(loop);
+
+    if (Math.abs(tx - cx) > 0.0005 || Math.abs(ty - cy) > 0.0005 || Math.abs(tsy - sy) > 0.0005) {
+      raf = requestAnimationFrame(apply);
     } else {
       raf = null;
     }
   }
 
-  hero.addEventListener("mousemove", function (e) {
+  function kick() {
+    if (!raf) raf = requestAnimationFrame(apply);
+  }
+
+  // Cursor tilt (desktop / trackpads)
+  if (window.matchMedia("(pointer: fine)").matches) {
+    hero.addEventListener("mousemove", function (e) {
+      var r = hero.getBoundingClientRect();
+      tx = (e.clientX - r.left) / r.width - 0.5;
+      ty = (e.clientY - r.top) / r.height - 0.5;
+      kick();
+    });
+    hero.addEventListener("mouseleave", function () {
+      tx = 0; ty = 0;
+      kick();
+    });
+  }
+
+  // Scroll-driven 3D (works everywhere, incl. touch phones)
+  function onScroll() {
     var r = hero.getBoundingClientRect();
-    tx = (e.clientX - r.left) / r.width - 0.5;
-    ty = (e.clientY - r.top) / r.height - 0.5;
-    if (!raf) raf = requestAnimationFrame(loop);
-  });
-  hero.addEventListener("mouseleave", function () {
-    tx = 0; ty = 0;
-    if (!raf) raf = requestAnimationFrame(loop);
-  });
+    var h = r.height || 1;
+    tsy = Math.min(1, Math.max(0, -r.top / h));
+    kick();
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
 })();
