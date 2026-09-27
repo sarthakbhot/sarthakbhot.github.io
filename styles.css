@@ -72,6 +72,7 @@ body {
   min-height: 100vh; display: flex; align-items: center; justify-content: center;
   position: relative; padding: 120px 24px 80px; text-align: left;
   background: var(--bg);
+  overflow: hidden;
 }
 .hero-glow { display: none; }
 .hero-inner {
