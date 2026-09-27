@@ -14,7 +14,7 @@
   <meta name="twitter:title" content="Sarthak Bhot" />
   <meta name="twitter:description" content="Computer Science (AI) student at Sheridan College and Signals Operator in the Canadian Army Reserve." />
   <meta name="twitter:image" content="https://sarthakbhot.com/assets/headshot.jpg" />
-  <link rel="stylesheet" href="styles.css?v=5" />
+  <link rel="stylesheet" href="styles.css?v=6" />
 </head>
 <body>
 
@@ -214,8 +214,8 @@
               <h3>Signals Operator <span>· Canadian Army Reserve</span></h3>
               <p>Operate and troubleshoot military communications equipment — HF radio, SATCOM, and tactical networks. Train on Nivis/QRT systems and keep comms running under pressure.</p>
               <div class="tl-photos">
-                <a href="assets/army/army-enrolment-1.jpg" target="_blank" rel="noopener"><img src="assets/army/army-enrolment-1.jpg" alt="Sarthak at his Army enrolment ceremony holding his certificate" loading="lazy"></a>
-                <a href="assets/army/army-enrolment-2.jpg" target="_blank" rel="noopener"><img src="assets/army/army-enrolment-2.jpg" alt="Sarthak shaking hands at his enrolment ceremony" loading="lazy"></a>
+                <a href="assets/army/army-enrolment-1.jpg"><img src="assets/army/army-enrolment-1.jpg" alt="Sarthak at his Army enrolment ceremony holding his certificate" loading="lazy"></a>
+                <a href="assets/army/army-enrolment-2.jpg"><img src="assets/army/army-enrolment-2.jpg" alt="Sarthak shaking hands at his enrolment ceremony" loading="lazy"></a>
               </div>
             </div>
           </div>
@@ -242,8 +242,8 @@
         <p class="reveal" style="color:var(--text-dim);max-width:640px;margin:-.5rem 0 1.75rem">The courses behind the uniform — with photos from each one.</p>
         <div class="edu-card with-photos reveal">
           <div class="cert-photos cols-2">
-            <a href="assets/army/army-bmq.jpg" target="_blank" rel="noopener"><img src="assets/army/army-bmq.jpg" alt="BMQ platoon during field training" loading="lazy"></a>
-            <a href="assets/army/army-portrait.jpg" target="_blank" rel="noopener"><img src="assets/army/army-portrait.jpg" alt="Sarthak in uniform during BMQ" loading="lazy" style="object-position:top center"></a>
+            <a href="assets/army/army-bmq.jpg"><img src="assets/army/army-bmq.jpg" alt="BMQ platoon during field training" loading="lazy"></a>
+            <a href="assets/army/army-portrait.jpg"><img src="assets/army/army-portrait.jpg" alt="Sarthak in uniform during BMQ" loading="lazy" style="object-position:top center"></a>
           </div>
           <div class="cert-row">
             <div>
@@ -255,8 +255,8 @@
         </div>
         <div class="edu-card with-photos reveal">
           <div class="cert-photos cols-2">
-            <a href="assets/army/army-dp1.jpg" target="_blank" rel="noopener"><img src="assets/army/army-dp1.jpg" alt="DP1 course group photo" loading="lazy"></a>
-            <a href="assets/army/army-dp1-grad.jpg" target="_blank" rel="noopener"><img src="assets/army/army-dp1-grad.jpg" alt="DP1 graduates holding certificates" loading="lazy"></a>
+            <a href="assets/army/army-dp1.jpg"><img src="assets/army/army-dp1.jpg" alt="DP1 course group photo" loading="lazy"></a>
+            <a href="assets/army/army-dp1-grad.jpg"><img src="assets/army/army-dp1-grad.jpg" alt="DP1 graduates holding certificates" loading="lazy"></a>
           </div>
           <div class="cert-row">
             <div>
@@ -298,6 +298,17 @@
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Photo viewer">
+    <div class="lightbox-backdrop" data-lb-close></div>
+    <button class="lightbox-close" data-lb-close aria-label="Close">×</button>
+    <button class="lightbox-prev" id="lightbox-prev" aria-label="Previous photo">‹</button>
+    <figure class="lightbox-figure">
+      <img id="lightbox-img" src="" alt="" />
+      <figcaption id="lightbox-cap"></figcaption>
+    </figure>
+    <button class="lightbox-next" id="lightbox-next" aria-label="Next photo">›</button>
+  </div>
+
+  <script src="script.js?v=2"></script>
 </body>
 </html>
