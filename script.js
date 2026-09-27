@@ -54,3 +54,63 @@ if (window.matchMedia('(pointer: fine)').matches && glow) {
     glow.style.transform = `translate(${x}px, ${y}px)`;
   });
 }
+
+// 5. Lightbox: gallery photos open in an on-page popup
+const photoLinks = [...document.querySelectorAll('.cert-photos a, .tl-photos a')];
+const lightbox = document.getElementById('lightbox');
+const lbImg = document.getElementById('lightbox-img');
+const lbCap = document.getElementById('lightbox-cap');
+const lbPrev = document.getElementById('lightbox-prev');
+const lbNext = document.getElementById('lightbox-next');
+let lbGroup = [];
+let lbIndex = 0;
+
+function lbShow() {
+  const link = lbGroup[lbIndex];
+  const thumb = link.querySelector('img');
+  lbImg.src = link.href;
+  lbImg.alt = thumb.alt;
+  lbCap.textContent = thumb.alt;
+  const multi = lbGroup.length > 1;
+  lbPrev.style.display = multi ? '' : 'none';
+  lbNext.style.display = multi ? '' : 'none';
+}
+
+function lbOpen(link) {
+  const container = link.closest('.cert-photos, .tl-photos');
+  lbGroup = [...container.querySelectorAll('a')];
+  lbIndex = lbGroup.indexOf(link);
+  lbShow();
+  lightbox.classList.add('open');
+  lightbox.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+
+function lbClose() {
+  lightbox.classList.remove('open');
+  lightbox.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+
+function lbStep(dir) {
+  lbIndex = (lbIndex + dir + lbGroup.length) % lbGroup.length;
+  lbShow();
+}
+
+photoLinks.forEach((a) =>
+  a.addEventListener('click', (e) => {
+    e.preventDefault();
+    lbOpen(a);
+  })
+);
+lbPrev.addEventListener('click', () => lbStep(-1));
+lbNext.addEventListener('click', () => lbStep(1));
+lightbox.querySelectorAll('[data-lb-close]').forEach((el) =>
+  el.addEventListener('click', lbClose)
+);
+document.addEventListener('keydown', (e) => {
+  if (!lightbox.classList.contains('open')) return;
+  if (e.key === 'Escape') lbClose();
+  if (e.key === 'ArrowLeft') lbStep(-1);
+  if (e.key === 'ArrowRight') lbStep(1);
+});
