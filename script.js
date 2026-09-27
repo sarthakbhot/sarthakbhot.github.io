@@ -124,14 +124,14 @@ function heroParallax() {
   const h = heroSection.offsetHeight;
   if (y <= h) {
     const p = Math.min(Math.max(y / h, 0), 1);
-    // drift up + shrink slightly the whole way, but stay fully opaque
-    // until the last stretch — then fade out like Apple's product pages
-    const fade = Math.max(0, (p - 0.6) / 0.4);
+    // gentle drift + shrink only — no fading
     heroInner.style.transform = `translateY(${(y * 0.25).toFixed(1)}px) scale(${(1 - p * 0.05).toFixed(3)})`;
-    heroInner.style.opacity = Math.max(0, 1 - fade).toFixed(3);
   }
   heroTicking = false;
 }
+
+// clear any faded state left over from older versions
+heroInner.style.opacity = '';
 
 if (!reduceMotion && heroInner && heroSection) {
   window.addEventListener(
