@@ -59,7 +59,6 @@ if (window.matchMedia('(pointer: fine)').matches && glow) {
 const photoLinks = [...document.querySelectorAll('.cert-photos a, .tl-photos a')];
 const lightbox = document.getElementById('lightbox');
 const lbImg = document.getElementById('lightbox-img');
-const lbCap = document.getElementById('lightbox-cap');
 const lbPrev = document.getElementById('lightbox-prev');
 const lbNext = document.getElementById('lightbox-next');
 let lbGroup = [];
@@ -70,7 +69,6 @@ function lbShow() {
   const thumb = link.querySelector('img');
   lbImg.src = link.href;
   lbImg.alt = thumb.alt;
-  lbCap.textContent = thumb.alt;
   const multi = lbGroup.length > 1;
   lbPrev.style.display = multi ? '' : 'none';
   lbNext.style.display = multi ? '' : 'none';
