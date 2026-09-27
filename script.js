@@ -123,9 +123,12 @@ function heroParallax() {
   const y = window.scrollY;
   const h = heroSection.offsetHeight;
   if (y <= h) {
-    const p = Math.min(y / h, 1);
-    heroInner.style.transform = `translateY(${(y * 0.28).toFixed(1)}px) scale(${(1 - p * 0.05).toFixed(3)})`;
-    heroInner.style.opacity = Math.max(0, 1 - p * 1.15).toFixed(3);
+    const p = Math.min(Math.max(y / h, 0), 1);
+    // drift up + shrink slightly the whole way, but stay fully opaque
+    // until the last stretch — then fade out like Apple's product pages
+    const fade = Math.max(0, (p - 0.6) / 0.4);
+    heroInner.style.transform = `translateY(${(y * 0.25).toFixed(1)}px) scale(${(1 - p * 0.05).toFixed(3)})`;
+    heroInner.style.opacity = Math.max(0, 1 - fade).toFixed(3);
   }
   heroTicking = false;
 }
