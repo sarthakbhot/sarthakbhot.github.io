@@ -55,7 +55,7 @@ a { color: inherit; }
 .hero-type {
   display: flex; flex-direction: column; align-items: center;
   font-family: var(--display);
-  font-size: clamp(6rem, 29vw, 34rem);
+  font-size: clamp(6rem, 27vw, 38rem);
   line-height: 0.84;
   letter-spacing: 0.005em;
   text-transform: uppercase;
@@ -64,14 +64,10 @@ a { color: inherit; }
   will-change: transform;
 }
 .line-solid { color: var(--ink); }
-.line-hollow {
-  color: transparent;
-  -webkit-text-stroke: 2px var(--ink);
-}
 .hero-portrait {
   position: absolute;
   left: 50%; top: 54%;
-  width: clamp(230px, 30vw, 440px);
+  width: clamp(260px, 32vw, 480px);
   aspect-ratio: 3 / 4;
   transform: translate(-50%, -50%);
   border-radius: 999px 999px 0 0;
