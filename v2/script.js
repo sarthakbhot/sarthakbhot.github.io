@@ -26,7 +26,6 @@
      tilting toward the cursor, and drifting/tilting as you scroll. */
   var hero = document.querySelector(".hero");
   var portrait = document.querySelector(".hero-portrait");
-  var shadow = document.querySelector(".hero-shadow");
   var typeLines = document.querySelectorAll(".hero-type [data-depth]");
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (!hero || !portrait || reduceMotion) return;
@@ -52,17 +51,6 @@
       " rotateY(" + rY.toFixed(2) + "deg)" +
       " rotateX(" + rX.toFixed(2) + "deg)" +
       " scale(" + sc.toFixed(3) + ")";
-
-    // Shadow echo — lags the portrait, separation reads as depth
-    if (shadow) {
-      var shx = cx * 24 + sy * 70 + 28;
-      var shy = cy * 16 - sy * 55 + 32;
-      shadow.style.transform =
-        "translate(-50%,-50%)" +
-        " translate3d(" + shx.toFixed(1) + "px," + shy.toFixed(1) + "px,0)" +
-        " rotateY(" + (cx * 6).toFixed(2) + "deg)";
-      shadow.style.opacity = (0.45 - sy * 0.18).toFixed(2);
-    }
 
     // Type — background layer, drifts least
     typeLines.forEach(function (el) {
