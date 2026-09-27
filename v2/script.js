@@ -26,6 +26,7 @@
      tilting toward the cursor, and drifting/tilting as you scroll. */
   var hero = document.querySelector(".hero");
   var portrait = document.querySelector(".hero-portrait");
+  var shadow = document.querySelector(".hero-shadow");
   var typeLines = document.querySelectorAll(".hero-type [data-depth]");
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (!hero || !portrait || reduceMotion) return;
@@ -35,27 +36,40 @@
   var raf = null;
 
   function apply() {
-    cx += (tx - cx) * 0.08;
-    cy += (ty - cy) * 0.08;
-    sy += (tsy - sy) * 0.12;
+    cx += (tx - cx) * 0.07;
+    cy += (ty - cy) * 0.07;
+    sy += (tsy - sy) * 0.1;
 
-    // Portrait: foreground layer — moves most, true 3D tilt
-    var px = cx * 44;
-    var py = cy * 32 - sy * 90;
-    var rY = cx * 12;
-    var rX = -cy * 10 + sy * 9;
+    // Portrait — hero layer: big shift + true 3D tilt + slight grow on scroll
+    var px = cx * 60 + sy * 30;
+    var py = cy * 40 - sy * 130;
+    var rY = cx * 14 + sy * 6;
+    var rX = -cy * 12 + sy * 10;
+    var sc = 1 + sy * 0.07;
     portrait.style.transform =
       "translate(-50%,-50%)" +
       " translate3d(" + px.toFixed(1) + "px," + py.toFixed(1) + "px,0)" +
       " rotateY(" + rY.toFixed(2) + "deg)" +
-      " rotateX(" + rX.toFixed(2) + "deg)";
+      " rotateX(" + rX.toFixed(2) + "deg)" +
+      " scale(" + sc.toFixed(3) + ")";
 
-    // Headline: background layer — drifts less, for depth
+    // Shadow echo — lags the portrait, separation reads as depth
+    if (shadow) {
+      var shx = cx * 24 + sy * 70 + 28;
+      var shy = cy * 16 - sy * 55 + 32;
+      shadow.style.transform =
+        "translate(-50%,-50%)" +
+        " translate3d(" + shx.toFixed(1) + "px," + shy.toFixed(1) + "px,0)" +
+        " rotateY(" + (cx * 6).toFixed(2) + "deg)";
+      shadow.style.opacity = (0.45 - sy * 0.18).toFixed(2);
+    }
+
+    // Type — background layer, drifts least
     typeLines.forEach(function (el) {
-      var d = parseFloat(el.getAttribute("data-depth")) || 16;
+      var d = parseFloat(el.getAttribute("data-depth")) || 12;
       el.style.transform =
         "translate3d(" + (cx * d).toFixed(1) + "px," +
-        (cy * d - sy * 30).toFixed(1) + "px,0)";
+        (cy * d - sy * 34).toFixed(1) + "px,0)";
     });
 
     if (Math.abs(tx - cx) > 0.0005 || Math.abs(ty - cy) > 0.0005 || Math.abs(tsy - sy) > 0.0005) {
