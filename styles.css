@@ -44,7 +44,7 @@ body {
   border-bottom: 1px solid transparent;
   transition: border-color 0.3s, background 0.3s;
 }
-#nav.scrolled { border-bottom-color: var(--card-border); background: rgba(255, 255, 255, 0.9); }
+#nav.scrolled { border-bottom-color: var(--card-border); background: rgba(255, 255, 255, 0.9); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06); }
 .nav-inner {
   max-width: 1020px; margin: 0 auto; padding: 0 24px;
   height: 48px; display: flex; align-items: center; justify-content: space-between;
@@ -100,6 +100,7 @@ body {
 .btn-primary:hover { background: var(--blue-hover); }
 .btn-ghost { border: 1px solid var(--card-border); color: var(--blue); background: transparent; }
 .btn-ghost:hover { border-color: var(--blue); }
+.btn:active { transform: scale(0.96); }
 
 .hero-photo { display: flex; justify-content: center; }
 .photo-frame {
@@ -145,7 +146,7 @@ body {
 }
 
 /* Reveal animation — subtle and quick */
-.reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.5s ease, transform 0.5s ease; }
+.reveal { opacity: 0; transform: translateY(24px) scale(0.98); transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1); }
 .reveal.visible { opacity: 1; transform: none; }
 
 /* ---------- About ---------- */
@@ -345,7 +346,35 @@ footer p { color: var(--text-dim); font-size: 0.8rem; }
 @media (prefers-reduced-motion: reduce) {
   .section-title, .skill-card, .project-card, .edu-card,
   .cert-photos img, .tl-photos img { animation: none !important; }
+  .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .hero-btns .btn, .lightbox.open .lightbox-figure { animation: none !important; }
+  #progress { display: none; }
 }
+
+/* ---------- Polish: pop-ins & micro-interactions ---------- */
+::selection { background: var(--blue); color: #fff; }
+
+#progress {
+  position: fixed; top: 0; left: 0; height: 2px; width: 100%;
+  background: var(--blue); transform: scaleX(0); transform-origin: left;
+  z-index: 300; pointer-events: none;
+}
+
+/* hero buttons cascade in on load */
+@keyframes btn-pop {
+  from { opacity: 0; transform: translateY(12px) scale(0.94); }
+  to { opacity: 1; transform: none; }
+}
+.hero-btns .btn { animation: btn-pop 0.55s cubic-bezier(0.22,1,0.36,1) backwards; }
+.hero-btns .btn:nth-child(2) { animation-delay: 0.1s; }
+.hero-btns .btn:nth-child(3) { animation-delay: 0.2s; }
+
+/* lightbox pops open */
+@keyframes lb-pop {
+  from { opacity: 0; transform: scale(0.92) translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+.lightbox.open .lightbox-figure { animation: lb-pop 0.32s cubic-bezier(0.22,1,0.36,1); }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 820px) {
