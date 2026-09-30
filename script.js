@@ -516,3 +516,29 @@ if (!reduceMotion && heroInner && heroSection) {
     setTimeout(() => { if (d.parentNode) done(); }, 6000);
   });
 })();
+
+// 16. Scramble-on-hover skill pills
+(function () {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const pills = document.querySelectorAll('.skill-card .pills span');
+  if (!pills.length) return;
+  const GLYPHS = '!<>-_\\/[]{}—=+*^?#';
+  const pick = () => GLYPHS[(Math.random() * GLYPHS.length) | 0];
+  pills.forEach((pill) => {
+    const orig = pill.textContent;
+    let busy = false;
+    pill.addEventListener('pointerenter', () => {
+      if (busy) return;
+      busy = true;
+      const chars = orig.split('');
+      const frames = 10;
+      let f = 0;
+      const iv = setInterval(() => {
+        f++;
+        const resolved = Math.floor((f / frames) * chars.length);
+        pill.textContent = chars.map((c, i) => (i < resolved ? c : pick())).join('');
+        if (f >= frames) { clearInterval(iv); pill.textContent = orig; busy = false; }
+      }, 30);
+    });
+  });
+})();
