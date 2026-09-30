@@ -566,17 +566,31 @@ html[data-theme="light"] .theme-toggle .icon-sun { display: none; }
   .tx-overlay, .tx, .tx-caret { transition: none; animation: none; }
 }
 
-/* ============ Boot-up intro (once per session) ============ */
-.boot {
-  position: fixed; inset: 0; z-index: 900; background: #0b0e14;
-  display: flex; align-items: center; justify-content: center;
-  transition: opacity 0.35s ease;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+/* ============ BB-8 key (press B) ============ */
+.bb8 { position: fixed; left: 0; bottom: 10vh; z-index: 950; width: 64px; height: 86px; pointer-events: none; animation: bb8-travel 4.6s linear forwards; }
+@keyframes bb8-travel { from { transform: translateX(-90px); } to { transform: translateX(calc(100vw + 90px)); } }
+.bb8-shadow { position: absolute; bottom: -4px; left: 8px; width: 48px; height: 10px; border-radius: 50%; background: rgba(0, 0, 0, 0.28); }
+.bb8-body {
+  position: absolute; bottom: 4px; left: 4px; width: 56px; height: 56px; border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 30%, #f59e0b 0 8px, transparent 9px),
+    radial-gradient(circle at 70% 62%, #f59e0b 0 6px, transparent 7px),
+    radial-gradient(circle at 58% 24%, #9aa3b2 0 3px, transparent 4px),
+    radial-gradient(circle at 24% 68%, #9aa3b2 0 3px, transparent 4px),
+    #f4f6f8;
+  border: 2px solid #d7dce2;
+  animation: bb8-spin 4.6s linear forwards;
 }
-.boot[hidden] { display: none; }
-.boot.done { opacity: 0; pointer-events: none; }
-.boot-lines { color: #c9d1d9; font-size: 0.9rem; line-height: 1.9; min-width: min(420px, 80vw); }
-.boot-lines .b-ok { color: #28c840; }
-.boot-lines .b-prompt { color: #f59e0b; }
-.boot-skip { position: absolute; bottom: 26px; left: 0; right: 0; text-align: center; color: #5b6474; font-size: 0.75rem; }
-@media (prefers-reduced-motion: reduce) { .boot { display: none; } }
+@keyframes bb8-spin { from { transform: rotate(0); } to { transform: rotate(1080deg); } }
+.bb8-head {
+  position: absolute; bottom: 52px; left: 14px; width: 36px; height: 24px;
+  background: #f4f6f8; border: 2px solid #d7dce2; border-bottom: none;
+  border-radius: 20px 20px 0 0;
+  animation: bb8-bob 0.5s ease-in-out infinite alternate;
+}
+.bb8-head::after {
+  content: ""; position: absolute; top: 8px; left: 50%; width: 8px; height: 8px;
+  margin-left: -4px; border-radius: 50%; background: #1a1d23; box-shadow: 0 0 0 2px #f59e0b;
+}
+@keyframes bb8-bob { from { transform: translateY(0) rotate(-4deg); } to { transform: translateY(-2px) rotate(4deg); } }
+@media (prefers-reduced-motion: reduce) { .bb8 { display: none; } }
