@@ -466,6 +466,40 @@ if (!reduceMotion && heroInner && heroSection) {
     div.append(p, document.createTextNode(cmd));
     bodyEl.appendChild(div);
   }
+  // Matrix digital-rain takeover — fullscreen falling code, fades out after ~5s
+  function matrixRain() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (document.getElementById('matrixRain')) return;
+    const c = document.createElement('canvas');
+    c.id = 'matrixRain';
+    c.style.cssText = 'position:fixed;inset:0;width:100vw;height:100vh;z-index:9999;' +
+      'pointer-events:none;opacity:0;transition:opacity .6s;background:rgba(2,6,3,.85)';
+    document.body.appendChild(c);
+    const ctx = c.getContext('2d');
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const W = window.innerWidth, H = window.innerHeight;
+    c.width = W * dpr; c.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const font = 16, cols = Math.ceil(W / font);
+    const drops = Array.from({ length: cols }, () => Math.random() * -50);
+    const glyphs = 'アカサタナハマヤラワ0123456789$#*+<>=ﾊﾋﾌﾍﾎ';
+    const t0 = performance.now(), LIFE = 5200;
+    requestAnimationFrame(() => { c.style.opacity = '1'; });
+    (function draw(now) {
+      ctx.fillStyle = 'rgba(2,6,3,.09)';
+      ctx.fillRect(0, 0, W, H);
+      ctx.font = font + 'px monospace';
+      for (let i = 0; i < cols; i++) {
+        const ch = glyphs[(Math.random() * glyphs.length) | 0];
+        ctx.fillStyle = Math.random() < 0.05 ? '#d2ffdd' : '#00e63c';
+        ctx.fillText(ch, i * font, drops[i] * font);
+        if (drops[i] * font > H && Math.random() > 0.976) drops[i] = 0;
+        drops[i]++;
+      }
+      if (now - t0 < LIFE) requestAnimationFrame(draw);
+      else { c.style.opacity = '0'; setTimeout(() => c.remove(), 700); }
+    })(t0);
+  }
   const COMMANDS = {
     help: () => 'commands: about · skills · projects · experience · education · contact · resume · whoami · bb8 · clear · exit',
     whoami: () => 'sarthak-bhot: cs undergrad · army signals · builder of things',
@@ -479,7 +513,7 @@ if (!reduceMotion && heroInner && heroSection) {
     bb8: () => 'beep boop! build log coming soon.',
     sudo: () => 'sarthak is not in the sudoers file. this incident will be reported.',
     vim: () => 'you opened vim. good luck getting out. (there is no :q here)',
-    matrix: () => 'wake up, neo…\nthe matrix has you.\nfollow the white rabbit.',
+    matrix: () => { matrixRain(); return 'wake up, neo…\nthe matrix has you.\nfollow the white rabbit.'; },
     clear: () => { bodyEl.innerHTML = ''; },
     exit: () => { closeTx(); }
   };
