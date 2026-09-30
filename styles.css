@@ -565,3 +565,18 @@ html[data-theme="light"] .theme-toggle .icon-sun { display: none; }
 @media (prefers-reduced-motion: reduce) {
   .tx-overlay, .tx, .tx-caret { transition: none; animation: none; }
 }
+
+/* ============ Boot-up intro (once per session) ============ */
+.boot {
+  position: fixed; inset: 0; z-index: 900; background: #0b0e14;
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity 0.35s ease;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+.boot[hidden] { display: none; }
+.boot.done { opacity: 0; pointer-events: none; }
+.boot-lines { color: #c9d1d9; font-size: 0.9rem; line-height: 1.9; min-width: min(420px, 80vw); }
+.boot-lines .b-ok { color: #28c840; }
+.boot-lines .b-prompt { color: #f59e0b; }
+.boot-skip { position: absolute; bottom: 26px; left: 0; right: 0; text-align: center; color: #5b6474; font-size: 0.75rem; }
+@media (prefers-reduced-motion: reduce) { .boot { display: none; } }
