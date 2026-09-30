@@ -329,81 +329,30 @@ if (!reduceMotion && heroInner && heroSection) {
   titles.forEach((t) => io.observe(t));
 })();
 
-// 10. Cmd+K command palette — VS Code-style quick-jump to sections
+// 11. 3D tilt on project cards — cards lean toward the cursor (desktop only)
 (function () {
-  const overlay = document.getElementById('cmdkOverlay');
-  const input = document.getElementById('cmdkInput');
-  const list = document.getElementById('cmdkList');
-  if (!overlay || !input || !list) return;
-  const items = [
-    { label: 'About', hint: 'who is sarthak', target: '#about' },
-    { label: 'Skills', hint: 'what i work with', target: '#skills' },
-    { label: 'Projects', hint: "things i've built", target: '#projects' },
-    { label: 'Experience', hint: "where i've been", target: '#experience' },
-    { label: 'Contact', hint: "let's connect", target: '#contact' },
-    { label: 'Back to top', hint: 'hero', target: '#top' }
-  ];
-  let activeIdx = 0, filtered = items;
-  const isOpen = () => !overlay.hidden;
-
-  function paintActive() {
-    Array.prototype.forEach.call(list.children, (li, i) => li.classList.toggle('active', i === activeIdx));
-  }
-  function render() {
-    list.innerHTML = '';
-    if (!filtered.length) {
-      const li = document.createElement('li');
-      li.className = 'cmdk-empty';
-      li.textContent = 'No matching section';
-      list.appendChild(li);
-      return;
-    }
-    filtered.forEach((it, i) => {
-      const li = document.createElement('li');
-      if (i === activeIdx) li.classList.add('active');
-      const label = document.createElement('span'); label.textContent = it.label;
-      const hint = document.createElement('span'); hint.className = 'k'; hint.textContent = it.hint;
-      li.append(label, hint);
-      li.addEventListener('click', () => go(it));
-      li.addEventListener('mousemove', () => { activeIdx = i; paintActive(); });
-      list.appendChild(li);
+  if (!window.matchMedia('(pointer: fine)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const cards = document.querySelectorAll('.project-card');
+  if (!cards.length) return;
+  const MAX = 7; // max tilt in degrees
+  cards.forEach((card) => {
+    let raf = 0;
+    card.addEventListener('pointermove', (e) => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = 0;
+        const r = card.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width - 0.5;
+        const py = (e.clientY - r.top) / r.height - 0.5;
+        card.style.transform =
+          'perspective(900px) rotateX(' + (-py * MAX).toFixed(2) + 'deg)' +
+          ' rotateY(' + (px * MAX).toFixed(2) + 'deg) translateY(-4px)';
+      });
+    }, { passive: true });
+    card.addEventListener('pointerleave', () => {
+      if (raf) { cancelAnimationFrame(raf); raf = 0; }
+      card.style.transform = '';
     });
-  }
-  function go(it) {
-    close();
-    const el = document.querySelector(it.target);
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-  function open() {
-    input.value = ''; filtered = items; activeIdx = 0; render();
-    overlay.hidden = false;
-    requestAnimationFrame(() => overlay.classList.add('open'));
-    document.body.style.overflow = 'hidden';
-    input.focus();
-  }
-  function close() {
-    if (!isOpen()) return;
-    overlay.classList.remove('open');
-    document.body.style.overflow = '';
-    setTimeout(() => { overlay.hidden = true; }, 180);
-  }
-
-  document.addEventListener('keydown', (e) => {
-    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
-      e.preventDefault();
-      isOpen() ? close() : open();
-      return;
-    }
-    if (!isOpen()) return;
-    if (e.key === 'Escape') close();
-    else if (e.key === 'ArrowDown') { e.preventDefault(); activeIdx = Math.min(activeIdx + 1, filtered.length - 1); paintActive(); }
-    else if (e.key === 'ArrowUp') { e.preventDefault(); activeIdx = Math.max(activeIdx - 1, 0); paintActive(); }
-    else if (e.key === 'Enter' && filtered[activeIdx]) go(filtered[activeIdx]);
   });
-  input.addEventListener('input', () => {
-    const q = input.value.trim().toLowerCase();
-    filtered = items.filter((it) => (it.label + ' ' + it.hint).toLowerCase().indexOf(q) !== -1);
-    activeIdx = 0; render();
-  });
-  overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
 })();
