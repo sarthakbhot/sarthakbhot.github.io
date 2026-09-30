@@ -589,3 +589,16 @@ if (!reduceMotion && heroInner && heroSection) {
     setTimeout(() => { btn.textContent = orig; }, 2000);
   });
 })();
+
+// 18. Back-to-top button
+(function () {
+  const btn = document.getElementById('toTop');
+  if (!btn) return;
+  const reduced = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const onScroll = () => btn.classList.toggle('show', window.scrollY > 600);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: reduced() ? 'auto' : 'smooth' });
+  });
+})();
