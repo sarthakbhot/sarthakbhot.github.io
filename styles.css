@@ -151,6 +151,9 @@ body {
 /* Reveal animation — subtle and quick */
 .reveal { opacity: 0; transform: translateY(24px) scale(0.98); transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1); }
 .reveal.visible { opacity: 1; transform: none; }
+/* directional variant — section headings sweep in from the left */
+.reveal-left { transform: translateX(-36px); }
+.reveal-left.visible { transform: none; }
 
 /* ---------- About ---------- */
 .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; margin-bottom: 32px; }
@@ -352,6 +355,17 @@ footer p { color: var(--text-dim); font-size: 0.8rem; }
   .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
   .hero-btns .btn, .lightbox.open .lightbox-figure { animation: none !important; }
   #progress { display: none; }
+}
+
+/* ---------- Party mode: amber pulse overlay ---------- */
+body.partying::after {
+  content: ''; position: fixed; inset: 0; z-index: 9997; pointer-events: none;
+  background: radial-gradient(circle at 50% 35%, rgba(242,163,60,.30), rgba(242,163,60,.06) 55%, transparent 75%);
+  animation: party-pulse .5s ease-in-out infinite;
+}
+@keyframes party-pulse { 0%,100% { opacity: .3; } 50% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  body.partying::after { animation: none; }
 }
 
 /* ---------- Polish: pop-ins & micro-interactions ---------- */
