@@ -542,3 +542,38 @@ if (!reduceMotion && heroInner && heroSection) {
     });
   });
 })();
+
+// 17. Copy-email button with toast
+(function () {
+  const btn = document.getElementById('copyEmail');
+  const toast = document.getElementById('toast');
+  if (!btn || !toast) return;
+  const EMAIL = 'sarthakbhot1@gmail.com';
+  let t;
+  function show(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(t);
+    t = setTimeout(() => toast.classList.remove('show'), 2000);
+  }
+  btn.addEventListener('click', async () => {
+    let ok = false;
+    try {
+      await navigator.clipboard.writeText(EMAIL);
+      ok = true;
+    } catch (e) {
+      const ta = document.createElement('textarea');
+      ta.value = EMAIL;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { ok = document.execCommand('copy'); } catch (err) { ok = false; }
+      ta.remove();
+    }
+    show(ok ? 'Email copied to clipboard' : EMAIL);
+    const orig = 'Copy email';
+    btn.textContent = ok ? 'Copied!' : orig;
+    setTimeout(() => { btn.textContent = orig; }, 2000);
+  });
+})();
