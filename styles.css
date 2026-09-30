@@ -621,15 +621,3 @@ html[data-theme="light"] .theme-toggle .icon-sun { display: none; }
 .to-top.show { opacity: 0.9; pointer-events: auto; transform: none; }
 .to-top:hover { opacity: 1; border-color: var(--accent); }
 @media (prefers-reduced-motion: reduce) { .to-top { transition: none; } }
-
-/* ============ Live local clock in footer ============ */
-.foot-clock {
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-  margin: 6px 0 0; font-variant-numeric: tabular-nums;
-}
-.clock-dot {
-  width: 7px; height: 7px; border-radius: 50%;
-  background: var(--accent); animation: clock-pulse 2s ease-in-out infinite;
-}
-@keyframes clock-pulse { 50% { opacity: 0.3; } }
-@media (prefers-reduced-motion: reduce) { .clock-dot { animation: none; } }
