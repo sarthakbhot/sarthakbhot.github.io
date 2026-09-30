@@ -356,3 +356,16 @@ if (!reduceMotion && heroInner && heroSection) {
     });
   });
 })();
+
+// 12. DevTools console easter egg — a little hello for the curious
+(function () {
+  const art = String.raw` ____    _    ____ _____ _   _    _    _  __
+/ ___|  / \  |  _ \_   _| | | |  / \  | |/ /
+\___ \ / _ \ | |_) || | | |_| | / _ \ | ' /
+ ___) / ___ \|  _ < | | |  _  |/ ___ \| . \
+|____/_/   \_\_| \_\|_| |_| |_/_/   \_\_|\_\
+`;
+  console.log('%c' + art, 'color:#f59e0b;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;line-height:1.2;');
+  console.log('%cCurious enough to open the console? I like that.\nLike what you see, say hi: sarthakbhot1@gmail.com',
+    'color:#a1a1aa;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;');
+})();
