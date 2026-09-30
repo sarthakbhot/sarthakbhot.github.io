@@ -168,3 +168,34 @@ if (!reduceMotion && heroInner && heroSection) {
     { passive: true }
   );
 }
+
+// 7. Hero terminal: types "$ whoami", prints the answer, leaves a live prompt
+(function () {
+  const typedEl = document.getElementById('typed');
+  const outEl = document.getElementById('termOut');
+  const termBody = document.querySelector('.term-body');
+  if (!typedEl || !outEl || !termBody) return;
+  const cmd = 'whoami';
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const finish = () => {
+    typedEl.textContent = cmd;
+    outEl.classList.add('show');
+    const oldCaret = termBody.querySelector('.term-line .caret');
+    if (oldCaret) oldCaret.remove();
+    const next = document.createElement('div');
+    next.className = 'term-line';
+    next.innerHTML = '<span class="prompt">$</span><span class="caret"></span>';
+    termBody.appendChild(next);
+  };
+  if (reduceMotion) { finish(); return; }
+  let i = 0;
+  setTimeout(function tick() {
+    if (i <= cmd.length) {
+      typedEl.textContent = cmd.slice(0, i);
+      i++;
+      setTimeout(tick, 55 + Math.random() * 70);
+    } else {
+      setTimeout(finish, 350);
+    }
+  }, 900);
+})();
