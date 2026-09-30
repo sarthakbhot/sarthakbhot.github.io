@@ -1,5 +1,24 @@
 // Sarthak Bhot portfolio — interactions
 
+// 0. Theme: dark mode by default, toggle persisted in localStorage
+const rootEl = document.documentElement;
+const themeToggle = document.getElementById('themeToggle');
+const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+function setTheme(theme) {
+  rootEl.setAttribute('data-theme', theme);
+  try { localStorage.setItem('sb-theme', theme); } catch (e) { /* private mode */ }
+  if (themeColorMeta) themeColorMeta.setAttribute('content', theme === 'dark' ? '#0a0b0e' : '#ffffff');
+  if (themeToggle) themeToggle.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+}
+let savedTheme = null;
+try { savedTheme = localStorage.getItem('sb-theme'); } catch (e) { /* private mode */ }
+setTheme(savedTheme === 'light' ? 'light' : 'dark');
+if (themeToggle) {
+  themeToggle.addEventListener('click', () => {
+    setTheme(rootEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+}
+
 // 1. Scroll-reveal: fade/slide sections in as they enter the viewport
 const revealObserver = new IntersectionObserver(
   (entries) => {
