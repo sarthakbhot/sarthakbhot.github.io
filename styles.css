@@ -457,3 +457,33 @@ html[data-theme="dark"] body::after {
 .theme-toggle svg { width: 17px; height: 17px; }
 html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
 html[data-theme="light"] .theme-toggle .icon-sun { display: none; }
+
+/* ============ Hero terminal (typing effect) ============ */
+.terminal {
+  max-width: 520px; margin-bottom: 30px; text-align: left;
+  background: var(--card); border: 1px solid var(--card-border);
+  border-radius: 12px; overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+.term-bar { display: flex; gap: 7px; padding: 10px 14px; border-bottom: 1px solid var(--card-border); }
+.term-bar span { width: 10px; height: 10px; border-radius: 50%; background: var(--card-border); }
+.term-bar span:first-child { background: #ff5f57; }
+.term-bar span:nth-child(2) { background: #febc2e; }
+.term-bar span:nth-child(3) { background: #28c840; }
+.term-body { padding: 14px 16px 16px; font-size: 0.86rem; line-height: 1.7; }
+.term-line { color: var(--text); }
+.term-body .prompt { color: var(--accent); font-weight: 700; margin-right: 8px; }
+.term-out {
+  color: var(--text-dim); opacity: 0; transform: translateY(4px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.term-out.show { opacity: 1; transform: none; }
+.caret {
+  display: inline-block; width: 8px; height: 1.05em;
+  background: var(--accent); vertical-align: text-bottom;
+  animation: caret-blink 1s steps(1) infinite;
+}
+@keyframes caret-blink { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .caret { animation: none; } }
+@media (max-width: 820px) { .terminal { margin-inline: auto; } }
