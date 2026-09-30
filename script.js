@@ -177,6 +177,33 @@ if (!reduceMotion && heroInner && heroSection) {
   if (!typedEl || !outEl || !termBody) return;
   const cmd = 'whoami';
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Rotating roles: after the answer prints, cycle through taglines
+  const PREFIX = 'sarthak-bhot: ';
+  const ROLES = [
+    'cs undergrad · army signals · builder of things',
+    'army signals operator',
+    'bb-8 builder',
+    'linux tinkerer',
+    'python · java · c'
+  ];
+  const startRoles = () => {
+    let ri = 0, ci = ROLES[0].length, deleting = true;
+    const step = () => {
+      if (deleting) {
+        ci--;
+        outEl.textContent = PREFIX + ROLES[ri].slice(0, ci);
+        if (ci <= 0) { deleting = false; ri = (ri + 1) % ROLES.length; setTimeout(step, 450); }
+        else setTimeout(step, 20);
+      } else {
+        const role = ROLES[ri];
+        ci++;
+        outEl.textContent = PREFIX + role.slice(0, ci);
+        if (ci >= role.length) { deleting = true; setTimeout(step, 2600); }
+        else setTimeout(step, 40 + Math.random() * 45);
+      }
+    };
+    setTimeout(step, 2800); // hold the first line before cycling
+  };
   const finish = () => {
     typedEl.textContent = cmd;
     outEl.classList.add('show');
@@ -186,6 +213,7 @@ if (!reduceMotion && heroInner && heroSection) {
     next.className = 'term-line';
     next.innerHTML = '<span class="prompt">$</span><span class="caret"></span>';
     termBody.appendChild(next);
+    if (!reduceMotion) startRoles();
   };
   if (reduceMotion) { finish(); return; }
   let i = 0;
