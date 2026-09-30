@@ -370,7 +370,7 @@ if (!reduceMotion && heroInner && heroSection) {
     'color:#a1a1aa;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;');
 })();
 
-// 13. Custom cursor + magnetic buttons (desktop, fine pointers only)
+// 13. Custom cursor (desktop, fine pointers only)
 (function () {
   if (!window.matchMedia('(pointer: fine)').matches) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -398,32 +398,6 @@ if (!reduceMotion && heroInner && heroSection) {
   document.documentElement.addEventListener('pointerenter', () => {
     dot.style.opacity = ''; ring.style.opacity = '';
   });
-
-  // magnetic: CTA groups lean toward the cursor when near (grouped so buttons can't overlap)
-  const magnets = Array.prototype.slice.call(document.querySelectorAll('.hero-btns, .btn:not(.hero-btns .btn)'));
-  if (magnets.length) {
-    let magRaf = 0;
-    document.addEventListener('pointermove', (e) => {
-      if (magRaf) return;
-      magRaf = requestAnimationFrame(() => {
-        magRaf = 0;
-        magnets.forEach((el) => {
-          const r = el.getBoundingClientRect();
-          const pad = 60;
-          if (e.clientX > r.left - pad && e.clientX < r.right + pad &&
-              e.clientY > r.top - pad && e.clientY < r.bottom + pad) {
-            const dx = e.clientX - (r.left + r.width / 2);
-            const dy = e.clientY - (r.top + r.height / 2);
-            const cx = Math.max(-16, Math.min(16, dx * 0.25));
-            const cy = Math.max(-16, Math.min(16, dy * 0.25));
-            el.style.transform = 'translate(' + cx.toFixed(1) + 'px,' + cy.toFixed(1) + 'px)';
-          } else if (el.style.transform) {
-            el.style.transform = '';
-          }
-        });
-      });
-    }, { passive: true });
-  }
 })();
 
 // 14. Fake terminal — press ~ to open, type commands (or tap >_ on mobile)
