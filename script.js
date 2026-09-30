@@ -449,7 +449,9 @@ if (!reduceMotion && heroInner && heroSection) {
     contact: () => 'sarthakbhot1@gmail.com\nlinkedin.com/in/sarthakbhot',
     resume: () => { window.open('Sarthak-Bhot-Resume.pdf', '_blank', 'noopener'); return 'opening resume…'; },
     bb8: () => 'beep boop! build log coming soon.',
-    sudo: () => 'nice try.',
+    sudo: () => 'sarthak is not in the sudoers file. this incident will be reported.',
+    vim: () => 'you opened vim. good luck getting out. (there is no :q here)',
+    matrix: () => 'wake up, neo…\nthe matrix has you.\nfollow the white rabbit.',
     clear: () => { bodyEl.innerHTML = ''; },
     exit: () => { closeTx(); }
   };
@@ -458,7 +460,9 @@ if (!reduceMotion && heroInner && heroSection) {
     const cmd = raw.trim().toLowerCase();
     if (!cmd) return;
     hist.push(raw); hIdx = hist.length;
-    if (COMMANDS[cmd]) {
+    if (cmd === 'rm' || cmd.startsWith('rm ')) {
+      line("rm: permission denied — i'm not deleting myself for you.");
+    } else if (COMMANDS[cmd]) {
       const out = COMMANDS[cmd]();
       if (out) line(out);
     } else {
@@ -626,5 +630,23 @@ if (!reduceMotion && heroInner && heroSection) {
   frame.addEventListener('pointerleave', () => {
     if (raf) { cancelAnimationFrame(raf); raf = 0; }
     frame.style.transform = '';
+  });
+})();
+
+// 21. Glitch effect on hero name — RGB split on hover (desktop only)
+(function () {
+  if (!window.matchMedia('(pointer: fine)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const nameEl = document.querySelector('.hero-text h1');
+  if (!nameEl) return;
+  nameEl.classList.add('glitch-name');
+  nameEl.setAttribute('data-text', nameEl.textContent);
+  let t;
+  nameEl.addEventListener('mouseenter', () => {
+    nameEl.classList.remove('glitching');
+    void nameEl.offsetWidth; // restart the animation
+    nameEl.classList.add('glitching');
+    clearTimeout(t);
+    t = setTimeout(() => nameEl.classList.remove('glitching'), 450);
   });
 })();
