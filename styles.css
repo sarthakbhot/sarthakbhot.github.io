@@ -621,3 +621,36 @@ html[data-theme="light"] .theme-toggle .icon-sun { display: none; }
 .to-top.show { opacity: 0.9; pointer-events: auto; transform: none; }
 .to-top:hover { opacity: 1; border-color: var(--accent); }
 @media (prefers-reduced-motion: reduce) { .to-top { transition: none; } }
+
+/* ============ Glitch effect on hero name (hover, desktop only) ============ */
+@media (pointer: fine) {
+  .glitch-name { position: relative; }
+  .glitch-name.glitching::before,
+  .glitch-name.glitching::after {
+    content: attr(data-text);
+    position: absolute; inset: 0;
+    overflow: hidden; pointer-events: none;
+  }
+  .glitch-name.glitching::before {
+    color: #ff3b5c;
+    animation: glitch-a 0.38s steps(2) both;
+  }
+  .glitch-name.glitching::after {
+    color: #00e5ff;
+    animation: glitch-b 0.38s steps(2) both;
+  }
+  @keyframes glitch-a {
+    0% { clip-path: inset(15% 0 65% 0); transform: translate(-5px, -2px); }
+    50% { clip-path: inset(60% 0 10% 0); transform: translate(5px, 2px); }
+    100% { clip-path: inset(35% 0 40% 0); transform: translate(-3px, 1px); opacity: 0; }
+  }
+  @keyframes glitch-b {
+    0% { clip-path: inset(65% 0 15% 0); transform: translate(5px, 2px); }
+    50% { clip-path: inset(10% 0 70% 0); transform: translate(-5px, -2px); }
+    100% { clip-path: inset(45% 0 35% 0); transform: translate(3px, -1px); opacity: 0; }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .glitch-name.glitching::before,
+  .glitch-name.glitching::after { animation: none; }
+}
