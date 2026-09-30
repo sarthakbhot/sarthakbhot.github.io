@@ -494,43 +494,25 @@ if (!reduceMotion && heroInner && heroSection) {
   overlay.addEventListener('click', (e) => { if (e.target === overlay) closeTx(); });
 })();
 
-// 15. Boot-up intro — quick terminal splash, once per session, click to skip
+
+// 15. BB-8 key — press B and a droid rolls across the screen
 (function () {
-  try {
-    if (sessionStorage.getItem('sb-booted')) return;
-  } catch (e) { return; }
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const boot = document.getElementById('boot');
-  const linesEl = document.getElementById('bootLines');
-  if (!boot || !linesEl) return;
-  const LINES = [
-    '<span class="b-prompt">$</span> boot sarthakbhot.com',
-    '&#9656; loading modules &hellip; <span class="b-ok">done</span>',
-    '&#9656; mounting portfolio &hellip; <span class="b-ok">done</span>',
-    'welcome.'
-  ];
-  let i = 0, finished = false;
-  boot.hidden = false;
-  document.body.style.overflow = 'hidden';
-  function finish() {
-    if (finished) return;
-    finished = true;
-    boot.classList.add('done');
-    document.body.style.overflow = '';
-    try { sessionStorage.setItem('sb-booted', '1'); } catch (e) {}
-    setTimeout(() => boot.remove(), 400);
-  }
-  function next() {
-    if (finished) return;
-    if (i < LINES.length) {
-      const div = document.createElement('div');
-      div.innerHTML = LINES[i++];
-      linesEl.appendChild(div);
-      setTimeout(next, 260);
-    } else {
-      setTimeout(finish, 340);
-    }
-  }
-  boot.addEventListener('click', finish);
-  setTimeout(next, 150);
+  let rolling = false;
+  document.addEventListener('keydown', (e) => {
+    if (rolling) return;
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (e.key !== 'b' && e.key !== 'B') return;
+    const term = document.getElementById('termOverlay');
+    if (term && !term.hidden) return; // don't hijack typing in the terminal
+    rolling = true;
+    const d = document.createElement('div');
+    d.className = 'bb8';
+    d.setAttribute('aria-hidden', 'true');
+    d.innerHTML = '<div class="bb8-shadow"></div><div class="bb8-body"></div><div class="bb8-head"></div>';
+    document.body.appendChild(d);
+    const done = () => { d.remove(); rolling = false; };
+    d.addEventListener('animationend', (ev) => { if (ev.animationName === 'bb8-travel') done(); });
+    setTimeout(() => { if (d.parentNode) done(); }, 6000);
+  });
 })();
