@@ -409,7 +409,7 @@ if (!reduceMotion && heroInner && heroSection) {
   const fab = document.getElementById('termFab');
   const closeBtn = document.getElementById('termClose');
   if (!overlay || !bodyEl || !bufEl || !hidden) return;
-  const PROMPT = 'sarthak@portfolio:~$';
+  const PROMPT = 'sarthak:~$';
   let isOpen = false;
   const hist = []; let hIdx = -1;
 
