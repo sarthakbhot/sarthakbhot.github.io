@@ -251,7 +251,7 @@ body {
 .contact-wrap { text-align: center; display: flex; flex-direction: column; align-items: center; }
 .contact-wrap .section-title { margin-bottom: 20px; }
 .contact-wrap p { color: var(--text-dim); margin-bottom: 34px; }
-.contact-btns { margin-bottom: 44px; }
+.contact-btns { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; margin-bottom: 44px; }
 .socials { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
 .socials a {
   display: inline-flex; align-items: center; gap: 10px;
