@@ -20,14 +20,16 @@ if (themeToggle) {
 }
 
 // 1. Scroll-reveal: fade/slide sections in as they enter the viewport
+// section headings sweep in from the left for a more choreographed feel
+document.querySelectorAll('.section-title.reveal').forEach((el) => el.classList.add('reveal-left'));
 const revealObserver = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry, i) => {
       if (entry.isIntersecting) {
-        // slight stagger for siblings revealed together
+        // stagger siblings revealed together so cards cascade in
         const siblings = [...entry.target.parentElement.querySelectorAll('.reveal:not(.visible)')];
         const idx = siblings.indexOf(entry.target);
-        entry.target.style.transitionDelay = `${Math.min(idx, 4) * 70}ms`;
+        entry.target.style.transitionDelay = `${Math.min(idx, 5) * 90}ms`;
         entry.target.classList.add('visible');
         revealObserver.unobserve(entry.target);
       }
@@ -471,6 +473,13 @@ if (!reduceMotion && heroInner && heroSection) {
     div.append(p, document.createTextNode(cmd));
     bodyEl.appendChild(div);
   }
+  // Party mode — amber pulse overlay for 10 seconds
+  function partyMode() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (document.body.classList.contains('partying')) return;
+    document.body.classList.add('partying');
+    setTimeout(() => document.body.classList.remove('partying'), 10000);
+  }
   // Matrix digital-rain takeover — fullscreen falling code, fades out after ~5s
   function matrixRain() {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -519,6 +528,7 @@ if (!reduceMotion && heroInner && heroSection) {
     sudo: () => 'sarthak is not in the sudoers file. this incident will be reported.',
     vim: () => 'you opened vim. good luck getting out. (there is no :q here)',
     matrix: () => { matrixRain(); return 'wake up, neo…\nthe matrix has you.\nfollow the white rabbit.'; },
+    party: () => { partyMode(); return 'party mode engaged — 10 seconds of amber.'; },
     clear: () => { bodyEl.innerHTML = ''; },
     exit: () => { closeTx(); }
   };
@@ -715,5 +725,67 @@ if (!reduceMotion && heroInner && heroSection) {
     nameEl.classList.add('glitching');
     clearTimeout(t);
     t = setTimeout(() => nameEl.classList.remove('glitching'), 450);
+  });
+})();
+
+// 22. Konami code easter egg — ↑↑↓↓←→←→BA triggers an amber particle burst
+(function () {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const SEQ = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+  let pos = 0;
+  function konamiToast(msg) {
+    const toast = document.getElementById('toast');
+    if (!toast) return;
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2600);
+  }
+  function burst() {
+    const c = document.createElement('canvas');
+    c.style.cssText = 'position:fixed;inset:0;width:100vw;height:100vh;z-index:9998;pointer-events:none';
+    document.body.appendChild(c);
+    const ctx = c.getContext('2d');
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const W = window.innerWidth, H = window.innerHeight;
+    c.width = W * dpr; c.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const cx = W / 2, cy = H / 2;
+    const parts = Array.from({ length: 150 }, () => ({
+      x: cx, y: cy,
+      vx: (Math.random() - 0.5) * 15, vy: (Math.random() - 0.5) * 15 - 3,
+      r: Math.random() * 3 + 1.5, life: 1,
+      color: Math.random() < 0.7 ? '#f2a33c' : '#ffffff'
+    }));
+    const t0 = performance.now();
+    (function draw(now) {
+      ctx.clearRect(0, 0, W, H);
+      let alive = false;
+      for (const p of parts) {
+        p.x += p.vx; p.y += p.vy; p.vy += 0.25; p.life -= 0.009;
+        if (p.life > 0) {
+          alive = true;
+          ctx.globalAlpha = Math.max(p.life, 0);
+          ctx.fillStyle = p.color;
+          ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 7); ctx.fill();
+        }
+      }
+      ctx.globalAlpha = 1;
+      if (alive && now - t0 < 4000) requestAnimationFrame(draw);
+      else c.remove();
+    })(t0);
+  }
+  document.addEventListener('keydown', (e) => {
+    if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return;
+    const k = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+    if (k === SEQ[pos]) {
+      pos++;
+      if (pos === SEQ.length) {
+        pos = 0;
+        burst();
+        konamiToast('konami accepted — you found the secret.');
+      }
+    } else {
+      pos = (k === SEQ[0]) ? 1 : 0;
+    }
   });
 })();
