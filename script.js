@@ -225,19 +225,27 @@ if (!reduceMotion && heroInner && heroSection) {
   const toggleBtn = document.getElementById('themeToggle');
   if (toggleBtn) toggleBtn.addEventListener('click', () => setTimeout(readAccent, 0));
 
-  function resize() {
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    W = hero.offsetWidth; H = hero.offsetHeight;
-    canvas.width = W * dpr; canvas.height = H * dpr;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  function seed() {
+    const sp = coarse ? 0.45 : 1; // calmer drift on touch screens
     const count = coarse
       ? Math.min(36, Math.floor((W * H) / 28000))
       : Math.min(85, Math.floor((W * H) / 15000));
     pts = Array.from({ length: count }, () => ({
       x: Math.random() * W, y: Math.random() * H,
-      vx: (Math.random() - 0.5) * 0.35, vy: (Math.random() - 0.5) * 0.35,
+      vx: (Math.random() - 0.5) * 0.35 * sp, vy: (Math.random() - 0.5) * 0.35 * sp,
       r: Math.random() * 1.6 + 0.8
     }));
+  }
+
+  function resize() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const nW = hero.offsetWidth, nH = hero.offsetHeight;
+    // iOS fires resize when the URL bar shows/hides on scroll — don't reseed then
+    const sizeChanged = Math.abs(nW - W) > 2 || Math.abs(nH - H) > 120;
+    W = nW; H = nH;
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    if (!pts.length || sizeChanged) seed();
   }
 
   function step() {
