@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 — Sarthak Bhot</title>
+  <link rel="stylesheet" href="styles.css?v=27" />
+  <style>
+    .e404 { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; }
+    .e404-term {
+      width: min(560px, 100%); background: var(--card);
+      border: 1px solid var(--card-border); border-radius: var(--radius);
+      box-shadow: var(--shadow-lift); overflow: hidden;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    .e404-bar { display: flex; gap: 8px; padding: 12px 16px; border-bottom: 1px solid var(--card-border); }
+    .e404-bar span { width: 11px; height: 11px; border-radius: 50%; background: var(--card-border); }
+    .e404-bar span:first-child { background: #ff5f57; }
+    .e404-bar span:nth-child(2) { background: #febc2e; }
+    .e404-bar span:nth-child(3) { background: #28c840; }
+    .e404-body { padding: 22px 20px; font-size: 0.95rem; line-height: 1.9; color: var(--text); }
+    .e404-prompt { color: var(--accent); }
+    .e404-err { color: #ff7b72; }
+    .e404-caret { display: inline-block; width: 9px; height: 1.1em; background: var(--accent); vertical-align: text-bottom; animation: e404-blink 1s steps(1) infinite; }
+    @keyframes e404-blink { 50% { opacity: 0; } }
+    .e404-below { text-align: center; margin-top: 26px; font-family: var(--font); }
+    .e404-below h1 { font-size: 1.4rem; margin-bottom: 8px; }
+    .e404-below p { color: var(--text-dim); margin-bottom: 22px; }
+    @media (prefers-reduced-motion: reduce) { .e404-caret { animation: none; } }
+  </style>
+</head>
+<body>
+  <main class="e404">
+    <div>
+      <div class="e404-term" role="img" aria-label="Terminal showing a command not found error">
+        <div class="e404-bar"><span></span><span></span><span></span></div>
+        <div class="e404-body">
+          <div><span class="e404-prompt">sarthak:~$</span> cd /this-page</div>
+          <div class="e404-err">bash: cd: /this-page: No such file or directory</div>
+          <div><span class="e404-prompt">sarthak:~$</span> <span class="e404-caret"></span></div>
+        </div>
+      </div>
+      <div class="e404-below">
+        <h1>404 — page not found<span class="accent">.</span></h1>
+        <p>Whatever you were looking for isn't here. Let's get you back.</p>
+        <a href="/" class="btn btn-primary">&larr; Back home</a>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
