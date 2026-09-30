@@ -369,3 +369,57 @@ if (!reduceMotion && heroInner && heroSection) {
   console.log('%cCurious enough to open the console? I like that.\nLike what you see, say hi: sarthakbhot1@gmail.com',
     'color:#a1a1aa;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;');
 })();
+
+// 13. Custom cursor + magnetic buttons (desktop, fine pointers only)
+(function () {
+  if (!window.matchMedia('(pointer: fine)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  // custom cursor: amber dot + trailing ring
+  const dot = document.createElement('div'); dot.className = 'cursor-dot';
+  const ring = document.createElement('div'); ring.className = 'cursor-ring';
+  document.body.append(dot, ring);
+  document.documentElement.classList.add('has-custom-cursor');
+  let mx = -100, my = -100, rx = -100, ry = -100;
+  document.addEventListener('pointermove', (e) => {
+    mx = e.clientX; my = e.clientY;
+    dot.style.transform = 'translate(' + mx + 'px,' + my + 'px) translate(-50%,-50%)';
+    const t = e.target;
+    ring.classList.toggle('is-hover', !!(t && t.closest && t.closest('a,button')));
+  }, { passive: true });
+  (function loop() {
+    rx += (mx - rx) * 0.16; ry += (my - ry) * 0.16;
+    ring.style.transform = 'translate(' + rx.toFixed(1) + 'px,' + ry.toFixed(1) + 'px) translate(-50%,-50%)';
+    requestAnimationFrame(loop);
+  })();
+  document.documentElement.addEventListener('pointerleave', () => {
+    dot.style.opacity = '0'; ring.style.opacity = '0';
+  });
+  document.documentElement.addEventListener('pointerenter', () => {
+    dot.style.opacity = ''; ring.style.opacity = '';
+  });
+
+  // magnetic buttons: CTAs lean toward the cursor when near
+  const magnets = Array.prototype.slice.call(document.querySelectorAll('.btn'));
+  if (magnets.length) {
+    let magRaf = 0;
+    document.addEventListener('pointermove', (e) => {
+      if (magRaf) return;
+      magRaf = requestAnimationFrame(() => {
+        magRaf = 0;
+        magnets.forEach((el) => {
+          const r = el.getBoundingClientRect();
+          const pad = 60;
+          if (e.clientX > r.left - pad && e.clientX < r.right + pad &&
+              e.clientY > r.top - pad && e.clientY < r.bottom + pad) {
+            const dx = e.clientX - (r.left + r.width / 2);
+            const dy = e.clientY - (r.top + r.height / 2);
+            el.style.transform = 'translate(' + (dx * 0.28).toFixed(1) + 'px,' + (dy * 0.28).toFixed(1) + 'px)';
+          } else if (el.style.transform) {
+            el.style.transform = '';
+          }
+        });
+      });
+    }, { passive: true });
+  }
+})();
