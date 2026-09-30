@@ -654,3 +654,14 @@ html[data-theme="light"] .theme-toggle .icon-sun { display: none; }
   .glitch-name.glitching::before,
   .glitch-name.glitching::after { animation: none; }
 }
+
+/* ============ Custom scrollbar ============ */
+html { scrollbar-width: thin; scrollbar-color: var(--card-border) var(--bg); }
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb {
+  background: var(--card-border);
+  border-radius: 8px;
+  border: 2px solid var(--bg);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
