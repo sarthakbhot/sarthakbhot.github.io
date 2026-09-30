@@ -15,7 +15,7 @@
   <meta name="twitter:title" content="Sarthak Bhot" />
   <meta name="twitter:description" content="Computer Science (AI) student at Sheridan College and Signals Operator in the Canadian Army Reserve." />
   <meta name="twitter:image" content="https://sarthakbhot.com/assets/headshot.jpg?v=2" />
-  <link rel="stylesheet" href="styles.css?v=18" />
+  <link rel="stylesheet" href="styles.css?v=19" />
 </head>
 <body>
 
@@ -308,6 +308,7 @@
   <footer>
     <div class="wrap">
       <p>© 2026 Sarthak Bhot · Designed &amp; built by me · Hosted on GitHub Pages</p>
+      <p class="foot-tip">Tip: press <kbd>~</kbd> for a hidden terminal.</p>
     </div>
   </footer>
 
@@ -321,6 +322,22 @@
     <button class="lightbox-next" id="lightbox-next" aria-label="Next photo">›</button>
   </div>
 
-  <script src="script.js?v=15"></script>
+  <div class="tx-overlay" id="termOverlay" hidden>
+    <div class="tx" role="dialog" aria-modal="true" aria-label="Terminal">
+      <div class="tx-bar">
+        <span class="tx-dots"><i></i><i></i><i></i></span>
+        <span class="tx-title">sarthak@portfolio: ~</span>
+        <button class="tx-close" id="termClose" aria-label="Close terminal">×</button>
+      </div>
+      <div class="tx-body" id="termBody"></div>
+      <div class="tx-input">
+        <span class="tx-prompt">sarthak@portfolio:~$</span><span id="termBuffer"></span><span class="tx-caret"></span>
+        <input id="termHidden" class="tx-hidden" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="go" aria-label="Terminal input" />
+      </div>
+    </div>
+  </div>
+  <button class="term-fab" id="termFab" aria-label="Open terminal">&gt;_</button>
+
+  <script src="script.js?v=16"></script>
 </body>
 </html>
