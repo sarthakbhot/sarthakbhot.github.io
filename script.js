@@ -399,8 +399,8 @@ if (!reduceMotion && heroInner && heroSection) {
     dot.style.opacity = ''; ring.style.opacity = '';
   });
 
-  // magnetic buttons: CTAs lean toward the cursor when near
-  const magnets = Array.prototype.slice.call(document.querySelectorAll('.btn'));
+  // magnetic: CTA groups lean toward the cursor when near (grouped so buttons can't overlap)
+  const magnets = Array.prototype.slice.call(document.querySelectorAll('.hero-btns, .btn:not(.hero-btns .btn)'));
   if (magnets.length) {
     let magRaf = 0;
     document.addEventListener('pointermove', (e) => {
@@ -414,7 +414,9 @@ if (!reduceMotion && heroInner && heroSection) {
               e.clientY > r.top - pad && e.clientY < r.bottom + pad) {
             const dx = e.clientX - (r.left + r.width / 2);
             const dy = e.clientY - (r.top + r.height / 2);
-            el.style.transform = 'translate(' + (dx * 0.28).toFixed(1) + 'px,' + (dy * 0.28).toFixed(1) + 'px)';
+            const cx = Math.max(-16, Math.min(16, dx * 0.25));
+            const cy = Math.max(-16, Math.min(16, dy * 0.25));
+            el.style.transform = 'translate(' + cx.toFixed(1) + 'px,' + cy.toFixed(1) + 'px)';
           } else if (el.style.transform) {
             el.style.transform = '';
           }
@@ -422,4 +424,98 @@ if (!reduceMotion && heroInner && heroSection) {
       });
     }, { passive: true });
   }
+})();
+
+// 14. Fake terminal — press ~ to open, type commands (or tap >_ on mobile)
+(function () {
+  const overlay = document.getElementById('termOverlay');
+  const bodyEl = document.getElementById('termBody');
+  const bufEl = document.getElementById('termBuffer');
+  const hidden = document.getElementById('termHidden');
+  const fab = document.getElementById('termFab');
+  const closeBtn = document.getElementById('termClose');
+  if (!overlay || !bodyEl || !bufEl || !hidden) return;
+  const PROMPT = 'sarthak@portfolio:~$';
+  let isOpen = false;
+  const hist = []; let hIdx = -1;
+
+  function line(text, cls) {
+    const div = document.createElement('div');
+    if (cls) div.className = cls;
+    div.textContent = text;
+    bodyEl.appendChild(div);
+    bodyEl.scrollTop = bodyEl.scrollHeight;
+  }
+  function echo(cmd) {
+    const div = document.createElement('div');
+    const p = document.createElement('span'); p.className = 'tx-tp'; p.textContent = PROMPT + ' ';
+    div.append(p, document.createTextNode(cmd));
+    bodyEl.appendChild(div);
+  }
+  const COMMANDS = {
+    help: () => 'commands: about · skills · projects · experience · education · contact · resume · whoami · bb8 · clear · exit',
+    whoami: () => 'sarthak-bhot: cs undergrad · army signals · builder of things',
+    about: () => 'CS undergrad at Sheridan (AI specialization), Army Reserve Signal Operator. I build things for fun — currently a real-life BB-8 droid.',
+    skills: () => 'Python · Java · C · Linux · Git · VS Code',
+    projects: () => 'Wonderland — text adventure game (Java)\nBB-8 droid — in planning, Raspberry Pi + AI\nthis website — you are looking at it',
+    experience: () => 'Signal Operator — Canadian Army Reserve, 2025–present\nTeam Member / Supervisor — Tim Hortons, 2024–2026',
+    education: () => 'Honours BCS, AI specialization — Sheridan College, 2026–2030',
+    contact: () => 'sarthakbhot1@gmail.com\nlinkedin.com/in/sarthakbhot',
+    resume: () => { window.open('Sarthak-Bhot-Resume.pdf', '_blank', 'noopener'); return 'opening resume…'; },
+    bb8: () => 'beep boop! build log coming soon.',
+    sudo: () => 'nice try.',
+    clear: () => { bodyEl.innerHTML = ''; },
+    exit: () => { closeTx(); }
+  };
+  function run(raw) {
+    echo(raw);
+    const cmd = raw.trim().toLowerCase();
+    if (!cmd) return;
+    hist.push(raw); hIdx = hist.length;
+    if (COMMANDS[cmd]) {
+      const out = COMMANDS[cmd]();
+      if (out) line(out);
+    } else {
+      line("command not found: " + cmd + " — try 'help'");
+    }
+    bodyEl.scrollTop = bodyEl.scrollHeight;
+  }
+  function render() { bufEl.textContent = hidden.value; }
+  function openTx() {
+    isOpen = true;
+    hidden.value = ''; render();
+    overlay.hidden = false;
+    requestAnimationFrame(() => overlay.classList.add('open'));
+    document.body.style.overflow = 'hidden';
+    if (!bodyEl.children.length) line("welcome. type 'help' to see what i can do.");
+    setTimeout(() => hidden.focus(), 60);
+  }
+  function closeTx() {
+    if (!isOpen) return;
+    isOpen = false;
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+    hidden.blur();
+    setTimeout(() => { overlay.hidden = true; }, 200);
+  }
+  hidden.addEventListener('input', render);
+  hidden.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') { run(hidden.value); hidden.value = ''; hIdx = hist.length; render(); }
+    else if (e.key === 'Escape') { closeTx(); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); if (hIdx > 0) { hIdx--; hidden.value = hist[hIdx]; render(); } }
+    else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (hIdx < hist.length - 1) { hIdx++; hidden.value = hist[hIdx]; }
+      else { hIdx = hist.length; hidden.value = ''; }
+      render();
+    }
+  });
+  document.addEventListener('keydown', (e) => {
+    if (!isOpen && (e.key === '`' || e.key === '~')) { e.preventDefault(); openTx(); }
+    else if (isOpen && e.key === 'Escape') { closeTx(); }
+  });
+  overlay.querySelector('.tx').addEventListener('click', () => hidden.focus());
+  if (fab) fab.addEventListener('click', openTx);
+  if (closeBtn) closeBtn.addEventListener('click', closeTx);
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) closeTx(); });
 })();
