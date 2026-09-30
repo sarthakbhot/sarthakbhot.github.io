@@ -179,8 +179,13 @@ if (!reduceMotion && heroInner && heroSection) {
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   // Rotating roles: after the answer prints, cycle through taglines
   const PREFIX = 'sarthak-bhot: ';
+  const _h = new Date().getHours();
+  const _greet = _h >= 5 && _h < 12 ? 'good morning'
+    : _h >= 12 && _h < 17 ? 'good afternoon'
+    : _h >= 17 && _h < 22 ? 'good evening' : 'up late, huh';
   const ROLES = [
     'cs undergrad · army signals · builder of things',
+    _greet + ', visitor',
     'army signals operator',
     'bb-8 builder',
     'linux tinkerer',
