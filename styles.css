@@ -594,3 +594,16 @@ html[data-theme="light"] .theme-toggle .icon-sun { display: none; }
 }
 @keyframes bb8-bob { from { transform: translateY(0) rotate(-4deg); } to { transform: translateY(-2px) rotate(4deg); } }
 @media (prefers-reduced-motion: reduce) { .bb8 { display: none; } }
+
+/* ============ Toast (copy-email feedback) ============ */
+.toast {
+  position: fixed; left: 50%; bottom: 28px; z-index: 1200;
+  transform: translateX(-50%) translateY(12px);
+  background: #151a23; color: #e8ecf1; border: 1px solid rgba(245, 158, 11, 0.45);
+  padding: 10px 18px; border-radius: 999px; font-size: 0.85rem;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  max-width: 90vw; text-align: center;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
