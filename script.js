@@ -200,10 +200,10 @@ if (!reduceMotion && heroInner && heroSection) {
   }, 900);
 })();
 
-// 8. Hero particle network — drifting nodes + links, reacts to cursor (desktop only)
+// 8. Hero particle network — drifting nodes + links, reacts to cursor (all devices; lighter on touch)
 (function () {
-  if (!window.matchMedia('(pointer: fine)').matches) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const coarse = window.matchMedia('(pointer: coarse)').matches;
   const canvas = document.getElementById('netCanvas');
   const hero = document.querySelector('.hero');
   if (!canvas || !hero) return;
@@ -211,7 +211,7 @@ if (!reduceMotion && heroInner && heroSection) {
   let W = 0, H = 0, pts = [], running = false, inView = true;
   let accent = [212, 165, 106];
   const mouse = { x: -9999, y: -9999 };
-  const LINK = 140, MOUSE_LINK = 175;
+  const LINK = coarse ? 110 : 140, MOUSE_LINK = 175;
 
   const readAccent = () => {
     const v = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
@@ -230,7 +230,9 @@ if (!reduceMotion && heroInner && heroSection) {
     W = hero.offsetWidth; H = hero.offsetHeight;
     canvas.width = W * dpr; canvas.height = H * dpr;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    const count = Math.min(85, Math.floor((W * H) / 15000));
+    const count = coarse
+      ? Math.min(36, Math.floor((W * H) / 28000))
+      : Math.min(85, Math.floor((W * H) / 15000));
     pts = Array.from({ length: count }, () => ({
       x: Math.random() * W, y: Math.random() * H,
       vx: (Math.random() - 0.5) * 0.35, vy: (Math.random() - 0.5) * 0.35,
@@ -273,11 +275,13 @@ if (!reduceMotion && heroInner && heroSection) {
 
   const kick = () => { if (!running && inView && !document.hidden) { running = true; requestAnimationFrame(step); } };
   const halt = () => { running = false; };
-  hero.addEventListener('pointermove', (e) => {
-    const r = canvas.getBoundingClientRect();
-    mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top;
-  }, { passive: true });
-  hero.addEventListener('pointerleave', () => { mouse.x = -9999; mouse.y = -9999; });
+  if (!coarse) {
+    hero.addEventListener('pointermove', (e) => {
+      const r = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top;
+    }, { passive: true });
+    hero.addEventListener('pointerleave', () => { mouse.x = -9999; mouse.y = -9999; });
+  }
   new IntersectionObserver((es) => { inView = es[0].isIntersecting; inView ? kick() : halt(); }).observe(hero);
   document.addEventListener('visibilitychange', () => { document.hidden ? halt() : kick(); });
   window.addEventListener('resize', () => { resize(); kick(); });
