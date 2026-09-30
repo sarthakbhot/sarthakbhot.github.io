@@ -308,6 +308,7 @@
   <footer>
     <div class="wrap">
       <p>© 2026 Sarthak Bhot · Designed &amp; built by me · Hosted on GitHub Pages</p>
+      <p class="foot-tip">Tip: press <kbd>⌘</kbd><kbd>K</kbd> anywhere to jump to a section.</p>
     </div>
   </footer>
 
@@ -321,6 +322,13 @@
     <button class="lightbox-next" id="lightbox-next" aria-label="Next photo">›</button>
   </div>
 
-  <script src="script.js?v=11"></script>
+  <div class="cmdk-overlay" id="cmdkOverlay" hidden>
+    <div class="cmdk" role="dialog" aria-modal="true" aria-label="Jump to a section">
+      <input class="cmdk-input" id="cmdkInput" type="text" placeholder="Type a section name…" autocomplete="off" spellcheck="false" />
+      <ul class="cmdk-list" id="cmdkList"></ul>
+    </div>
+  </div>
+
+  <script src="script.js?v=12"></script>
 </body>
 </html>
