@@ -602,3 +602,29 @@ if (!reduceMotion && heroInner && heroSection) {
     window.scrollTo({ top: 0, behavior: reduced() ? 'auto' : 'smooth' });
   });
 })();
+
+// 20. 3D tilt on hero photo — photo leans toward the cursor (desktop only)
+(function () {
+  if (!window.matchMedia('(pointer: fine)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const frame = document.querySelector('.photo-frame');
+  if (!frame) return;
+  const MAX = 6; // max tilt in degrees
+  let raf = 0;
+  frame.addEventListener('pointermove', (e) => {
+    if (raf) return;
+    raf = requestAnimationFrame(() => {
+      raf = 0;
+      const r = frame.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width - 0.5;
+      const py = (e.clientY - r.top) / r.height - 0.5;
+      frame.style.transform =
+        'perspective(800px) rotateX(' + (-py * MAX).toFixed(2) + 'deg)' +
+        ' rotateY(' + (px * MAX).toFixed(2) + 'deg)';
+    });
+  }, { passive: true });
+  frame.addEventListener('pointerleave', () => {
+    if (raf) { cancelAnimationFrame(raf); raf = 0; }
+    frame.style.transform = '';
+  });
+})();
