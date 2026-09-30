@@ -283,3 +283,48 @@ if (!reduceMotion && heroInner && heroSection) {
   window.addEventListener('resize', () => { resize(); kick(); });
   resize(); kick();
 })();
+
+// 9. Hacker decode effect: section headings scramble then lock in on scroll
+(function () {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const titles = document.querySelectorAll('.section-title');
+  if (!titles.length) return;
+  const GLYPHS = '!<>-_\\/[]{}—=+*^?#';
+  const pick = () => GLYPHS[(Math.random() * GLYPHS.length) | 0];
+
+  function decode(el) {
+    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    let n;
+    while ((n = walker.nextNode())) {
+      if (n.nodeValue.trim()) nodes.push({ node: n, orig: n.nodeValue });
+    }
+    if (!nodes.length) return;
+    const total = nodes.reduce((s, o) => s + o.orig.length, 0);
+    const frames = Math.max(20, Math.round(total * 1.6));
+    let f = 0;
+    const iv = setInterval(() => {
+      f++;
+      const resolved = Math.floor((f / frames) * total);
+      let idx = 0;
+      for (const o of nodes) {
+        o.node.nodeValue = o.orig.split('').map((c) => {
+          const cur = idx++;
+          if (c === ' ') return ' ';
+          return cur < resolved ? c : pick();
+        }).join('');
+      }
+      if (f >= frames) {
+        clearInterval(iv);
+        nodes.forEach((o) => { o.node.nodeValue = o.orig; });
+      }
+    }, 34);
+  }
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) { decode(e.target); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.35 });
+  titles.forEach((t) => io.observe(t));
+})();
