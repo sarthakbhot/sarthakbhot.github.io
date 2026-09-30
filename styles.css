@@ -607,3 +607,17 @@ html[data-theme="light"] .theme-toggle .icon-sun { display: none; }
   max-width: 90vw; text-align: center;
 }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ============ Back-to-top button ============ */
+.to-top {
+  position: fixed; right: 18px; bottom: 76px; z-index: 400;
+  width: 46px; height: 46px; border-radius: 50%;
+  background: var(--card); border: 1px solid var(--card-border); color: var(--accent);
+  font-size: 1.2rem; line-height: 1; cursor: pointer;
+  box-shadow: var(--shadow-soft);
+  opacity: 0; pointer-events: none; transform: translateY(10px);
+  transition: opacity 0.25s ease, transform 0.25s ease, border-color 0.2s ease;
+}
+.to-top.show { opacity: 0.9; pointer-events: auto; transform: none; }
+.to-top:hover { opacity: 1; border-color: var(--accent); }
+@media (prefers-reduced-motion: reduce) { .to-top { transition: none; } }
