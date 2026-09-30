@@ -493,3 +493,44 @@ if (!reduceMotion && heroInner && heroSection) {
   if (closeBtn) closeBtn.addEventListener('click', closeTx);
   overlay.addEventListener('click', (e) => { if (e.target === overlay) closeTx(); });
 })();
+
+// 15. Boot-up intro — quick terminal splash, once per session, click to skip
+(function () {
+  try {
+    if (sessionStorage.getItem('sb-booted')) return;
+  } catch (e) { return; }
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const boot = document.getElementById('boot');
+  const linesEl = document.getElementById('bootLines');
+  if (!boot || !linesEl) return;
+  const LINES = [
+    '<span class="b-prompt">$</span> boot sarthakbhot.com',
+    '&#9656; loading modules &hellip; <span class="b-ok">done</span>',
+    '&#9656; mounting portfolio &hellip; <span class="b-ok">done</span>',
+    'welcome.'
+  ];
+  let i = 0, finished = false;
+  boot.hidden = false;
+  document.body.style.overflow = 'hidden';
+  function finish() {
+    if (finished) return;
+    finished = true;
+    boot.classList.add('done');
+    document.body.style.overflow = '';
+    try { sessionStorage.setItem('sb-booted', '1'); } catch (e) {}
+    setTimeout(() => boot.remove(), 400);
+  }
+  function next() {
+    if (finished) return;
+    if (i < LINES.length) {
+      const div = document.createElement('div');
+      div.innerHTML = LINES[i++];
+      linesEl.appendChild(div);
+      setTimeout(next, 260);
+    } else {
+      setTimeout(finish, 340);
+    }
+  }
+  boot.addEventListener('click', finish);
+  setTimeout(next, 150);
+})();
