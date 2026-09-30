@@ -199,3 +199,87 @@ if (!reduceMotion && heroInner && heroSection) {
     }
   }, 900);
 })();
+
+// 8. Hero particle network — drifting nodes + links, reacts to cursor (desktop only)
+(function () {
+  if (!window.matchMedia('(pointer: fine)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const canvas = document.getElementById('netCanvas');
+  const hero = document.querySelector('.hero');
+  if (!canvas || !hero) return;
+  const ctx = canvas.getContext('2d');
+  let W = 0, H = 0, pts = [], running = false, inView = true;
+  let accent = [212, 165, 106];
+  const mouse = { x: -9999, y: -9999 };
+  const LINK = 140, MOUSE_LINK = 175;
+
+  const readAccent = () => {
+    const v = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
+    const m = v.match(/^#([0-9a-f]{6})$/i);
+    if (m) {
+      const n = parseInt(m[1], 16);
+      accent = [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+    }
+  };
+  readAccent();
+  const toggleBtn = document.getElementById('themeToggle');
+  if (toggleBtn) toggleBtn.addEventListener('click', () => setTimeout(readAccent, 0));
+
+  function resize() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = hero.offsetWidth; H = hero.offsetHeight;
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const count = Math.min(85, Math.floor((W * H) / 15000));
+    pts = Array.from({ length: count }, () => ({
+      x: Math.random() * W, y: Math.random() * H,
+      vx: (Math.random() - 0.5) * 0.35, vy: (Math.random() - 0.5) * 0.35,
+      r: Math.random() * 1.6 + 0.8
+    }));
+  }
+
+  function step() {
+    ctx.clearRect(0, 0, W, H);
+    const [ar, ag, ab] = accent;
+    for (const p of pts) {
+      p.x += p.vx; p.y += p.vy;
+      const mdx = p.x - mouse.x, mdy = p.y - mouse.y;
+      const md = Math.hypot(mdx, mdy);
+      if (md < 120 && md > 0.1) { p.x += (mdx / md) * 0.6; p.y += (mdy / md) * 0.6; }
+      if (p.x < -20) p.x = W + 20; else if (p.x > W + 20) p.x = -20;
+      if (p.y < -20) p.y = H + 20; else if (p.y > H + 20) p.y = -20;
+    }
+    ctx.lineWidth = 1;
+    for (let i = 0; i < pts.length; i++) {
+      const a = pts[i];
+      for (let j = i + 1; j < pts.length; j++) {
+        const b = pts[j];
+        const d = Math.hypot(a.x - b.x, a.y - b.y);
+        if (d < LINK) {
+          ctx.strokeStyle = 'rgba(' + ar + ',' + ag + ',' + ab + ',' + ((1 - d / LINK) * 0.32).toFixed(3) + ')';
+          ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+        }
+      }
+      const md = Math.hypot(a.x - mouse.x, a.y - mouse.y);
+      if (md < MOUSE_LINK) {
+        ctx.strokeStyle = 'rgba(' + ar + ',' + ag + ',' + ab + ',' + ((1 - md / MOUSE_LINK) * 0.5).toFixed(3) + ')';
+        ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke();
+      }
+      ctx.fillStyle = 'rgba(' + ar + ',' + ag + ',' + ab + ',0.65)';
+      ctx.beginPath(); ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2); ctx.fill();
+    }
+    if (running) requestAnimationFrame(step);
+  }
+
+  const kick = () => { if (!running && inView && !document.hidden) { running = true; requestAnimationFrame(step); } };
+  const halt = () => { running = false; };
+  hero.addEventListener('pointermove', (e) => {
+    const r = canvas.getBoundingClientRect();
+    mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top;
+  }, { passive: true });
+  hero.addEventListener('pointerleave', () => { mouse.x = -9999; mouse.y = -9999; });
+  new IntersectionObserver((es) => { inView = es[0].isIntersecting; inView ? kick() : halt(); }).observe(hero);
+  document.addEventListener('visibilitychange', () => { document.hidden ? halt() : kick(); });
+  window.addEventListener('resize', () => { resize(); kick(); });
+  resize(); kick();
+})();
