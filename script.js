@@ -602,16 +602,3 @@ if (!reduceMotion && heroInner && heroSection) {
     window.scrollTo({ top: 0, behavior: reduced() ? 'auto' : 'smooth' });
   });
 })();
-
-// 19. Live local clock in footer (Oakville time)
-(function () {
-  const el = document.getElementById('localClock');
-  if (!el) return;
-  const fmt = new Intl.DateTimeFormat('en-US', {
-    timeZone: 'America/Toronto',
-    hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true
-  });
-  const tick = () => { el.textContent = fmt.format(new Date()); };
-  tick();
-  setInterval(tick, 1000);
-})();
