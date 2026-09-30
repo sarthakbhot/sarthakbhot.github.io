@@ -357,17 +357,6 @@ footer p { color: var(--text-dim); font-size: 0.8rem; }
   #progress { display: none; }
 }
 
-/* ---------- Party mode: amber pulse overlay ---------- */
-body.partying::after {
-  content: ''; position: fixed; inset: 0; z-index: 9997; pointer-events: none;
-  background: radial-gradient(circle at 50% 35%, rgba(242,163,60,.30), rgba(242,163,60,.06) 55%, transparent 75%);
-  animation: party-pulse .5s ease-in-out infinite;
-}
-@keyframes party-pulse { 0%,100% { opacity: .3; } 50% { opacity: 1; } }
-@media (prefers-reduced-motion: reduce) {
-  body.partying::after { animation: none; }
-}
-
 /* ---------- Polish: pop-ins & micro-interactions ---------- */
 ::selection { background: var(--accent); color: #fff; }
 
