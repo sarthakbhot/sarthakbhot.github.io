@@ -267,8 +267,7 @@
   .choice-block{margin-top:20px;border-top:1px solid var(--line);padding-top:18px}
   .choice-block h4{margin:0;font-size:18px;line-height:1.25}
   .choice-block p{margin:6px 0 0;color:var(--muted);font-size:14.5px;max-width:62ch}
-  .choice-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:14px}
-  @media (max-width:860px){.choice-grid{grid-template-columns:repeat(3,1fr)}}
+  .choice-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
   @media (max-width:520px){.choice-grid{grid-template-columns:1fr 1fr}}
   .choice-btn{
     appearance:none;cursor:pointer;text-align:center;
@@ -310,6 +309,28 @@
   .result-foot .handin{color:var(--muted)}
   .result-foot .warn{color:var(--danger);font-weight:650}
   .result-note{margin:14px 0 0;color:var(--muted);font-size:13.5px}
+
+  /* Step 2 layout: result + counted-at-a-glance table on the side */
+  .step2-layout{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:16px;align-items:start;margin-top:14px}
+  @media (max-width:860px){.step2-layout{grid-template-columns:1fr}}
+  .step2-layout .result{margin-top:0}
+  .count-aside{
+    background:var(--surface);border:1px solid var(--line);border-radius:18px;
+    box-shadow:var(--shadow);padding:18px;
+  }
+  @media (min-width:861px){.count-aside{position:sticky;top:12px}}
+  .count-aside h3{margin:0;font-size:16px;line-height:1.25}
+  .count-aside .aside-sub{margin:4px 0 0;color:var(--muted);font-size:13.5px}
+  .count-aside table{width:100%;border-collapse:collapse;margin-top:12px;font-size:14.5px;font-variant-numeric:tabular-nums}
+  .count-aside th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:left;padding:6px 0;border-bottom:1px solid var(--line)}
+  .count-aside th:last-child,.count-aside td:last-child{text-align:right}
+  .count-aside td{padding:7px 0;border-bottom:1px solid var(--line)}
+  .count-aside tr.zero td{color:var(--muted)}
+  .count-aside td.qty{text-align:center;font-weight:700}
+  .count-aside tr.subtotal td{border-bottom:0;font-weight:800;padding-top:9px}
+  .count-aside .aside-group{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700;padding-top:12px}
+  .count-aside .aside-note{margin:12px 0 0;color:var(--muted);font-size:13px}
+  .pane-note{margin:10px 0 0;color:var(--muted);font-size:13.5px;line-height:1.4}
 
   /* Rolls */
   .rolls{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:14px}
@@ -371,7 +392,7 @@
     <div class="steps-strip" aria-label="How it works">
       <div class="step-chip"><b>1 &middot; Count the float</b><span>$5 bills and all the coins. Nothing else yet.</span></div>
       <div class="step-chip"><b>2 &middot; Tap Next</b><span>See if you&rsquo;re under or over $200. Over? Just drop the excess.</span></div>
-      <div class="step-chip"><b>3 &middot; If you&rsquo;re under</b><span>Pick what you have less of &mdash; $5s, loonies, quarters, dimes or nickels &mdash; and the loan is worked out from that.</span></div>
+      <div class="step-chip"><b>3 &middot; If you&rsquo;re under</b><span>Pick what you have less of &mdash; $5s, toonies, loonies, quarters, dimes or nickels &mdash; and the loan is worked out from that, closest to the shortfall.</span></div>
     </div>
   </header>
 
@@ -419,6 +440,7 @@
   <div id="panelStep2" hidden>
     <button type="button" class="back-btn" id="backBtn">&larr; Back to counting</button>
 
+    <div class="step2-layout">
     <section aria-labelledby="result-heading">
       <div class="section-head" style="margin-top:8px">
         <div class="step-num" aria-hidden="true">2</div>
@@ -436,7 +458,7 @@
         <!-- Under: choose what you're short on -->
         <div class="choice-block" id="choiceBlock" hidden>
           <h4>What do you have less of?</h4>
-          <p>Pick the one you&rsquo;re short on. The loan will come in whole units of that &mdash; $5 bills one at a time, or one full roll at a time &mdash; and the drop-back is worked out from the cash you counted.</p>
+          <p>Pick the one you&rsquo;re short on. You&rsquo;ll take <strong>one</strong> roll of it at most &mdash; never several rolls of the same coin. The rest of the loan is topped up in $5 bills, with a loose toonie or loonie only where it gets you closer, and the loan is the closest mix to the shortfall, not rounded up.</p>
           <div class="choice-grid" id="choiceGrid" role="group" aria-label="What do you have less of?"></div>
         </div>
 
@@ -460,10 +482,28 @@
             <p class="handin" id="handinLine"></p>
             <p class="warn" id="warnLine" hidden></p>
           </div>
-          <p class="result-note" id="resultNote">Loans come in whole $5 bills and full coin rolls of whatever you pick &mdash; never loose change from the office. So a small shortfall rounds up to the next whole bill or roll, and the difference is dropped back from the cash you counted. That&rsquo;s how $198.80 takes a $5 bill and drops $3.80 back to land exactly on $200.00.</p>
+          <p class="result-note" id="resultNote">The till target is $200.00. A loan is always the closest mix to the shortfall &mdash; never more rolls than you can take.</p>
         </div>
       </div>
     </section>
+
+    <aside class="count-aside" aria-labelledby="counted-heading">
+      <h3 id="counted-heading">What you counted</h3>
+      <p class="aside-sub">Your count, at a glance. Go back to change it and this table updates too.</p>
+      <table>
+        <thead><tr><th scope="col">Denomination</th><th scope="col">Qty</th><th scope="col">Amount</th></tr></thead>
+        <tbody id="asideFloatRows"></tbody>
+        <tbody>
+          <tr class="subtotal"><td>Float counted</td><td></td><td id="asideFloatTotal">$0.00</td></tr>
+        </tbody>
+        <tbody id="asideBigRows"></tbody>
+        <tbody>
+          <tr class="subtotal"><td>Everything counted</td><td></td><td id="asideGrandTotal">$0.00</td></tr>
+        </tbody>
+      </table>
+      <p class="aside-note">Bigger bills don&rsquo;t count toward the $200 float &mdash; they&rsquo;re handed in.</p>
+    </aside>
+    </div>
 
     <section aria-labelledby="big-heading">
       <div class="section-head">
@@ -529,7 +569,7 @@
       <button type="button" class="btn primary" id="clearBtn">Clear all &amp; start over</button>
     </div>
   </div>
-  <p class="hint">Canadian dollars. Every line shows its own total, so you can check each pile as you go. If the suggested drop-back can&rsquo;t be made from the exact coins and bills you counted, re-check the counts before you hand anything over.</p>
+  <p class="hint">Canadian dollars. Every line shows its own total, so you can check each pile as you go. A drop-back after a loan is only for landing exactly on $200.00 &mdash; if it can&rsquo;t be made from the exact coins and bills you counted, re-check the counts before you hand anything over.</p>
 </main>
 
 <script>
@@ -557,6 +597,7 @@
   // denomination picked. Order follows the way it was asked for.
   var CHOICES = [
     { id:"b5",  name:"$5 bills",  unitLabel:"$5 bill",        unitDetail:"$5 each",            unit:{ cents:500,  kind:"bill", label:"$5 bill",         pieceId:"b5",   perRoll:1,  pieceLabel:"$5 bill" },  visual:"$5",  visualClass:"bill-vis" },
+    { id:"c200",name:"Toonies",  unitLabel:"roll of toonies",unitDetail:"Roll of 25 = $50",   unit:{ cents:5000, kind:"roll", label:"roll of toonies",  pieceId:"c200", perRoll:25, pieceLabel:"$2 coin" }, visual:"$2",  visualClass:"gold" },
     { id:"c100",name:"Loonies",  unitLabel:"roll of loonies",unitDetail:"Roll of 25 = $25",   unit:{ cents:2500, kind:"roll", label:"roll of loonies",  pieceId:"c100", perRoll:25, pieceLabel:"$1 coin" }, visual:"$1",  visualClass:"gold" },
     { id:"c25", name:"Quarters", unitLabel:"roll of quarters",unitDetail:"Roll of 40 = $10",  unit:{ cents:1000, kind:"roll", label:"roll of quarters", pieceId:"c25",  perRoll:40, pieceLabel:"25\u00A2 coin" }, visual:"25\u00A2", visualClass:"silver" },
     { id:"c5",  name:"Nickels",  unitLabel:"roll of nickels", unitDetail:"Roll of 40 = $2",    unit:{ cents:200,  kind:"roll", label:"roll of nickels",  pieceId:"c5",   perRoll:40, pieceLabel:"5\u00A2 coin" },  visual:"5\u00A2",  visualClass:"silver" },
@@ -765,37 +806,86 @@
     return out;
   }
 
-  // Loan in whole units of the chosen denomination only: smallest number
-  // of units that covers the shortfall and leaves a drop-back that can
-  // actually be made from the cash counted. If no such loan exists within
-  // a further $100, fall back to the smallest covering loan and warn.
+  // Loan for the denomination picked, worked out the way the office
+  // actually hands it out:
+  //  - At most ONE roll of the picked coin. Never several rolls.
+  //  - $5 bills can be taken in any number.
+  //  - The rest of a coin loan is topped up in $5 bills, with a loose
+  //    toonie or loonie only where it gets the total closer.
+  //  - The loan is the CLOSEST mix to the shortfall, not rounded up:
+  //    it may land a little under $200, and then there is nothing to
+  //    drop back. A drop-back only appears when the closest loan lands
+  //    OVER $200, and only if you need the till at exactly $200.
   function solveForChoice(floatCents, choice){
     var shortfall = TARGET - floatCents;
     var unit = choice.unit;
-    var firstLoan = Math.ceil(shortfall / unit.cents) * unit.cents;
-    var maxLoan = firstLoan + 10000;
-    for (var loan = firstLoan; loan <= maxLoan; loan += unit.cents) {
-      var drop = floatCents + loan - TARGET;
-      if (drop < 0) continue;
-      if (!canMake(drop)) continue;
-      var dropItems = breakdown(drop);
-      if (dropItems === null && drop !== 0) continue;
-      return { loanCents:loan, loanItems:[{ unit:unit, qty:loan / unit.cents }], dropCents:drop, dropItems:dropItems || [], exact:true };
+    var loanItems, loanCents;
+
+    if (unit.kind === "bill") {
+      // $5 bills only: nearest whole number of bills, at least one.
+      var n = Math.max(1, Math.round(shortfall / unit.cents));
+      loanCents = n * unit.cents;
+      loanItems = [{ unit:unit, qty:n }];
+    } else {
+      // One roll of the picked coin + filler. Filler toonies/loonies are
+      // single coins (perRoll 1), capped so a $5 bill is always
+      // preferred over the equivalent loose coins.
+      var fiveUnit = { cents:500, kind:"bill", label:"$5 bill", pieceId:"b5", perRoll:1, pieceLabel:"$5 bill" };
+      var toonieUnit = { cents:200, kind:"single", label:"Toonie", pieceId:"c200", perRoll:1, pieceLabel:"$2 coin" };
+      var loonieUnit = { cents:100, kind:"single", label:"Loonie", pieceId:"c100", perRoll:1, pieceLabel:"$1 coin" };
+      var maxFives = Math.max(0, Math.ceil((shortfall - unit.cents) / 500) + 1);
+      var best = null;
+      for (var f = 0; f <= maxFives; f++) {
+        for (var t = 0; t <= 2; t++) {
+          for (var l = 0; l <= 4; l++) {
+            var total = unit.cents + f * 500 + t * 200 + l * 100;
+            var diff = Math.abs(total - shortfall);
+            var pieces = f + t + l;
+            var cand = { total:total, diff:diff, fives:f, toonies:t, loonies:l, pieces:pieces };
+            if (!best ||
+                diff < best.diff ||
+                (diff === best.diff && total < best.total) ||
+                (diff === best.diff && total === best.total && pieces < best.pieces) ||
+                (diff === best.diff && total === best.total && pieces === best.pieces && f > best.fives)) {
+              best = cand;
+            }
+          }
+        }
+      }
+      loanCents = best.total;
+      loanItems = [{ unit:unit, qty:1 }];
+      if (best.fives > 0) loanItems.push({ unit:fiveUnit, qty:best.fives });
+      if (best.toonies > 0) loanItems.push({ unit:toonieUnit, qty:best.toonies });
+      if (best.loonies > 0) loanItems.push({ unit:loonieUnit, qty:best.loonies });
     }
-    var drop0 = floatCents + firstLoan - TARGET;
-    return { loanCents:firstLoan, loanItems:[{ unit:unit, qty:firstLoan / unit.cents }], dropCents:drop0, dropItems:breakdown(drop0) || [], exact:false };
+
+    var drop = Math.max(0, floatCents + loanCents - TARGET);
+    var dropItems = drop > 0 ? (breakdown(drop) || []) : [];
+    var dropMakeable = drop === 0 || dropItems.length > 0;
+    return {
+      loanCents:loanCents, loanItems:loanItems,
+      dropCents:drop, dropItems:dropItems,
+      tillCents:floatCents + loanCents,
+      underBy:Math.max(0, TARGET - floatCents - loanCents),
+      exact:dropMakeable, dropApplied:false
+    };
   }
 
   function describeLoanItem(item){
     var u = item.unit;
-    if (u.kind === "bill") return item.qty + " \u00D7 $5 bill";
+    if (u.kind === "bill") return item.qty + " \u00D7 $5 bill" + (item.qty > 1 ? "s" : "");
+    if (u.kind === "single") return item.qty + " \u00D7 " + u.label + (item.qty > 1 ? "s" : "");
     return item.qty + " \u00D7 " + u.label + " (" + u.perRoll + " \u00D7 " + u.pieceLabel + ")";
   }
 
   function remainingCounts(plan){
     var rem = {};
     DENOMINATIONS.forEach(function(d){ rem[d.id] = counts[d.id]; });
-    plan.dropItems.forEach(function(it){ rem[it.denom.id] -= it.qty; });
+    // A drop-back is optional after a loan, so it is NOT taken out of the
+    // till here. Only the over-$200 drop is actually handed in.
+    if (plan.dropApplied) {
+      plan.dropItems.forEach(function(it){ rem[it.denom.id] -= it.qty; });
+    }
     plan.loanItems.forEach(function(it){
       rem[it.unit.pieceId] += it.qty * it.unit.perRoll;
     });
@@ -818,6 +908,38 @@
   }
   function describeDropItem(it){
     return it.qty + " \u00D7 " + it.denom.name + (it.qty > 1 ? "s" : "");
+  }
+
+  function renderAside(floatCents, bigCents){
+    var floatRows = document.getElementById("asideFloatRows");
+    var bigRows = document.getElementById("asideBigRows");
+    floatRows.innerHTML = "";
+    bigRows.innerHTML = "";
+    FLOAT_DENOMS.forEach(function(d){
+      var q = counts[d.id];
+      var tr = document.createElement("tr");
+      if (q === 0) tr.className = "zero";
+      tr.appendChild(el("td", null, d.name + (q === 1 ? "" : "s")));
+      tr.appendChild(el("td", "qty", String(q)));
+      tr.appendChild(el("td", null, money(q * d.cents)));
+      floatRows.appendChild(tr);
+    });
+    var groupTr = document.createElement("tr");
+    var groupTd = el("td", "aside-group", "Bigger bills to hand in");
+    groupTd.colSpan = 3;
+    groupTr.appendChild(groupTd);
+    bigRows.appendChild(groupTr);
+    DENOMINATIONS.filter(function(d){ return !d.float; }).forEach(function(d){
+      var q = counts[d.id];
+      var tr = document.createElement("tr");
+      if (q === 0) tr.className = "zero";
+      tr.appendChild(el("td", null, d.name + (q === 1 ? "" : "s")));
+      tr.appendChild(el("td", "qty", String(q)));
+      tr.appendChild(el("td", null, money(q * d.cents)));
+      bigRows.appendChild(tr);
+    });
+    document.getElementById("asideFloatTotal").textContent = money(floatCents);
+    document.getElementById("asideGrandTotal").textContent = money(floatCents + bigCents);
   }
 
   var lastPlan = null, lastFloat = 0, lastBig = 0, lastChoice = null;
@@ -855,6 +977,7 @@
     document.getElementById("floatSubtotal").textContent = money(floatCents);
     document.getElementById("bigSubtotal").textContent = money(bigCents);
     document.getElementById("floatTotal").textContent = money(floatCents);
+    renderAside(floatCents, bigCents);
     document.getElementById("navSummary").textContent = money(floatCents) + " counted";
     document.getElementById("nextBtn").disabled = (floatCents === 0);
 
@@ -878,10 +1001,10 @@
     lastChoice = choice;
     if (floatCents > 0) {
       if (diff === 0) {
-        plan = { loanCents:0, loanItems:[], dropCents:0, dropItems:[], exact:true };
+        plan = { loanCents:0, loanItems:[], dropCents:0, dropItems:[], exact:true, dropApplied:false, tillCents:floatCents, underBy:0 };
       } else if (diff > 0) {
         var dropItems = breakdown(diff) || [];
-        plan = { loanCents:0, loanItems:[], dropCents:diff, dropItems:dropItems, exact:true };
+        plan = { loanCents:0, loanItems:[], dropCents:diff, dropItems:dropItems, exact:true, dropApplied:true, tillCents:TARGET, underBy:0 };
       } else if (choice) {
         plan = solveForChoice(floatCents, choice);
       }
@@ -937,11 +1060,13 @@
       headline.textContent = "You\u2019re exactly on $200.00.";
       verdictSub.textContent = "Nothing to take, nothing to drop. The float is right on target.";
       choiceBlock.hidden = true;
+      resultNote.textContent = "Nothing to take, nothing to drop. The float is right on target.";
     } else if (diff > 0) {
       card.className = "result over";
       headline.textContent = "You\u2019re over by " + money(diff) + ".";
       verdictSub.textContent = "Drop " + money(diff) + " and the till is back to $200.00. No loan needed.";
       choiceBlock.hidden = true;
+      resultNote.textContent = "When you\u2019re over, the excess is handed in \u2014 that\u2019s the drop. It isn\u2019t optional the way a drop-back after a loan is.";
       math.hidden = false;
       math.appendChild(document.createTextNode(money(floatCents) + " counted \u2212 " + money(diff) + " dropped = "));
       math.appendChild(el("span", "equals", money(TARGET) + " in the till."));
@@ -959,14 +1084,20 @@
       }
       math.hidden = false;
       if (plan.dropCents > 0) {
-        math.appendChild(document.createTextNode(money(floatCents) + " counted + " + money(plan.loanCents) + " loan \u2212 " + money(plan.dropCents) + " dropped back = "));
-        math.appendChild(el("span", "equals", money(TARGET) + " in the till."));
+        math.appendChild(document.createTextNode(money(floatCents) + " counted + " + money(plan.loanCents) + " loan = "));
+        math.appendChild(el("span", "equals", money(plan.tillCents) + " in the till (" + money(plan.dropCents) + " over $200)."));
+      } else if (plan.underBy > 0) {
+        math.appendChild(document.createTextNode(money(floatCents) + " counted + " + money(plan.loanCents) + " loan = "));
+        math.appendChild(el("span", "equals", money(plan.tillCents) + " in the till (" + money(plan.underBy) + " under $200)."));
       } else {
         math.appendChild(document.createTextNode(money(floatCents) + " counted + " + money(plan.loanCents) + " loan = "));
         math.appendChild(el("span", "equals", money(TARGET) + " in the till."));
       }
-      resultNote.textContent = "Loan in " + choice.unitLabel + "s: " + money(choice.unit.cents) + " per " + (choice.unit.kind === "bill" ? "bill" : "roll") +
-        ". Take " + money(plan.loanCents) + " in " + choice.unitLabel + "s and drop " + money(plan.dropCents) + " back from the cash you counted to land exactly on $200.00.";
+      if (choice.unit.kind === "bill") {
+        resultNote.textContent = "Loan in $5 bills only: the nearest number of $5 bills to the " + money(-diff) + " shortfall. No rolls, no drop-back unless the loan lands over $200.";
+      } else {
+        resultNote.textContent = "Loan: one " + choice.unitLabel + " (" + money(choice.unit.cents) + ") plus $5 bills, with a loose toonie or loonie only where it gets you closer \u2014 the closest mix to the " + money(-diff) + " shortfall. Never more than one roll of any coin.";
+      }
     }
 
     var loan = plan.loanCents, drop = plan.dropCents;
@@ -979,16 +1110,22 @@
     }
     if (plan.dropItems.length) {
       dropBody.appendChild(listHtml(plan.dropItems, describeDropItem));
+      if (diff < 0) {
+        // Loan overshot: the drop-back is only needed for exactly $200.
+        dropBody.appendChild(el("p", "pane-note", "Only drop this back if you need the till at exactly $200.00. Otherwise leave it in \u2014 the till just sits " + money(drop) + " over."));
+      }
+    } else if (drop > 0) {
+      dropBody.appendChild(el("p", "none", "Drop-back of " + money(drop) + " can\u2019t be made from the cash counted \u2014 see the warning below."));
     } else {
-      dropBody.appendChild(el("p", "none", "Nothing to give back."));
+      dropBody.appendChild(el("p", "none", diff < 0 && plan.underBy > 0 ? "Nothing to drop back \u2014 the till sits " + money(plan.underBy) + " under $200, and that\u2019s the closest this loan gets." : "Nothing to give back."));
     }
 
-    if (!plan.exact) {
+    if (!plan.exact && drop > 0) {
       warnLine.hidden = false;
       warnLine.textContent = "Check the counts: " + money(drop) + " can\u2019t be made exactly from the coins and bills counted. Re-count before handing anything over, or ask the office for loose change to make the difference.";
     }
 
-    // What stays in the till
+    // What stays in the till (after the loan; before any optional drop-back)
     var rem = remainingCounts(plan);
     var remParts = [];
     var remTotal = 0;
@@ -999,16 +1136,26 @@
         remTotal += q * d.cents;
       }
     });
-    remainLine.textContent = plan.exact
-      ? "Left in the till: " + (remParts.length ? remParts.join(", ") + " \u2014 " : "") + money(remTotal) + "."
-      : "After the loan and drop-back above, the till should hold " + money(TARGET) + ".";
+    if (diff > 0) {
+      remainLine.textContent = "Left in the till: " + (remParts.length ? remParts.join(", ") + " \u2014 " : "") + money(remTotal) + ".";
+    } else if (diff === 0) {
+      remainLine.textContent = "In the till: " + (remParts.length ? remParts.join(", ") + " \u2014 " : "") + money(remTotal) + ".";
+    } else {
+      remainLine.textContent = "In the till after the loan" + (drop > 0 ? " (before any optional drop-back)" : "") + ": " + (remParts.length ? remParts.join(", ") + " \u2014 " : "") + money(remTotal) + ".";
+    }
 
     var grand = floatCents + bigCents;
-    var handIn = bigCents + drop;
-    handinLine.textContent = "Everything counted: " + money(grand) + " (" + money(floatCents) + " float + " + money(bigCents) + " bigger bills). " +
-      "Hand in " + money(handIn) +
-      (bigCents > 0 && drop > 0 ? " (" + money(bigCents) + " bigger bills + " + money(drop) + " from the float)" : bigCents > 0 ? " (bigger bills)" : drop > 0 ? " (from the float)" : "") +
-      (loan > 0 ? ", and take " + money(loan) + " from the office." : ".");
+    if (diff > 0) {
+      var handIn = bigCents + drop;
+      handinLine.textContent = "Everything counted: " + money(grand) + " (" + money(floatCents) + " float + " + money(bigCents) + " bigger bills). " +
+        "Hand in " + money(handIn) +
+        (bigCents > 0 && drop > 0 ? " (" + money(bigCents) + " bigger bills + " + money(drop) + " from the float)" : bigCents > 0 ? " (bigger bills)" : " (from the float)") + ".";
+    } else {
+      handinLine.textContent = "Everything counted: " + money(grand) + " (" + money(floatCents) + " float + " + money(bigCents) + " bigger bills). " +
+        "Hand in " + money(bigCents) + " in bigger bills" +
+        (loan > 0 ? ", and take " + money(loan) + " from the office." : ".") +
+        (drop > 0 ? " If you drop " + money(drop) + " back to hit exactly $200.00, hand that in too \u2014 " + money(bigCents + drop) + " total." : "");
+    }
     document.getElementById("handinSummary").textContent = handinLine.textContent;
   }
 
@@ -1055,10 +1202,12 @@
       var p = lastPlan;
       var loanDesc = p.loanItems.length ? p.loanItems.map(describeLoanItem).join(", ") : "nothing";
       var dropDesc = p.dropItems.length ? p.dropItems.map(describeDropItem).join(", ") : "nothing";
-      text = "Farm Boy Cash Out \u2014 Float counted: " + money(lastFloat) + " (target $200.00). Under by " + money(TARGET - lastFloat) + ". Short on: " + lastChoice.name + ". Take " + money(p.loanCents) + " loan (" + loanDesc + "); drop back " + money(p.dropCents) + " (" + dropDesc + "). Till after: $200.00. Bigger bills: " + money(lastBig) + ". Hand in: " + money(lastBig + p.dropCents) + "." +
+      text = "Farm Boy Cash Out \u2014 Float counted: " + money(lastFloat) + " (target $200.00). Under by " + money(TARGET - lastFloat) + ". Short on: " + lastChoice.name + ". Take " + money(p.loanCents) + " loan (" + loanDesc + "). Till after the loan: " + money(p.tillCents) + "." +
+        (p.dropCents > 0 ? " Drop back " + money(p.dropCents) + " (" + dropDesc + ") only if you need exactly $200.00." : " No drop-back needed.") +
+        " Bigger bills: " + money(lastBig) + ". Hand in: " + money(lastBig) + (p.dropCents > 0 ? " (" + money(lastBig + p.dropCents) + " if you drop back)." : ".") +
         (parts.length ? " Counted: " + parts.join(", ") + "." : "");
     } else {
-      text = "Farm Boy Cash Out \u2014 Float counted: " + money(lastFloat) + " (target $200.00). Under by " + money(TARGET - lastFloat) + " \u2014 no loan picked yet (pick what you have less of: $5 bills, loonies, quarters, nickels, or dimes).";
+      text = "Farm Boy Cash Out \u2014 Float counted: " + money(lastFloat) + " (target $200.00). Under by " + money(TARGET - lastFloat) + " \u2014 no loan picked yet (pick what you have less of: $5 bills, toonies, loonies, quarters, nickels, or dimes).";
     }
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(text).then(function(){ done(true); }, function(){ done(false); });
