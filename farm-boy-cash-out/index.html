@@ -1,0 +1,1072 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Farm Boy Cash Out</title>
+<style>
+  :root{
+    --bg:#f2f4ef;
+    --surface:#ffffff;
+    --surface-2:#edf3ec;
+    --ink:#15211a;
+    --muted:#5c6d61;
+    --line:#d8ddd4;
+    --green:#175c36;
+    --green-dark:#0e3d24;
+    --green-soft:#dceade;
+    --gold:#a8863a;
+    --gold-soft:#f7ecd2;
+    --amber-soft:#fdf3df;
+    --danger:#a4342b;
+    --danger-soft:#fbe9e6;
+    --radius:14px;
+    --shadow:0 1px 2px rgba(20,30,22,.07), 0 6px 18px rgba(20,30,22,.06);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0e1411;
+      --surface:#18221c;
+      --surface-2:#1f2e26;
+      --ink:#eef3ee;
+      --muted:#a8b6ac;
+      --line:#2c3d33;
+      --green:#4cc07e;
+      --green-dark:#7dd8a4;
+      --green-soft:#1e3a2b;
+      --gold:#d4b96e;
+      --gold-soft:#3a2f17;
+      --amber-soft:#3a2f17;
+      --danger:#e88a80;
+      --danger-soft:#3a211d;
+      --shadow:0 1px 2px rgba(0,0,0,.35), 0 8px 22px rgba(0,0,0,.3);
+    }
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    line-height:1.45;
+  }
+  .wrap{max-width:1020px;margin:0 auto;padding:20px 16px 44px}
+  [hidden]{display:none !important}
+
+  /* Hero */
+  .hero{
+    background:var(--green-dark);
+    color:#fff;
+    border-radius:20px;
+    padding:26px 24px 22px;
+    box-shadow:0 12px 30px rgba(14,61,36,.28);
+    border-bottom:4px solid var(--gold);
+  }
+  @media (prefers-color-scheme: dark){.hero{background:#1d4a30;color:#eef3ee}}
+  .hero h1{
+    margin:0;
+    font-size:clamp(30px,5vw,42px);
+    line-height:1.05;
+    letter-spacing:-.02em;
+    font-weight:850;
+  }
+  .hero .lede{margin:10px 0 0;color:rgba(255,255,255,.88);font-size:16.5px;max-width:60ch}
+  .hero .lede strong{color:#fff}
+  .steps-strip{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:20px;
+  }
+  @media (max-width:640px){.steps-strip{grid-template-columns:1fr}}
+  .step-chip{
+    background:rgba(255,255,255,.1);
+    border:1px solid rgba(255,255,255,.22);
+    border-radius:12px;padding:11px 13px;font-size:14px;line-height:1.35;
+  }
+  .step-chip b{display:block;font-size:13px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:2px}
+  .step-chip span{opacity:.9}
+
+  /* Step indicator */
+  .step-indicator{
+    display:flex;gap:8px;margin-top:18px;flex-wrap:wrap;
+  }
+  .step-pill{
+    border:1px solid var(--line);background:var(--surface);color:var(--muted);
+    border-radius:99px;padding:8px 14px;font-size:14px;font-weight:700;
+    display:flex;gap:8px;align-items:center;
+  }
+  .step-pill .dot{
+    width:22px;height:22px;border-radius:50%;background:var(--surface-2);
+    display:inline-flex;align-items:center;justify-content:center;font-size:13px;color:var(--muted);
+  }
+  .step-pill.current{border-color:var(--green);color:var(--ink);box-shadow:0 0 0 1px var(--green)}
+  .step-pill.current .dot{background:var(--green);color:#fff}
+  .step-pill.done .dot{background:var(--green-soft);color:var(--green-dark)}
+
+  /* Counted total (step 1 only — no verdict before Next) */
+  .status{
+    position:sticky;top:12px;z-index:10;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:16px 18px 14px;
+    margin-top:14px;
+    box-shadow:var(--shadow);
+  }
+  .status-top{display:flex;flex-wrap:wrap;gap:14px 24px;align-items:flex-end;justify-content:space-between}
+  .status-label{font-size:12.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:700}
+  .status-value{
+    font-size:clamp(36px,6.5vw,48px);line-height:1.05;font-weight:850;letter-spacing:-.03em;
+    font-variant-numeric:tabular-nums;
+  }
+  .status-sub{color:var(--muted);font-size:14px;margin-top:2px;font-variant-numeric:tabular-nums}
+  .status-action{
+    background:var(--green-soft);color:var(--green-dark);
+    font-weight:750;font-size:16px;line-height:1.35;
+    border-radius:12px;padding:12px 16px;max-width:420px;
+    font-variant-numeric:tabular-nums;
+  }
+  @media (prefers-color-scheme: dark){.status-action{color:var(--green-dark)}}
+  .meter{margin-top:14px}
+  .meter-track{height:10px;border-radius:99px;background:var(--surface-2);border:1px solid var(--line);overflow:hidden}
+  .meter-fill{height:100%;width:0%;background:var(--green);border-radius:99px;transition:width .18s ease}
+  .meter-labels{display:flex;justify-content:space-between;color:var(--muted);font-size:12.5px;margin-top:5px;font-variant-numeric:tabular-nums}
+
+  /* Sections */
+  .section-head{margin:28px 4px 4px;display:flex;gap:12px;align-items:flex-start}
+  .step-num{
+    flex:0 0 34px;height:34px;border-radius:50%;
+    background:var(--green);color:#fff;font-weight:850;font-size:17px;
+    display:flex;align-items:center;justify-content:center;margin-top:2px;
+  }
+  @media (prefers-color-scheme: dark){.step-num{background:#2f8a55}}
+  .section-head h2{margin:0;font-size:21px;line-height:1.2;letter-spacing:-.01em}
+  .section-head p{margin:4px 0 0;color:var(--muted);font-size:14.5px;max-width:64ch}
+  .section-head .subtotal{margin-left:auto;white-space:nowrap;font-weight:800;font-size:18px;font-variant-numeric:tabular-nums;text-align:right}
+  .section-head .subtotal small{display:block;font-weight:600;font-size:12px;color:var(--muted);letter-spacing:.05em;text-transform:uppercase}
+
+  .list{display:grid;gap:10px;margin-top:14px}
+  .list.two-col{grid-template-columns:1fr 1fr}
+  @media (max-width:720px){.list.two-col{grid-template-columns:1fr}}
+
+  .row{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:14px;
+    display:grid;
+    grid-template-columns:62px 1fr auto;
+    grid-template-areas:"visual label total" "visual stepper stepper";
+    column-gap:14px;row-gap:12px;align-items:center;
+  }
+  .row.active{border-color:var(--green);box-shadow:0 0 0 1px var(--green), var(--shadow)}
+  .visual{grid-area:visual;justify-self:center;cursor:pointer;border:0;background:none;padding:0;-webkit-tap-highlight-color:transparent}
+  .visual:focus-visible{outline:3px solid var(--green);outline-offset:3px;border-radius:50%}
+  .visual:active .coin,.visual:active .bill{transform:scale(.94)}
+  .coin,.bill{transition:transform .12s ease}
+  .coin{
+    border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-weight:800;color:#25302a;border:2px solid rgba(0,0,0,.14);
+    font-variant-numeric:tabular-nums;
+  }
+  .coin.gold{background:#e8c96a;color:#4a3512}
+  .coin.silver{background:#d7dde0;color:#2e3a3e}
+  .coin.two{width:58px;height:58px;font-size:19px;box-shadow:inset 0 0 0 5px #c9a94e, inset 0 0 0 7px #e8c96a}
+  .coin.one{width:54px;height:54px;font-size:19px}
+  .coin.quarter{width:52px;height:52px;font-size:15px}
+  .coin.dime{width:42px;height:42px;font-size:13px}
+  .coin.nickel{width:46px;height:46px;font-size:13px}
+  @media (prefers-color-scheme: dark){
+    .coin.gold{background:#d9b95c;color:#3a2a08}
+    .coin.silver{background:#c3ccd0;color:#222d30}
+  }
+  .bill{
+    width:62px;height:38px;border-radius:5px;
+    background:#dceade;color:#0e3d24;border:1px solid #9dbfae;
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;
+    font-variant-numeric:tabular-nums;
+  }
+  @media (prefers-color-scheme: dark){.bill{background:#244f36;color:#d9f0e2;border-color:#3a6b4e}}
+  .label{grid-area:label;min-width:0}
+  .label .name{font-weight:700;font-size:17px;line-height:1.2}
+  .label .detail{color:var(--muted);font-size:13.5px}
+  .line-total{
+    grid-area:total;text-align:right;font-weight:800;font-size:19px;
+    font-variant-numeric:tabular-nums;min-width:86px;
+  }
+  .line-total.zero{color:var(--muted);font-weight:600}
+  .stepper{grid-area:stepper;display:flex;gap:8px;align-items:stretch}
+  .step-btn{
+    flex:0 0 54px;height:50px;border-radius:11px;border:1px solid var(--line);
+    background:var(--surface-2);color:var(--ink);font-size:26px;font-weight:700;line-height:1;
+    cursor:pointer;touch-action:manipulation;user-select:none;-webkit-user-select:none;
+  }
+  .step-btn:active{background:var(--line)}
+  .step-btn.plus{background:var(--green);border-color:var(--green);color:#fff;flex:1 1 72px}
+  @media (prefers-color-scheme: dark){.step-btn.plus{background:#2f8a55;border-color:#2f8a55}}
+  .step-btn.plus:active{filter:brightness(.92)}
+  .step-btn:focus-visible,.qty:focus-visible,button:focus-visible{outline:3px solid var(--green);outline-offset:2px}
+  .qty-wrap{flex:1 1 90px;display:flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:11px;padding:0 10px;background:var(--surface);min-width:0}
+  .qty-wrap span{font-size:13px;color:var(--muted);white-space:nowrap}
+  .qty{
+    width:100%;min-width:0;border:0;background:transparent;color:var(--ink);
+    font-size:20px;font-weight:750;text-align:center;padding:12px 2px;
+    font-variant-numeric:tabular-nums;outline:none;
+    -moz-appearance:textfield;appearance:textfield;
+  }
+  .qty::-webkit-outer-spin-button,.qty::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+  .quick{flex:0 0 auto;height:50px;padding:0 13px;border-radius:11px;border:1px dashed var(--line);background:transparent;color:var(--muted);font-weight:700;font-size:14px;cursor:pointer}
+  .quick:active{background:var(--surface-2)}
+
+  /* Wizard navigation */
+  .nav-bar{
+    margin-top:18px;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:var(--shadow);padding:14px 16px;
+    display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  }
+  .nav-bar .nav-text{font-size:15px}
+  .nav-bar .nav-text strong{font-variant-numeric:tabular-nums}
+  .nav-bar .nav-text span{display:block;color:var(--muted);font-size:13.5px;margin-top:2px}
+  .btn{
+    appearance:none;border:1px solid var(--line);background:var(--surface-2);color:var(--ink);
+    padding:12px 18px;border-radius:11px;font-size:15px;font-weight:700;cursor:pointer;
+  }
+  .btn.primary{background:var(--green);border-color:var(--green);color:#fff}
+  @media (prefers-color-scheme: dark){.btn.primary{background:#2f8a55;border-color:#2f8a55}}
+  .btn.big{padding:15px 26px;font-size:17px;border-radius:12px}
+  .btn:active{filter:brightness(.94)}
+  .btn:disabled{opacity:.45;cursor:not-allowed;filter:none}
+  .back-btn{
+    appearance:none;border:0;background:none;color:var(--green);font-size:15px;font-weight:750;
+    cursor:pointer;padding:8px 0;margin-top:22px;
+  }
+  @media (prefers-color-scheme: dark){.back-btn{color:var(--green)}}
+
+  /* Result card */
+  .result{
+    margin-top:14px;
+    background:var(--surface);border:1px solid var(--line);border-radius:18px;
+    box-shadow:var(--shadow);padding:22px;
+  }
+  .result.exact{border-top:5px solid var(--green)}
+  .result.loan{border-top:5px solid var(--gold)}
+  .result.over{border-top:5px solid var(--danger)}
+  .result .eyebrow{font-size:12.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:700}
+  .result h3{margin:6px 0 0;font-size:clamp(23px,4vw,29px);line-height:1.15;letter-spacing:-.015em}
+  .result .verdict-sub{margin:8px 0 0;color:var(--muted);font-size:15.5px;max-width:62ch}
+  .result .math{
+    margin:12px 0 0;font-size:17px;font-weight:650;font-variant-numeric:tabular-nums;
+    background:var(--surface-2);border-radius:11px;padding:12px 14px;
+  }
+  .result .math .equals{color:var(--green);font-weight:850}
+
+  /* "What are you short on?" choices */
+  .choice-block{margin-top:20px;border-top:1px solid var(--line);padding-top:18px}
+  .choice-block h4{margin:0;font-size:18px;line-height:1.25}
+  .choice-block p{margin:6px 0 0;color:var(--muted);font-size:14.5px;max-width:62ch}
+  .choice-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:14px}
+  @media (max-width:860px){.choice-grid{grid-template-columns:repeat(3,1fr)}}
+  @media (max-width:520px){.choice-grid{grid-template-columns:1fr 1fr}}
+  .choice-btn{
+    appearance:none;cursor:pointer;text-align:center;
+    background:var(--surface);border:2px solid var(--line);border-radius:14px;
+    padding:14px 10px 12px;color:var(--ink);min-height:104px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+  }
+  .choice-btn .choice-visual{
+    width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-weight:800;font-size:14px;border:2px solid rgba(0,0,0,.14);margin-bottom:5px;
+    font-variant-numeric:tabular-nums;
+  }
+  .choice-btn .choice-visual.gold{background:#e8c96a;color:#4a3512}
+  .choice-btn .choice-visual.silver{background:#d7dde0;color:#2e3a3e}
+  .choice-btn .choice-visual.bill-vis{border-radius:5px;width:56px;height:34px;background:#dceade;color:#0e3d24;border:1px solid #9dbfae;font-size:15px}
+  @media (prefers-color-scheme: dark){
+    .choice-btn .choice-visual.gold{background:#d9b95c;color:#3a2a08}
+    .choice-btn .choice-visual.silver{background:#c3ccd0;color:#222d30}
+    .choice-btn .choice-visual.bill-vis{background:#244f36;color:#d9f0e2;border-color:#3a6b4e}
+  }
+  .choice-btn b{font-size:15.5px;line-height:1.2}
+  .choice-btn span{font-size:13px;color:var(--muted);line-height:1.3;font-variant-numeric:tabular-nums}
+  .choice-btn[aria-pressed="true"]{border-color:var(--green);background:var(--green-soft);box-shadow:0 0 0 1px var(--green)}
+  .choice-btn[aria-pressed="true"] span{color:var(--ink)}
+  .choice-btn:active{filter:brightness(.96)}
+
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+  @media (max-width:640px){.split{grid-template-columns:1fr}}
+  .pane{border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .pane h4{margin:0 0 4px;font-size:14px;letter-spacing:.05em;text-transform:uppercase}
+  .pane .pane-total{font-size:24px;font-weight:850;font-variant-numeric:tabular-nums;line-height:1.1}
+  .pane ul{margin:10px 0 0;padding:0;list-style:none;display:grid;gap:6px;font-size:15px}
+  .pane li{display:flex;justify-content:space-between;gap:12px;font-variant-numeric:tabular-nums}
+  .pane li span:last-child{font-weight:700;white-space:nowrap}
+  .pane .none{color:var(--muted);font-size:15px;margin:10px 0 0}
+  .result-foot{margin-top:16px;display:grid;gap:8px;font-size:15px}
+  .result-foot p{margin:0}
+  .result-foot .till{font-weight:700}
+  .result-foot .handin{color:var(--muted)}
+  .result-foot .warn{color:var(--danger);font-weight:650}
+  .result-note{margin:14px 0 0;color:var(--muted);font-size:13.5px}
+
+  /* Rolls */
+  .rolls{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:14px}
+  @media (max-width:860px){.rolls{grid-template-columns:repeat(3,1fr)}}
+  @media (max-width:520px){.rolls{grid-template-columns:1fr 1fr}}
+  .roll-card{
+    background:var(--surface);border:1px solid var(--line);border-radius:12px;
+    padding:14px;text-align:center;box-shadow:var(--shadow);
+  }
+  .roll-card .roll-coin{
+    width:44px;height:44px;border-radius:50%;margin:0 auto 8px;
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;
+    border:2px solid rgba(0,0,0,.14);
+  }
+  .roll-card .roll-coin.gold{background:#e8c96a;color:#4a3512}
+  .roll-card .roll-coin.silver{background:#d7dde0;color:#2e3a3e}
+  @media (prefers-color-scheme: dark){
+    .roll-card .roll-coin.gold{background:#d9b95c;color:#3a2a08}
+    .roll-card .roll-coin.silver{background:#c3ccd0;color:#222d30}
+  }
+  .roll-card b{display:block;font-size:15.5px}
+  .roll-card .roll-count{color:var(--muted);font-size:13.5px}
+  .roll-card .roll-value{display:block;margin-top:4px;font-size:19px;font-weight:850;font-variant-numeric:tabular-nums}
+  .rolls-note{margin:12px 4px 0;color:var(--muted);font-size:14px;max-width:68ch}
+  .rolls-note strong{color:var(--ink)}
+
+  /* Actions */
+  .actions{
+    margin-top:26px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;
+  }
+  .actions p{margin:0;color:var(--muted);font-size:14px;max-width:52ch}
+  .actions .btns{display:flex;gap:8px;flex-wrap:wrap}
+  .hint{margin:14px 4px 0;color:var(--muted);font-size:13.5px}
+  @media (max-width:420px){
+    .wrap{padding:14px 12px 32px}
+    .hero{padding:22px 18px 18px}
+    .status{top:8px;padding:14px}
+    .row{grid-template-columns:52px 1fr auto;padding:12px}
+    .coin.two{width:50px;height:50px}
+    .coin.one{width:48px;height:48px}
+    .bill{width:54px}
+    .line-total{min-width:74px;font-size:17px}
+    .step-btn{flex-basis:50px}
+    .result{padding:18px 16px}
+    .btn.big{width:100%}
+    .nav-bar .btn{width:100%}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important}
+  }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header class="hero">
+    <h1>Farm Boy Cash Out</h1>
+    <p class="lede">Count what&rsquo;s in front of you. No math in your head &mdash; count the $5 bills and coins, tap <strong>Next</strong>, and this page tells you if you&rsquo;re under or over $200, and exactly what to <strong>take</strong> or <strong>drop</strong>.</p>
+    <div class="steps-strip" aria-label="How it works">
+      <div class="step-chip"><b>1 &middot; Count the float</b><span>$5 bills and all the coins. Nothing else yet.</span></div>
+      <div class="step-chip"><b>2 &middot; Tap Next</b><span>See if you&rsquo;re under or over $200. Over? Just drop the excess.</span></div>
+      <div class="step-chip"><b>3 &middot; If you&rsquo;re under</b><span>Pick what you have less of &mdash; $5s, loonies, quarters, dimes or nickels &mdash; and the loan is worked out from that.</span></div>
+    </div>
+  </header>
+
+  <div class="step-indicator" aria-label="Progress">
+    <span class="step-pill current" id="pill1"><span class="dot">1</span> Count $5s &amp; coins</span>
+    <span class="step-pill" id="pill2"><span class="dot">2</span> Under or over?</span>
+  </div>
+
+  <!-- ============ STEP 1 ============ -->
+  <div id="panelStep1">
+    <div class="status" role="status" aria-live="polite">
+      <div class="status-top">
+        <div>
+          <div class="status-label">Counted so far &middot; target $200.00</div>
+          <div class="status-value" id="floatTotal">$0.00</div>
+          <div class="status-sub" id="floatSub">Nothing counted yet.</div>
+        </div>
+        <div class="status-action" id="statusAction">Count your $5 bills and coins below, then tap Next.</div>
+      </div>
+      <div class="meter" aria-hidden="true">
+        <div class="meter-track"><div class="meter-fill" id="meterFill"></div></div>
+        <div class="meter-labels"><span>$0</span><span>Target: $200.00</span><span></span></div>
+      </div>
+    </div>
+
+    <section aria-labelledby="float-heading">
+      <div class="section-head">
+        <div class="step-num" aria-hidden="true">1</div>
+        <div>
+          <h2 id="float-heading">Count the $5 bills and coins</h2>
+          <p>Tap <strong>+</strong> for each one you have &mdash; or tap the bill or coin itself &mdash; or type the count. Only $5 bills and coins go in the float, so this is everything measured against $200.</p>
+        </div>
+        <div class="subtotal"><small>Counted</small><span id="floatSubtotal">$0.00</span></div>
+      </div>
+      <div class="list two-col" id="floatList"></div>
+    </section>
+
+    <div class="nav-bar">
+      <p class="nav-text" style="margin:0"><strong id="navSummary">$0.00 counted</strong><span>Finished counting? The under / over answer is on the next screen.</span></p>
+      <button type="button" class="btn primary big" id="nextBtn" disabled>Next &rarr;</button>
+    </div>
+  </div>
+
+  <!-- ============ STEP 2 ============ -->
+  <div id="panelStep2" hidden>
+    <button type="button" class="back-btn" id="backBtn">&larr; Back to counting</button>
+
+    <section aria-labelledby="result-heading">
+      <div class="section-head" style="margin-top:8px">
+        <div class="step-num" aria-hidden="true">2</div>
+        <div>
+          <h2 id="result-heading">Under or over?</h2>
+          <p>Worked out from the $5 bills and coins you counted. If you&rsquo;re over, just drop the excess. If you&rsquo;re under, pick what you have less of and the loan is calculated from that.</p>
+        </div>
+      </div>
+
+      <div class="result" id="resultCard" aria-live="polite">
+        <div class="eyebrow">Cash out &middot; target $200.00</div>
+        <h3 id="resultHeadline">Count the float to see your cash-out.</h3>
+        <p class="verdict-sub" id="verdictSub"></p>
+
+        <!-- Under: choose what you're short on -->
+        <div class="choice-block" id="choiceBlock" hidden>
+          <h4>What do you have less of?</h4>
+          <p>Pick the one you&rsquo;re short on. The loan will come in whole units of that &mdash; $5 bills one at a time, or one full roll at a time &mdash; and the drop-back is worked out from the cash you counted.</p>
+          <div class="choice-grid" id="choiceGrid" role="group" aria-label="What do you have less of?"></div>
+        </div>
+
+        <p class="math" id="resultMath" hidden></p>
+
+        <div id="planPanes">
+          <div class="split">
+            <div class="pane">
+              <h4>Take from the office &mdash; loan</h4>
+              <div class="pane-total" id="loanTotal">$0.00</div>
+              <div id="loanBody"><p class="none">Nothing to take.</p></div>
+            </div>
+            <div class="pane">
+              <h4>Give back / drop back</h4>
+              <div class="pane-total" id="dropTotal">$0.00</div>
+              <div id="dropBody"><p class="none">Nothing to give back.</p></div>
+            </div>
+          </div>
+          <div class="result-foot">
+            <p class="till" id="remainLine"></p>
+            <p class="handin" id="handinLine"></p>
+            <p class="warn" id="warnLine" hidden></p>
+          </div>
+          <p class="result-note" id="resultNote">Loans come in whole $5 bills and full coin rolls of whatever you pick &mdash; never loose change from the office. So a small shortfall rounds up to the next whole bill or roll, and the difference is dropped back from the cash you counted. That&rsquo;s how $198.80 takes a $5 bill and drops $3.80 back to land exactly on $200.00.</p>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="big-heading">
+      <div class="section-head">
+        <div class="step-num" aria-hidden="true">&#10003;</div>
+        <div>
+          <h2 id="big-heading">Bigger bills to hand in <span style="font-weight:500;color:var(--muted);font-size:15px">(optional)</span></h2>
+          <p>$10, $20, $50 and $100 bills are handed in. They don&rsquo;t count toward the $200 float, but they&rsquo;re added to the hand-in total below.</p>
+        </div>
+        <div class="subtotal"><small>To hand in</small><span id="bigSubtotal">$0.00</span></div>
+      </div>
+      <div class="list two-col" id="bigList"></div>
+      <p class="hint" id="handinSummary" style="margin-top:12px"></p>
+    </section>
+  </div>
+
+  <section aria-labelledby="rolls-heading">
+    <div class="section-head">
+      <div class="step-num" aria-hidden="true">&#10003;</div>
+      <div>
+        <h2 id="rolls-heading">Canadian coin rolls</h2>
+        <p>Standard rolls. A roll is always the same number of coins and the same amount &mdash; use this when the office hands you a roll, or when you roll coins up.</p>
+      </div>
+    </div>
+    <div class="rolls">
+      <div class="roll-card">
+        <div class="roll-coin silver">5&cent;</div>
+        <b>Nickels</b>
+        <span class="roll-count">40 coins</span>
+        <span class="roll-value">$2.00</span>
+      </div>
+      <div class="roll-card">
+        <div class="roll-coin silver">10&cent;</div>
+        <b>Dimes</b>
+        <span class="roll-count">50 coins</span>
+        <span class="roll-value">$5.00</span>
+      </div>
+      <div class="roll-card">
+        <div class="roll-coin silver">25&cent;</div>
+        <b>Quarters</b>
+        <span class="roll-count">40 coins</span>
+        <span class="roll-value">$10.00</span>
+      </div>
+      <div class="roll-card">
+        <div class="roll-coin gold">$1</div>
+        <b>Loonies</b>
+        <span class="roll-count">25 coins</span>
+        <span class="roll-value">$25.00</span>
+      </div>
+      <div class="roll-card">
+        <div class="roll-coin gold">$2</div>
+        <b>Toonies</b>
+        <span class="roll-count">25 coins</span>
+        <span class="roll-value">$50.00</span>
+      </div>
+    </div>
+    <p class="rolls-note"><strong>$5 bills</strong> are handed over singly &mdash; there&rsquo;s no roll for bills. Pennies are no longer in circulation, so they aren&rsquo;t counted here.</p>
+  </section>
+
+  <div class="actions">
+    <p id="summaryText">Your count is only on this page, while it&rsquo;s open. It isn&rsquo;t saved anywhere.</p>
+    <div class="btns">
+      <button type="button" class="btn" id="copyBtn">Copy cash-out summary</button>
+      <button type="button" class="btn primary" id="clearBtn">Clear all &amp; start over</button>
+    </div>
+  </div>
+  <p class="hint">Canadian dollars. Every line shows its own total, so you can check each pile as you go. If the suggested drop-back can&rsquo;t be made from the exact coins and bills you counted, re-check the counts before you hand anything over.</p>
+</main>
+
+<script>
+(function(){
+  "use strict";
+  var TARGET = 20000; // $200.00 float, in cents
+
+  var DENOMINATIONS = [
+    { id:"b100", kind:"bill", cents:10000, name:"$100 bill", detail:"One hundred dollars each", short:"$100", float:false },
+    { id:"b50",  kind:"bill", cents:5000,  name:"$50 bill",  detail:"Fifty dollars each", short:"$50", float:false },
+    { id:"b20",  kind:"bill", cents:2000,  name:"$20 bill",  detail:"Twenty dollars each", short:"$20", float:false },
+    { id:"b10",  kind:"bill", cents:1000,  name:"$10 bill",  detail:"Ten dollars each", short:"$10", float:false },
+    { id:"b5",   kind:"bill", cents:500,   name:"$5 bill",   detail:"Five dollars each &mdash; stays in the float", short:"$5", float:true },
+    { id:"c200", kind:"coin", cents:200,   name:"Toonie",    detail:"$2 coin", short:"$2", coinClass:"two", float:true },
+    { id:"c100", kind:"coin", cents:100,   name:"Loonie",    detail:"$1 coin", short:"$1", coinClass:"one", float:true },
+    { id:"c25",  kind:"coin", cents:25,    name:"Quarter",   detail:"25 cents each", short:"25\u00A2", coinClass:"quarter", float:true },
+    { id:"c10",  kind:"coin", cents:10,    name:"Dime",      detail:"10 cents each", short:"10\u00A2", coinClass:"dime", float:true },
+    { id:"c5",   kind:"coin", cents:5,     name:"Nickel",    detail:"5 cents each", short:"5\u00A2", coinClass:"nickel", float:true }
+  ];
+  var FLOAT_DENOMS = DENOMINATIONS.filter(function(d){ return d.float; });
+  var BY_ID = {};
+  DENOMINATIONS.forEach(function(d){ BY_ID[d.id] = d; });
+
+  // "What do you have less of?" — one whole unit at a time of the
+  // denomination picked. Order follows the way it was asked for.
+  var CHOICES = [
+    { id:"b5",  name:"$5 bills",  unitLabel:"$5 bill",        unitDetail:"$5 each",            unit:{ cents:500,  kind:"bill", label:"$5 bill",         pieceId:"b5",   perRoll:1,  pieceLabel:"$5 bill" },  visual:"$5",  visualClass:"bill-vis" },
+    { id:"c100",name:"Loonies",  unitLabel:"roll of loonies",unitDetail:"Roll of 25 = $25",   unit:{ cents:2500, kind:"roll", label:"roll of loonies",  pieceId:"c100", perRoll:25, pieceLabel:"$1 coin" }, visual:"$1",  visualClass:"gold" },
+    { id:"c25", name:"Quarters", unitLabel:"roll of quarters",unitDetail:"Roll of 40 = $10",  unit:{ cents:1000, kind:"roll", label:"roll of quarters", pieceId:"c25",  perRoll:40, pieceLabel:"25\u00A2 coin" }, visual:"25\u00A2", visualClass:"silver" },
+    { id:"c5",  name:"Nickels",  unitLabel:"roll of nickels", unitDetail:"Roll of 40 = $2",    unit:{ cents:200,  kind:"roll", label:"roll of nickels",  pieceId:"c5",   perRoll:40, pieceLabel:"5\u00A2 coin" },  visual:"5\u00A2",  visualClass:"silver" },
+    { id:"c10", name:"Dimes",    unitLabel:"roll of dimes",   unitDetail:"Roll of 50 = $5",    unit:{ cents:500,  kind:"roll", label:"roll of dimes",    pieceId:"c10",  perRoll:50, pieceLabel:"10\u00A2 coin" }, visual:"10\u00A2", visualClass:"silver" }
+  ];
+  var CHOICE_BY_ID = {};
+  CHOICES.forEach(function(c){ CHOICE_BY_ID[c.id] = c; });
+
+  var counts = {};
+  DENOMINATIONS.forEach(function(d){ counts[d.id] = 0; });
+  var selectedChoiceId = null;
+  var currentStep = 1;
+
+  var fmt = new Intl.NumberFormat("en-CA", { style:"currency", currency:"CAD" });
+  function money(cents){ return fmt.format(cents / 100); }
+  function plural(n, singular, pluralWord){ return n + " " + (n === 1 ? singular : pluralWord); }
+
+  function el(tag, cls, text){
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text !== undefined && text !== null) n.textContent = text;
+    return n;
+  }
+
+  function buildRow(d){
+    var row = el("div", "row");
+    row.dataset.id = d.id;
+
+    var visual = el("button", "visual");
+    visual.type = "button";
+    visual.setAttribute("aria-label", "Add one " + d.name);
+    visual.title = "Tap to add one";
+    if (d.kind === "coin") {
+      var coin = el("span", "coin " + (d.coinClass === "two" || d.coinClass === "one" ? "gold" : "silver") + " " + d.coinClass, d.short);
+      coin.setAttribute("aria-hidden", "true");
+      visual.appendChild(coin);
+    } else {
+      var bill = el("span", "bill b" + d.cents / 100, d.short);
+      bill.setAttribute("aria-hidden", "true");
+      visual.appendChild(bill);
+    }
+    visual.addEventListener("click", function(){ setCount(d.id, counts[d.id] + 1); });
+
+    var label = el("div", "label");
+    label.appendChild(el("div", "name", d.name));
+    var detail = el("div", "detail");
+    detail.innerHTML = d.detail;
+    label.appendChild(detail);
+
+    var total = el("div", "line-total zero", "$0.00");
+    total.dataset.role = "line-total";
+
+    var stepper = el("div", "stepper");
+    var minus = el("button", "step-btn", "\u2212");
+    minus.type = "button";
+    minus.setAttribute("aria-label", "Remove one " + d.name);
+    var qtyWrap = el("div", "qty-wrap");
+    qtyWrap.appendChild(el("span", null, "Qty"));
+    var qty = document.createElement("input");
+    qty.className = "qty";
+    qty.type = "number";
+    qty.inputMode = "numeric";
+    qty.min = "0";
+    qty.step = "1";
+    qty.value = "0";
+    qty.setAttribute("aria-label", "How many " + d.name + "s");
+    qty.dataset.role = "qty";
+    qtyWrap.appendChild(qty);
+    var plus = el("button", "step-btn plus", "+");
+    plus.type = "button";
+    plus.setAttribute("aria-label", "Add one " + d.name);
+    var quick = el("button", "quick", "+5");
+    quick.type = "button";
+    quick.setAttribute("aria-label", "Add five " + d.name + "s");
+
+    minus.addEventListener("click", function(){ setCount(d.id, counts[d.id] - 1); });
+    plus.addEventListener("click", function(){ setCount(d.id, counts[d.id] + 1); });
+    quick.addEventListener("click", function(){ setCount(d.id, counts[d.id] + 5); });
+
+    // Hold to repeat on + / −
+    [minus, plus].forEach(function(btn){
+      var timer = null, interval = null;
+      var delta = (btn === plus) ? 1 : -1;
+      function stop(){ if (timer) clearTimeout(timer); if (interval) clearInterval(interval); timer = interval = null; }
+      btn.addEventListener("pointerdown", function(){
+        timer = setTimeout(function(){
+          interval = setInterval(function(){ setCount(d.id, counts[d.id] + delta); }, 90);
+        }, 420);
+      });
+      ["pointerup","pointerleave","pointercancel"].forEach(function(ev){ btn.addEventListener(ev, stop); });
+    });
+
+    qty.addEventListener("change", function(){
+      var v = parseInt(qty.value, 10);
+      if (isNaN(v)) v = 0;
+      setCount(d.id, v);
+    });
+    qty.addEventListener("input", function(){
+      var v = parseInt(qty.value, 10);
+      if (isNaN(v)) return;
+      counts[d.id] = Math.max(0, Math.min(9999, Math.floor(v)));
+      render();
+    });
+    qty.addEventListener("focus", function(){ qty.select(); });
+
+    stepper.appendChild(minus);
+    stepper.appendChild(qtyWrap);
+    stepper.appendChild(plus);
+    stepper.appendChild(quick);
+
+    row.appendChild(visual);
+    row.appendChild(label);
+    row.appendChild(total);
+    row.appendChild(stepper);
+    return row;
+  }
+
+  var floatList = document.getElementById("floatList");
+  var bigList = document.getElementById("bigList");
+  var rows = {};
+  ["b5","c200","c100","c25","c10","c5"].forEach(function(id){
+    var row = buildRow(BY_ID[id]);
+    rows[id] = row;
+    floatList.appendChild(row);
+  });
+  ["b100","b50","b20","b10"].forEach(function(id){
+    var row = buildRow(BY_ID[id]);
+    rows[id] = row;
+    bigList.appendChild(row);
+  });
+
+  // Choice buttons
+  var choiceGrid = document.getElementById("choiceGrid");
+  var choiceButtons = {};
+  CHOICES.forEach(function(c){
+    var btn = el("button", "choice-btn");
+    btn.type = "button";
+    btn.setAttribute("aria-pressed", "false");
+    var vis = el("span", "choice-visual " + c.visualClass, c.visual);
+    vis.setAttribute("aria-hidden", "true");
+    btn.appendChild(vis);
+    btn.appendChild(el("b", null, c.name));
+    btn.appendChild(el("span", null, c.unitDetail));
+    btn.addEventListener("click", function(){
+      selectedChoiceId = c.id;
+      render();
+    });
+    choiceButtons[c.id] = btn;
+    choiceGrid.appendChild(btn);
+  });
+
+  function setCount(id, value){
+    value = Math.max(0, Math.min(9999, Math.floor(Number(value) || 0)));
+    counts[id] = value;
+    render();
+  }
+
+  /* ---- Cash-out solver ---- */
+
+  // Can `amount` be made exactly from the counted float cash on hand?
+  function canMake(amount){
+    if (amount === 0) return true;
+    if (amount < 0) return false;
+    var dp = new Array(amount + 1).fill(false);
+    dp[0] = true;
+    FLOAT_DENOMS.forEach(function(d){
+      var q = counts[d.id], v = d.cents, take = 1, remaining = q;
+      while (remaining > 0) {
+        var k = Math.min(take, remaining);
+        var w = v * k;
+        for (var a = amount; a >= w; a--) {
+          if (dp[a - w]) dp[a] = true;
+        }
+        remaining -= k;
+        take *= 2;
+      }
+    });
+    return dp[amount];
+  }
+
+  // Breakdown of `amount` from counted cash, largest denominations first.
+  function breakdown(amount){
+    var denoms = FLOAT_DENOMS.slice().sort(function(a, b){ return b.cents - a.cents; });
+    var chosen = new Array(denoms.length).fill(0);
+    var failed = {};
+    function dfs(i, rem){
+      if (rem === 0) return true;
+      if (i >= denoms.length) return false;
+      var key = i + ":" + rem;
+      if (failed[key]) return false;
+      var d = denoms[i];
+      var maxUse = Math.min(counts[d.id], Math.floor(rem / d.cents));
+      for (var use = maxUse; use >= 0; use--) {
+        chosen[i] = use;
+        if (dfs(i + 1, rem - use * d.cents)) return true;
+      }
+      chosen[i] = 0;
+      failed[key] = true;
+      return false;
+    }
+    if (!dfs(0, amount)) return null;
+    var out = [];
+    denoms.forEach(function(d, i){
+      if (chosen[i] > 0) out.push({ denom:d, qty:chosen[i] });
+    });
+    return out;
+  }
+
+  // Loan in whole units of the chosen denomination only: smallest number
+  // of units that covers the shortfall and leaves a drop-back that can
+  // actually be made from the cash counted. If no such loan exists within
+  // a further $100, fall back to the smallest covering loan and warn.
+  function solveForChoice(floatCents, choice){
+    var shortfall = TARGET - floatCents;
+    var unit = choice.unit;
+    var firstLoan = Math.ceil(shortfall / unit.cents) * unit.cents;
+    var maxLoan = firstLoan + 10000;
+    for (var loan = firstLoan; loan <= maxLoan; loan += unit.cents) {
+      var drop = floatCents + loan - TARGET;
+      if (drop < 0) continue;
+      if (!canMake(drop)) continue;
+      var dropItems = breakdown(drop);
+      if (dropItems === null && drop !== 0) continue;
+      return { loanCents:loan, loanItems:[{ unit:unit, qty:loan / unit.cents }], dropCents:drop, dropItems:dropItems || [], exact:true };
+    }
+    var drop0 = floatCents + firstLoan - TARGET;
+    return { loanCents:firstLoan, loanItems:[{ unit:unit, qty:firstLoan / unit.cents }], dropCents:drop0, dropItems:breakdown(drop0) || [], exact:false };
+  }
+
+  function describeLoanItem(item){
+    var u = item.unit;
+    if (u.kind === "bill") return item.qty + " \u00D7 $5 bill";
+    return item.qty + " \u00D7 " + u.label + " (" + u.perRoll + " \u00D7 " + u.pieceLabel + ")";
+  }
+
+  function remainingCounts(plan){
+    var rem = {};
+    DENOMINATIONS.forEach(function(d){ rem[d.id] = counts[d.id]; });
+    plan.dropItems.forEach(function(it){ rem[it.denom.id] -= it.qty; });
+    plan.loanItems.forEach(function(it){
+      rem[it.unit.pieceId] += it.qty * it.unit.perRoll;
+    });
+    return rem;
+  }
+
+  function listHtml(items, describe){
+    var ul = el("ul");
+    items.forEach(function(it){
+      var li = el("li");
+      li.appendChild(el("span", null, describe(it)));
+      li.appendChild(el("span", null, money(describeValue(it))));
+      ul.appendChild(li);
+    });
+    return ul;
+  }
+  function describeValue(it){
+    if (it.unit) return it.unit.cents * it.qty;
+    return it.denom.cents * it.qty;
+  }
+  function describeDropItem(it){
+    return it.qty + " \u00D7 " + it.denom.name + (it.qty > 1 ? "s" : "");
+  }
+
+  var lastPlan = null, lastFloat = 0, lastBig = 0, lastChoice = null;
+
+  function showStep(n){
+    currentStep = n;
+    document.getElementById("panelStep1").hidden = (n !== 1);
+    document.getElementById("panelStep2").hidden = (n !== 2);
+    var p1 = document.getElementById("pill1");
+    var p2 = document.getElementById("pill2");
+    p1.className = "step-pill" + (n === 1 ? " current" : " done");
+    p2.className = "step-pill" + (n === 2 ? " current" : "");
+    if (n === 2) {
+      document.getElementById("result-heading").setAttribute("tabindex", "-1");
+      document.getElementById("result-heading").focus({ preventScroll:true });
+    }
+    window.scrollTo({ top:0, behavior:"auto" });
+  }
+
+  function render(){
+    var floatCents = 0, bigCents = 0, floatPieces = 0;
+    DENOMINATIONS.forEach(function(d){
+      var q = counts[d.id];
+      var line = q * d.cents;
+      var row = rows[d.id];
+      var totalEl = row.querySelector('[data-role="line-total"]');
+      var qtyEl = row.querySelector('[data-role="qty"]');
+      totalEl.textContent = money(line);
+      totalEl.classList.toggle("zero", q === 0);
+      if (document.activeElement !== qtyEl) qtyEl.value = String(q);
+      row.classList.toggle("active", q > 0);
+      if (d.float) { floatCents += line; floatPieces += q; }
+      else { bigCents += line; }
+    });
+    document.getElementById("floatSubtotal").textContent = money(floatCents);
+    document.getElementById("bigSubtotal").textContent = money(bigCents);
+    document.getElementById("floatTotal").textContent = money(floatCents);
+    document.getElementById("navSummary").textContent = money(floatCents) + " counted";
+    document.getElementById("nextBtn").disabled = (floatCents === 0);
+
+    var fill = document.getElementById("meterFill");
+    fill.style.width = Math.min(100, floatCents / TARGET * 100) + "%";
+
+    var sub = document.getElementById("floatSub");
+    var action = document.getElementById("statusAction");
+    if (floatCents === 0) {
+      sub.textContent = "Nothing counted yet.";
+      action.textContent = "Count your $5 bills and coins below, then tap Next.";
+    } else {
+      sub.textContent = plural(floatPieces, "item", "items") + " counted.";
+      action.textContent = "Done counting? Tap Next to see if you\u2019re under or over $200.";
+    }
+
+    // Decide the plan for step 2
+    var diff = floatCents - TARGET;
+    var plan = null;
+    var choice = selectedChoiceId ? CHOICE_BY_ID[selectedChoiceId] : null;
+    lastChoice = choice;
+    if (floatCents > 0) {
+      if (diff === 0) {
+        plan = { loanCents:0, loanItems:[], dropCents:0, dropItems:[], exact:true };
+      } else if (diff > 0) {
+        var dropItems = breakdown(diff) || [];
+        plan = { loanCents:0, loanItems:[], dropCents:diff, dropItems:dropItems, exact:true };
+      } else if (choice) {
+        plan = solveForChoice(floatCents, choice);
+      }
+    }
+    lastPlan = plan; lastFloat = floatCents; lastBig = bigCents;
+
+    // Choice button states
+    CHOICES.forEach(function(c){
+      choiceButtons[c.id].setAttribute("aria-pressed", selectedChoiceId === c.id ? "true" : "false");
+    });
+
+    // Result card
+    var card = document.getElementById("resultCard");
+    var headline = document.getElementById("resultHeadline");
+    var verdictSub = document.getElementById("verdictSub");
+    var math = document.getElementById("resultMath");
+    var choiceBlock = document.getElementById("choiceBlock");
+    var planPanes = document.getElementById("planPanes");
+    var loanTotalEl = document.getElementById("loanTotal");
+    var dropTotalEl = document.getElementById("dropTotal");
+    var loanBody = document.getElementById("loanBody");
+    var dropBody = document.getElementById("dropBody");
+    var remainLine = document.getElementById("remainLine");
+    var handinLine = document.getElementById("handinLine");
+    var warnLine = document.getElementById("warnLine");
+    var resultNote = document.getElementById("resultNote");
+
+    loanBody.innerHTML = "";
+    dropBody.innerHTML = "";
+    warnLine.hidden = true;
+    warnLine.textContent = "";
+    math.innerHTML = "";
+    math.hidden = true;
+
+    if (floatCents === 0) {
+      card.className = "result";
+      headline.textContent = "Count the float to see your cash-out.";
+      verdictSub.textContent = "";
+      choiceBlock.hidden = true;
+      planPanes.hidden = true;
+      remainLine.textContent = "";
+      handinLine.textContent = "";
+      resultNote.hidden = true;
+      document.getElementById("handinSummary").textContent = "";
+      return;
+    }
+
+    planPanes.hidden = false;
+    resultNote.hidden = false;
+
+    if (diff === 0) {
+      card.className = "result exact";
+      headline.textContent = "You\u2019re exactly on $200.00.";
+      verdictSub.textContent = "Nothing to take, nothing to drop. The float is right on target.";
+      choiceBlock.hidden = true;
+    } else if (diff > 0) {
+      card.className = "result over";
+      headline.textContent = "You\u2019re over by " + money(diff) + ".";
+      verdictSub.textContent = "Drop " + money(diff) + " and the till is back to $200.00. No loan needed.";
+      choiceBlock.hidden = true;
+      math.hidden = false;
+      math.appendChild(document.createTextNode(money(floatCents) + " counted \u2212 " + money(diff) + " dropped = "));
+      math.appendChild(el("span", "equals", money(TARGET) + " in the till."));
+    } else {
+      card.className = "result loan";
+      headline.textContent = "You\u2019re under by " + money(-diff) + ".";
+      verdictSub.textContent = "You need " + money(-diff) + " more to reach $200.00. Pick what you have less of below, and the loan will be calculated from that.";
+      choiceBlock.hidden = false;
+      if (!plan) {
+        // Waiting for a choice — hide the take/drop panes until one is picked.
+        planPanes.hidden = true;
+        resultNote.hidden = true;
+        document.getElementById("handinSummary").textContent = "";
+        return;
+      }
+      math.hidden = false;
+      if (plan.dropCents > 0) {
+        math.appendChild(document.createTextNode(money(floatCents) + " counted + " + money(plan.loanCents) + " loan \u2212 " + money(plan.dropCents) + " dropped back = "));
+        math.appendChild(el("span", "equals", money(TARGET) + " in the till."));
+      } else {
+        math.appendChild(document.createTextNode(money(floatCents) + " counted + " + money(plan.loanCents) + " loan = "));
+        math.appendChild(el("span", "equals", money(TARGET) + " in the till."));
+      }
+      resultNote.textContent = "Loan in " + choice.unitLabel + "s: " + money(choice.unit.cents) + " per " + (choice.unit.kind === "bill" ? "bill" : "roll") +
+        ". Take " + money(plan.loanCents) + " in " + choice.unitLabel + "s and drop " + money(plan.dropCents) + " back from the cash you counted to land exactly on $200.00.";
+    }
+
+    var loan = plan.loanCents, drop = plan.dropCents;
+    loanTotalEl.textContent = money(loan);
+    dropTotalEl.textContent = money(drop);
+    if (plan.loanItems.length) {
+      loanBody.appendChild(listHtml(plan.loanItems, describeLoanItem));
+    } else {
+      loanBody.appendChild(el("p", "none", "Nothing to take."));
+    }
+    if (plan.dropItems.length) {
+      dropBody.appendChild(listHtml(plan.dropItems, describeDropItem));
+    } else {
+      dropBody.appendChild(el("p", "none", "Nothing to give back."));
+    }
+
+    if (!plan.exact) {
+      warnLine.hidden = false;
+      warnLine.textContent = "Check the counts: " + money(drop) + " can\u2019t be made exactly from the coins and bills counted. Re-count before handing anything over, or ask the office for loose change to make the difference.";
+    }
+
+    // What stays in the till
+    var rem = remainingCounts(plan);
+    var remParts = [];
+    var remTotal = 0;
+    FLOAT_DENOMS.forEach(function(d){
+      var q = rem[d.id];
+      if (q > 0) {
+        remParts.push(q + " \u00D7 " + d.name + (q > 1 ? "s" : ""));
+        remTotal += q * d.cents;
+      }
+    });
+    remainLine.textContent = plan.exact
+      ? "Left in the till: " + (remParts.length ? remParts.join(", ") + " \u2014 " : "") + money(remTotal) + "."
+      : "After the loan and drop-back above, the till should hold " + money(TARGET) + ".";
+
+    var grand = floatCents + bigCents;
+    var handIn = bigCents + drop;
+    handinLine.textContent = "Everything counted: " + money(grand) + " (" + money(floatCents) + " float + " + money(bigCents) + " bigger bills). " +
+      "Hand in " + money(handIn) +
+      (bigCents > 0 && drop > 0 ? " (" + money(bigCents) + " bigger bills + " + money(drop) + " from the float)" : bigCents > 0 ? " (bigger bills)" : drop > 0 ? " (from the float)" : "") +
+      (loan > 0 ? ", and take " + money(loan) + " from the office." : ".");
+    document.getElementById("handinSummary").textContent = handinLine.textContent;
+  }
+
+  document.getElementById("nextBtn").addEventListener("click", function(){
+    if (lastFloat === 0) return;
+    showStep(2);
+    render();
+  });
+  document.getElementById("backBtn").addEventListener("click", function(){
+    showStep(1);
+  });
+
+  document.getElementById("clearBtn").addEventListener("click", function(){
+    DENOMINATIONS.forEach(function(d){ counts[d.id] = 0; });
+    selectedChoiceId = null;
+    showStep(1);
+    render();
+    var btn = this;
+    var old = btn.textContent;
+    btn.textContent = "Cleared";
+    setTimeout(function(){ btn.textContent = old; }, 1200);
+  });
+
+  document.getElementById("copyBtn").addEventListener("click", function(){
+    var btn = this;
+    function done(ok){
+      btn.textContent = ok ? "Copied!" : "Copy didn\u2019t work";
+      setTimeout(function(){ btn.textContent = "Copy cash-out summary"; }, 1500);
+    }
+    var parts = [];
+    DENOMINATIONS.forEach(function(d){
+      if (counts[d.id] > 0) parts.push(counts[d.id] + " \u00D7 " + d.name);
+    });
+    var text;
+    if (lastFloat === 0) {
+      text = "Farm Boy Cash Out \u2014 nothing counted yet. Target float: $200.00.";
+    } else if (lastFloat === TARGET) {
+      text = "Farm Boy Cash Out \u2014 Float counted: $200.00 (target $200.00). Exactly on target \u2014 nothing to take or give back. Bigger bills: " + money(lastBig) + ". Hand in: " + money(lastBig) + "." +
+        (parts.length ? " Counted: " + parts.join(", ") + "." : "");
+    } else if (lastFloat > TARGET && lastPlan) {
+      text = "Farm Boy Cash Out \u2014 Float counted: " + money(lastFloat) + " (target $200.00). Over by " + money(lastFloat - TARGET) + " \u2014 drop " + money(lastPlan.dropCents) + " (" + (lastPlan.dropItems.length ? lastPlan.dropItems.map(describeDropItem).join(", ") : "nothing") + "). Till after: $200.00. Bigger bills: " + money(lastBig) + ". Hand in: " + money(lastBig + lastPlan.dropCents) + "." +
+        (parts.length ? " Counted: " + parts.join(", ") + "." : "");
+    } else if (lastPlan && lastChoice) {
+      var p = lastPlan;
+      var loanDesc = p.loanItems.length ? p.loanItems.map(describeLoanItem).join(", ") : "nothing";
+      var dropDesc = p.dropItems.length ? p.dropItems.map(describeDropItem).join(", ") : "nothing";
+      text = "Farm Boy Cash Out \u2014 Float counted: " + money(lastFloat) + " (target $200.00). Under by " + money(TARGET - lastFloat) + ". Short on: " + lastChoice.name + ". Take " + money(p.loanCents) + " loan (" + loanDesc + "); drop back " + money(p.dropCents) + " (" + dropDesc + "). Till after: $200.00. Bigger bills: " + money(lastBig) + ". Hand in: " + money(lastBig + p.dropCents) + "." +
+        (parts.length ? " Counted: " + parts.join(", ") + "." : "");
+    } else {
+      text = "Farm Boy Cash Out \u2014 Float counted: " + money(lastFloat) + " (target $200.00). Under by " + money(TARGET - lastFloat) + " \u2014 no loan picked yet (pick what you have less of: $5 bills, loonies, quarters, nickels, or dimes).";
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function(){ done(true); }, function(){ done(false); });
+    } else { done(false); }
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
