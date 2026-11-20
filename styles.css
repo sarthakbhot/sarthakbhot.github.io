@@ -450,7 +450,7 @@ html[data-theme="light"] .icon-sun { display: none; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 70% 12%;
+  object-position: center 18%;
   display: block;
 }
 .text-link {
@@ -637,11 +637,13 @@ footer p { color: var(--text-faint); font-size: 0.82rem; }
 }
 .folio-hero .hero-sub { margin-bottom: 18px; }
 .stack-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.demo-note { color: var(--text-faint); font-size: 0.92rem; margin: 18px 0 0; }
+.folio-lead { margin: 22px 0 0; }
 .folio-gallery {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 22px 16px;
-  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 42px;
+  margin-top: 42px;
 }
 .shot { margin: 0; }
 .shot-wide { grid-column: 1 / -1; }
@@ -657,11 +659,13 @@ footer p { color: var(--text-faint); font-size: 0.82rem; }
   box-shadow: var(--shadow);
 }
 .shot figcaption {
-  color: var(--text-faint);
-  font-size: 0.82rem;
-  margin-top: 8px;
-  text-align: center;
+  color: var(--text-dim);
+  font-size: 1.02rem;
+  line-height: 1.5;
+  margin-top: 12px;
+  max-width: 46rem;
 }
+.shot figcaption strong { color: var(--text); font-weight: 600; }
 .folio-prose {
   max-width: 44rem;
   margin-top: 56px;
@@ -917,7 +921,7 @@ footer p { color: var(--text-faint); font-size: 0.82rem; }
   .photo-frame { width: min(156px, 42vw); border-radius: 24px; }
   .feature { padding: 18px; }
   .feature-media { order: -1; }
-  .folio-gallery { grid-template-columns: 1fr; }
+  .folio-gallery { gap: 32px; }
   .shot-phone { width: min(100%, 340px); }
   .cert-photos.cols-2 { grid-template-columns: 1fr; }
   .edu-card, .cert-row { flex-direction: column; align-items: flex-start; }
