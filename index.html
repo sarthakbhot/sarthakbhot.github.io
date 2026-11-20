@@ -24,7 +24,7 @@
   <link rel="icon" href="/assets/favicon-32.png" type="image/png" sizes="32x32" />
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
   <link rel="preload" as="image" href="/assets/headshot-960.jpg" />
-  <link rel="stylesheet" href="/styles.css?v=47" />
+  <link rel="stylesheet" href="/styles.css?v=48" />
   <script>
     (function () {
       try {
@@ -213,23 +213,31 @@
         </a>
 
         <div class="projects-grid">
-          <article class="project-card reveal">
-            <div class="project-top">
-              <span class="status done">Completed</span>
-              <span class="project-date">Apr 2026</span>
+          <article class="project-card has-cover reveal">
+            <div class="project-body">
+              <div class="project-top">
+                <span class="status done">Completed</span>
+                <span class="project-date">Apr 2026</span>
+              </div>
+              <h3><a class="project-card-link" href="/projects/wonderland/">Wonderland</a></h3>
+              <p class="project-teaser">A console text adventure in Java. Explore Wonderland, gather treasures, and outsmart the Queen of Hearts.</p>
+              <details class="project-more">
+                <summary><span class="more">Read more</span><span class="less">Show less</span></summary>
+                <p>Six connected locations, hidden treasures, and NPCs including the Mad Hatter and the Queen of Hearts, plus an inventory and a stash. The world loads from plain text files. Pure Java, no dependencies.</p>
+              </details>
+              <div class="pills"><span>Java</span><span>OOP</span><span>File I/O</span></div>
+              <div class="card-links">
+                <a class="project-link" href="https://github.com/sarthakbhot/wonderland-text-adventure" target="_blank" rel="noopener">View on GitHub
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55v-2.15c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.59.23 2.76.11 3.05.74.81 1.18 1.83 1.18 3.09 0 4.42-2.7 5.39-5.26 5.68.41.35.77 1.05.77 2.12v3.15c0 .3.2.67.8.55A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+                </a>
+              </div>
             </div>
-            <h3>Wonderland</h3>
-            <p class="project-teaser">A console text adventure in Java. Explore Wonderland, gather treasures, and outsmart the Queen of Hearts.</p>
-            <details class="project-more">
-              <summary><span class="more">Read more</span><span class="less">Show less</span></summary>
-              <p>Six connected locations, hidden treasures, and NPCs including the Mad Hatter and the Queen of Hearts, plus an inventory and a stash. The world loads from plain text files. Pure Java, no dependencies.</p>
-            </details>
-            <div class="pills"><span>Java</span><span>OOP</span><span>File I/O</span></div>
-            <div class="card-links">
-            <a class="project-link" href="/projects/wonderland/">Case study</a>
-            <a class="project-link" href="https://github.com/sarthakbhot/wonderland-text-adventure" target="_blank" rel="noopener">View on GitHub
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55v-2.15c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.59.23 2.76.11 3.05.74.81 1.18 1.83 1.18 3.09 0 4.42-2.7 5.39-5.26 5.68.41.35.77 1.05.77 2.12v3.15c0 .3.2.67.8.55A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
-            </a>
+            <div class="feature-media project-media">
+              <picture>
+                <source type="image/avif" srcset="/assets/wonderland/wonder-hall-1080.avif 1080w, /assets/wonderland/wonder-hall.avif 1570w" sizes="(max-width: 900px) calc(100vw - 36px), 680px" />
+                <source type="image/webp" srcset="/assets/wonderland/wonder-hall-1080.webp 1080w, /assets/wonderland/wonder-hall.webp 1570w" sizes="(max-width: 900px) calc(100vw - 36px), 680px" />
+                <img src="/assets/wonderland/wonder-hall.png" width="1570" height="761" alt="" loading="lazy" decoding="async" />
+              </picture>
             </div>
           </article>
 
@@ -237,35 +245,33 @@
             <div class="project-top">
               <span class="status planning">In planning</span>
             </div>
-            <h3>BB-8</h3>
+            <h3><a class="project-card-link" href="/projects/bb-8/">BB-8</a></h3>
             <p class="project-teaser">A life-size BB-8 with a Raspberry Pi for a brain. Currently in the design phase.</p>
             <details class="project-more">
               <summary><span class="more">Read more</span><span class="less">Show less</span></summary>
               <p>The plan is a Pi camera for face recognition, a speaker so it can greet people by name, and AI-driven interaction. I'm starting by 3D modeling the parts.</p>
             </details>
             <div class="pills"><span>Raspberry Pi</span><span>Python</span><span>AI</span><span>3D printing</span></div>
-            <a class="project-link" href="/projects/bb-8/">Case study</a>
           </article>
 
           <article class="project-card reveal">
             <div class="project-top">
               <span class="status done">Completed</span>
             </div>
-            <h3>Raspberry Pi Linux server</h3>
+            <h3><a class="project-card-link" href="/projects/pi-server/">Raspberry Pi Linux server</a></h3>
             <p class="project-teaser">Raspberry Pi OS from scratch. SSH, the command line, and a look around the local network.</p>
             <details class="project-more">
               <summary><span class="more">Read more</span><span class="less">Show less</span></summary>
               <p>I set up Raspberry Pi OS, turned on SSH, and practiced command-line administration, networking, and Nmap on my own network.</p>
             </details>
             <div class="pills"><span>Raspberry Pi</span><span>Linux</span><span>SSH</span><span>Networking</span></div>
-            <a class="project-link" href="/projects/pi-server/">Case study</a>
           </article>
 
           <article class="project-card reveal">
             <div class="project-top">
               <span class="status done">Completed</span>
             </div>
-            <h3>This website</h3>
+            <h3><a class="project-card-link" href="/projects/this-site/">This website</a></h3>
             <p class="project-teaser">Hand-built and hosted on GitHub Pages, with a custom domain.</p>
             <details class="project-more">
               <summary><span class="more">Read more</span><span class="less">Show less</span></summary>
@@ -273,7 +279,6 @@
             </details>
             <div class="pills"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>GitHub Pages</span></div>
             <div class="card-links">
-            <a class="project-link" href="/projects/this-site/">Case study</a>
             <a class="project-link" href="https://github.com/sarthakbhot/sarthakbhot.github.io" target="_blank" rel="noopener">View on GitHub
               <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55v-2.15c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.59.23 2.76.11 3.05.74.81 1.18 1.83 1.18 3.09 0 4.42-2.7 5.39-5.26 5.68.41.35.77 1.05.77 2.12v3.15c0 .3.2.67.8.55A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
             </a>
@@ -284,14 +289,13 @@
             <div class="project-top">
               <span class="status done">Completed</span>
             </div>
-            <h3>Hardware and electronics</h3>
+            <h3><a class="project-card-link" href="/projects/hardware/">Hardware and electronics</a></h3>
             <p class="project-teaser">Real circuits, wired and debugged by hand. Pi, Arduino, and camera modules.</p>
             <details class="project-more">
               <summary><span class="more">Read more</span><span class="less">Show less</span></summary>
               <p>Configuration and troubleshooting across Raspberry Pi, Arduino Uno, Raspberry Pi Pico, and camera modules. Wiring, flashing, and debugging the actual board.</p>
             </details>
             <div class="pills"><span>Arduino</span><span>Raspberry Pi</span><span>Electronics</span></div>
-            <a class="project-link" href="/projects/hardware/">Case study</a>
           </article>
         </div>
       </div>
