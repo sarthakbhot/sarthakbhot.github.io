@@ -105,7 +105,7 @@ if (lightbox && lbImg && lbPrev && lbNext) {
   }
   function lbOpen(link) {
     const container = link.closest('.cert-photos, .tl-photos, .zoom-gallery, .product-stage');
-    lbGroup = [...container.querySelectorAll('a')];
+    lbGroup = [...container.querySelectorAll('a')].filter((a) => a.getClientRects().length > 0);
     lbIndex = Math.max(0, lbGroup.indexOf(link));
     lbShow();
     lightbox.classList.add('open');

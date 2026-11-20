@@ -493,13 +493,14 @@ html[data-theme="light"] .icon-sun { display: none; }
   overflow: hidden;
   background: #0c0d11;
   border: 1px solid var(--card-border);
-  aspect-ratio: 16 / 11;
+  aspect-ratio: 16 / 10;
 }
+.feature-media picture { display: block; width: 100%; height: 100%; }
 .feature-media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 18%;
+  object-position: center center;
   display: block;
 }
 .text-link {
@@ -830,7 +831,19 @@ footer p { color: var(--text-faint); font-size: 0.82rem; }
 }
 html[data-theme="light"] .device { background: linear-gradient(180deg, #e8e8ed, #d2d2d7); }
 .device a { display: block; border-radius: 22px; overflow: hidden; background: #0c0d11; }
-.device img { width: 100%; height: auto; display: block; }
+.device picture { display: block; }
+.device img { width: 100%; height: auto; display: block; background: #0c0d11; }
+.device-pair {
+  width: min(1100px, calc(100% - 40px));
+  margin: 0 auto 56px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 232px;
+  gap: 24px;
+  align-items: center;
+}
+.device-pair .device { width: 100%; margin: 0; }
+.device-phone { padding: 8px; border-radius: 36px; }
+.device-phone a { border-radius: 28px; }
 @supports (animation-timeline: view()) {
   .device {
     animation: device-rise linear both;
@@ -1116,6 +1129,13 @@ html[data-theme="light"] .device { background: linear-gradient(180deg, #e8e8ed, 
   .hero { padding-top: calc(var(--nav-h) + env(safe-area-inset-top) + 36px); padding-bottom: 56px; text-align: center; }
   #nav { width: auto; border-radius: 0; top: 0; }
   .device { width: calc(100% - 24px); padding: 8px; border-radius: 22px; margin-bottom: 28px; }
+  .device-pair {
+    grid-template-columns: 1fr;
+    width: min(420px, calc(100% - 28px));
+    margin-bottom: 36px;
+  }
+  .device-desktop { display: none; }
+  .device-phone { width: 100%; border-radius: 32px; }
   .product-band { padding-top: 64px; }
   .project-card { grid-column: auto; }
   .hero-inner { gap: 18px; }

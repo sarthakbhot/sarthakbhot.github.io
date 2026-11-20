@@ -24,7 +24,7 @@
   <link rel="icon" href="/assets/favicon-32.png" type="image/png" sizes="32x32" />
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
   <link rel="preload" as="image" href="/assets/headshot-960.jpg" />
-  <link rel="stylesheet" href="/styles.css?v=46" />
+  <link rel="stylesheet" href="/styles.css?v=47" />
   <script>
     (function () {
       try {
@@ -199,12 +199,16 @@
           <div class="feature-copy">
             <span class="status featured">Featured</span>
             <h3>Folio</h3>
-            <p>A personal expense tracker and budget copilot. Card transactions, categories that remember a merchant, recurring charges, adaptive budgets, and a plan for what to do next.</p>
-            <div class="pills"><span>Next.js</span><span>Cloudflare Workers</span><span>Plaid</span></div>
+            <p>A personal expense tracker and budget copilot. Month-to-date spend, activity, recurring charges, and budgets with a copilot that fills in the gaps.</p>
+            <div class="pills"><span>Next.js</span><span>Cloudflare Workers</span><span>D1</span><span>Plaid</span><span>PWA</span></div>
             <p class="text-link">View project <span aria-hidden="true">→</span></p>
           </div>
           <div class="feature-media">
-            <img src="/assets/folio/overview.png" width="1440" height="1000" alt="" />
+            <picture>
+              <source type="image/avif" srcset="/assets/folio/overview-desktop-1080.avif 1080w, /assets/folio/overview-desktop-1440.avif 1440w" sizes="(max-width: 900px) calc(100vw - 36px), 560px" />
+              <source type="image/webp" srcset="/assets/folio/overview-desktop-1080.webp 1080w, /assets/folio/overview-desktop-1440.webp 1440w" sizes="(max-width: 900px) calc(100vw - 36px), 560px" />
+              <img src="/assets/folio/overview-desktop-1440.png" width="1440" height="900" alt="" loading="lazy" decoding="async" />
+            </picture>
           </div>
         </a>
 
@@ -387,7 +391,7 @@
           <a class="blog-card reveal" href="/blog/how-i-built-folio/">
             <time datetime="2026-11-20">Nov 2026</time>
             <h3>How I built Folio</h3>
-            <p>What the app does, and the stack behind it. Next.js on Cloudflare Workers, Plaid, and web push.</p>
+            <p>What the app does, and the stack behind it. Next.js on Cloudflare Workers with vinext, D1, and Plaid.</p>
           </a>
         </div>
       </div>
@@ -464,6 +468,6 @@
   <button type="button" class="to-top" id="toTop" aria-label="Back to top">↑</button>
   <button type="button" class="term-fab" id="termFab" aria-label="Open terminal">&gt;_</button>
 
-  <script src="/script.js?v=46"></script>
+  <script src="/script.js?v=47"></script>
 </body>
 </html>

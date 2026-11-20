@@ -4,11 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Folio — Sarthak Bhot</title>
-  <meta name="description" content="Folio is Sarthak Bhot's expense tracker and budget copilot. Card sync through Plaid, categories, recurring charges, adaptive budgets, a payoff planner, and a budget copilot. Screenshots and a write-up." />
+  <meta name="description" content="Folio is Sarthak Bhot's expense tracker and budget copilot. Month-to-date spend, activity, budgets, a budget copilot, and Plaid. Screenshots and a write-up." />
   <meta name="theme-color" content="#000000" />
   <link rel="canonical" href="https://sarthakbhot.com/projects/folio/" />
   <meta property="og:title" content="Folio — expense tracker and budget copilot" />
-  <meta property="og:description" content="Sarthak Bhot's personal expense tracker and budget copilot. Screenshots and a write-up of how it works." />
+  <meta property="og:description" content="Sarthak Bhot's personal expense tracker and budget copilot. Screenshots of the current app and a write-up of how it works." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://sarthakbhot.com/projects/folio/" />
   <meta property="og:image" content="https://sarthakbhot.com/assets/folio/og.jpg" />
@@ -22,7 +22,7 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="/assets/favicon-32.png" type="image/png" sizes="32x32" />
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
-  <link rel="stylesheet" href="/styles.css?v=46" />
+  <link rel="stylesheet" href="/styles.css?v=47" />
   <script>
     (function () {
       try {
@@ -40,7 +40,7 @@
     "@type": "CreativeWork",
     "name": "Folio",
     "headline": "Expense tracker and budget copilot",
-    "description": "Personal expense tracker and budget copilot. Syncs card transactions, categorizes spending, detects recurring charges, and builds an adaptive budget.",
+    "description": "Personal expense tracker and budget copilot. Tracks the month, activity, income, recurring charges, and budgets, with a budget copilot and Plaid bank linking.",
     "author": {
       "@type": "Person",
       "name": "Sarthak Bhot",
@@ -83,10 +83,12 @@
         <p class="hero-sub">A personal expense tracker and budget copilot. It watches the month with you: what already landed, what is still coming, and what the budget should do about it.</p>
         <div class="stack-row pills">
           <span>Next.js</span>
-          <span>Cloudflare Workers</span>
           <span>vinext</span>
+          <span>Cloudflare Workers</span>
+          <span>D1</span>
           <span>Plaid</span>
-          <span>Web push</span>
+          <span>PWA</span>
+          <span>Passkeys</span>
         </div>
       </div>
     </header>
@@ -97,68 +99,218 @@
       <section class="product-band">
         <div class="wrap product-copy">
           <h2>Overview.</h2>
-          <p>The main screen. What went out this month, which cards moved, and what shifted.</p>
+          <p>The main screen. Spend so far this month, the pace against last month, each card's share, and how the categories split.</p>
         </div>
-        <figure class="device">
-          <a href="/assets/folio/overview.png">
-            <img src="/assets/folio/overview.png" width="1440" height="1000" alt="Folio overview dashboard on demo data: monthly spend, card totals, and what changed." fetchpriority="high" />
-          </a>
-        </figure>
+        <div class="device-pair">
+          <figure class="device device-desktop">
+            <a href="/assets/folio/overview-desktop-1440.png">
+              <picture>
+                <source media="(min-width: 901px)" type="image/avif" srcset="/assets/folio/overview-desktop-1080.avif 1080w, /assets/folio/overview-desktop-1440.avif 1440w" sizes="(max-width: 1100px) 64vw, 820px" />
+                <source media="(min-width: 901px)" type="image/webp" srcset="/assets/folio/overview-desktop-1080.webp 1080w, /assets/folio/overview-desktop-1440.webp 1440w" sizes="(max-width: 1100px) 64vw, 820px" />
+                <source media="(min-width: 901px)" type="image/png" srcset="/assets/folio/overview-desktop-1440.png" />
+                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="1440" height="900" alt="Folio overview on desktop, using demo data. November 2026 spend, a pace bar, each card's share, and a category split." decoding="async" fetchpriority="high" />
+              </picture>
+            </a>
+          </figure>
+          <figure class="device device-phone">
+            <a href="/assets/folio/overview-iphone-1170.png">
+              <picture>
+                <source type="image/avif" srcset="/assets/folio/overview-iphone-780.avif 780w, /assets/folio/overview-iphone-1170.avif 1170w" sizes="(max-width: 900px) 92vw, 232px" />
+                <source type="image/webp" srcset="/assets/folio/overview-iphone-780.webp 780w, /assets/folio/overview-iphone-1170.webp 1170w" sizes="(max-width: 900px) 92vw, 232px" />
+                <img src="/assets/folio/overview-iphone-1170.png" width="1170" height="2532" alt="Folio overview on iPhone, using demo data. The same spend hero and card breakdown, with the tab bar." decoding="async" fetchpriority="high" />
+              </picture>
+            </a>
+          </figure>
+        </div>
       </section>
       <section class="product-band alt">
         <div class="wrap product-copy">
-          <h2>Income.</h2>
-          <p>Money in, set next to spending, and a split for where the next deposit goes.</p>
+          <h2>Activity.</h2>
+          <p>Every charge in one list. Search it, filter by category and date, and export a CSV. Pending items stay marked.</p>
         </div>
-        <figure class="device">
-          <a href="/assets/folio/income.png">
-            <img src="/assets/folio/income.png" width="1440" height="1000" alt="Folio income screen on demo data, with expected pay beside spending." loading="lazy" />
-          </a>
-        </figure>
+        <div class="device-pair">
+          <figure class="device device-desktop">
+            <a href="/assets/folio/activity-desktop-1440.png">
+              <picture>
+                <source media="(min-width: 901px)" type="image/avif" srcset="/assets/folio/activity-desktop-1080.avif 1080w, /assets/folio/activity-desktop-1440.avif 1440w" sizes="(max-width: 1100px) 64vw, 820px" />
+                <source media="(min-width: 901px)" type="image/webp" srcset="/assets/folio/activity-desktop-1080.webp 1080w, /assets/folio/activity-desktop-1440.webp 1440w" sizes="(max-width: 1100px) 64vw, 820px" />
+                <source media="(min-width: 901px)" type="image/png" srcset="/assets/folio/activity-desktop-1440.png" />
+                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="1440" height="900" alt="Folio activity on desktop, using demo data. Filters, a date range, and this month's merchants." decoding="async" loading="lazy" />
+              </picture>
+            </a>
+          </figure>
+          <figure class="device device-phone">
+            <a href="/assets/folio/activity-iphone-1170.png">
+              <picture>
+                <source type="image/avif" srcset="/assets/folio/activity-iphone-780.avif 780w, /assets/folio/activity-iphone-1170.avif 1170w" sizes="(max-width: 900px) 92vw, 232px" />
+                <source type="image/webp" srcset="/assets/folio/activity-iphone-780.webp 780w, /assets/folio/activity-iphone-1170.webp 1170w" sizes="(max-width: 900px) 92vw, 232px" />
+                <img src="/assets/folio/activity-iphone-1170.png" width="1170" height="2532" alt="Folio activity on iPhone, using demo data. Search, filters, and today's transactions, including pending items." decoding="async" loading="lazy" />
+              </picture>
+            </a>
+          </figure>
+        </div>
       </section>
       <section class="product-band">
-        <div class="wrap product-copy">
-          <h2>Pay.</h2>
-          <p>Log shifts and estimate a paycheque, including tax, CPP, and EI.</p>
-        </div>
-        <figure class="device">
-          <a href="/assets/folio/pay-desktop.png">
-            <img src="/assets/folio/pay-desktop.png" width="1440" height="1100" alt="Folio pay estimator on demo data, with shift logging under the estimates." loading="lazy" />
-          </a>
-        </figure>
-      </section>
-      <section class="product-band alt">
         <div class="wrap product-copy">
           <h2>Budgets.</h2>
-          <p>A limit and a pace for each category, plus room still left this month.</p>
+          <p>A cap for each category, spent against that cap, and whether it is on track or over. Unused budget can roll forward.</p>
         </div>
-        <figure class="device">
-          <a href="/assets/folio/budgets.png">
-            <img src="/assets/folio/budgets.png" width="1280" height="1000" alt="Folio budgets on demo data, with pace against each category limit." loading="lazy" />
-          </a>
-        </figure>
-      </section>
-      <section class="product-band">
-        <div class="wrap product-copy">
-          <h2>Cards.</h2>
-          <p>A nudge when a card has gone quiet, so it is not closed for inactivity.</p>
+        <div class="device-pair">
+          <figure class="device device-desktop">
+            <a href="/assets/folio/budgets-desktop-1440.png">
+              <picture>
+                <source media="(min-width: 901px)" type="image/avif" srcset="/assets/folio/budgets-desktop-1080.avif 1080w, /assets/folio/budgets-desktop-1440.avif 1440w" sizes="(max-width: 1100px) 64vw, 820px" />
+                <source media="(min-width: 901px)" type="image/webp" srcset="/assets/folio/budgets-desktop-1080.webp 1080w, /assets/folio/budgets-desktop-1440.webp 1440w" sizes="(max-width: 1100px) 64vw, 820px" />
+                <source media="(min-width: 901px)" type="image/png" srcset="/assets/folio/budgets-desktop-1440.png" />
+                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="1440" height="900" alt="Folio budgets on desktop, using demo data. Category envelopes marked on track or over budget, plus the budget copilot card." decoding="async" loading="lazy" />
+              </picture>
+            </a>
+          </figure>
+          <figure class="device device-phone">
+            <a href="/assets/folio/budgets-iphone-1170.png">
+              <picture>
+                <source type="image/avif" srcset="/assets/folio/budgets-iphone-780.avif 780w, /assets/folio/budgets-iphone-1170.avif 1170w" sizes="(max-width: 900px) 92vw, 232px" />
+                <source type="image/webp" srcset="/assets/folio/budgets-iphone-780.webp 780w, /assets/folio/budgets-iphone-1170.webp 1170w" sizes="(max-width: 900px) 92vw, 232px" />
+                <img src="/assets/folio/budgets-iphone-1170.png" width="1170" height="2532" alt="Folio budgets on iPhone, using demo data. The same envelopes and a prompt to build a plan." decoding="async" loading="lazy" />
+              </picture>
+            </a>
+          </figure>
         </div>
-        <figure class="device">
-          <a href="/assets/folio/cards.png">
-            <img src="/assets/folio/cards.png" width="1440" height="1000" alt="Folio cards screen on demo data, flagging a card that has been quiet." loading="lazy" />
-          </a>
-        </figure>
       </section>
       <section class="product-band alt">
         <div class="wrap product-copy">
-          <h2>Alerts.</h2>
-          <p>Notices for new charges, unusual amounts, duplicates, and price changes. On iPhone they can arrive as web push from a home-screen install.</p>
+          <h2>Budget copilot.</h2>
+          <p>It confirms the pay, cards, and recurring charges already in the ledger, then fills in the gaps.</p>
         </div>
-        <figure class="device">
-          <a href="/assets/folio/alerts.png">
-            <img src="/assets/folio/alerts.png" width="1440" height="1000" alt="Folio alerts screen on demo data, with notification toggles and sample notices." loading="lazy" />
-          </a>
-        </figure>
+        <div class="device-pair">
+          <figure class="device device-desktop">
+            <a href="/assets/folio/copilot-desktop-1440.png">
+              <picture>
+                <source media="(min-width: 901px)" type="image/avif" srcset="/assets/folio/copilot-desktop-1080.avif 1080w, /assets/folio/copilot-desktop-1440.avif 1440w" sizes="(max-width: 1100px) 64vw, 820px" />
+                <source media="(min-width: 901px)" type="image/webp" srcset="/assets/folio/copilot-desktop-1080.webp 1080w, /assets/folio/copilot-desktop-1440.webp 1440w" sizes="(max-width: 1100px) 64vw, 820px" />
+                <source media="(min-width: 901px)" type="image/png" srcset="/assets/folio/copilot-desktop-1440.png" />
+                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="1440" height="900" alt="Folio budget copilot on desktop, step 1 of 9. Income, balances, and statements already detected from the demo ledger." decoding="async" loading="lazy" />
+              </picture>
+            </a>
+          </figure>
+          <figure class="device device-phone">
+            <a href="/assets/folio/copilot-iphone-1170.png">
+              <picture>
+                <source type="image/avif" srcset="/assets/folio/copilot-iphone-780.avif 780w, /assets/folio/copilot-iphone-1170.avif 1170w" sizes="(max-width: 900px) 92vw, 232px" />
+                <source type="image/webp" srcset="/assets/folio/copilot-iphone-780.webp 780w, /assets/folio/copilot-iphone-1170.webp 1170w" sizes="(max-width: 900px) 92vw, 232px" />
+                <img src="/assets/folio/copilot-iphone-1170.png" width="1170" height="2532" alt="Folio budget copilot on iPhone, step 1 of 9. Detected payroll and account balances from the demo ledger." decoding="async" loading="lazy" />
+              </picture>
+            </a>
+          </figure>
+        </div>
+      </section>
+      <section class="product-band">
+        <div class="wrap product-copy">
+          <h2>Recurring.</h2>
+          <p>Subscriptions and other repeating charges, detected from the ledger, with edit and remove.</p>
+        </div>
+        <div class="device-pair">
+          <figure class="device device-desktop">
+            <a href="/assets/folio/recurring-desktop-1440.png">
+              <picture>
+                <source media="(min-width: 901px)" type="image/avif" srcset="/assets/folio/recurring-desktop-1080.avif 1080w, /assets/folio/recurring-desktop-1440.avif 1440w" sizes="(max-width: 1100px) 64vw, 820px" />
+                <source media="(min-width: 901px)" type="image/webp" srcset="/assets/folio/recurring-desktop-1080.webp 1080w, /assets/folio/recurring-desktop-1440.webp 1440w" sizes="(max-width: 1100px) 64vw, 820px" />
+                <source media="(min-width: 901px)" type="image/png" srcset="/assets/folio/recurring-desktop-1440.png" />
+                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="1440" height="900" alt="Folio recurring charges on desktop, using demo data. Monthly and weekly charges with edit and remove." decoding="async" loading="lazy" />
+              </picture>
+            </a>
+          </figure>
+          <figure class="device device-phone">
+            <a href="/assets/folio/recurring-iphone-1170.png">
+              <picture>
+                <source type="image/avif" srcset="/assets/folio/recurring-iphone-780.avif 780w, /assets/folio/recurring-iphone-1170.avif 1170w" sizes="(max-width: 900px) 92vw, 232px" />
+                <source type="image/webp" srcset="/assets/folio/recurring-iphone-780.webp 780w, /assets/folio/recurring-iphone-1170.webp 1170w" sizes="(max-width: 900px) 92vw, 232px" />
+                <img src="/assets/folio/recurring-iphone-1170.png" width="1170" height="2532" alt="Folio recurring charges on iPhone, using demo data. The same subscription list." decoding="async" loading="lazy" />
+              </picture>
+            </a>
+          </figure>
+        </div>
+      </section>
+      <section class="product-band alt">
+        <div class="wrap product-copy">
+          <h2>Cards.</h2>
+          <p>Issuers, balances, and the last four digits. A quiet card gets a nudge. New cards can be added from Settings.</p>
+        </div>
+        <div class="device-pair">
+          <figure class="device device-desktop">
+            <a href="/assets/folio/accounts-desktop-1440.png">
+              <picture>
+                <source media="(min-width: 901px)" type="image/avif" srcset="/assets/folio/accounts-desktop-1080.avif 1080w, /assets/folio/accounts-desktop-1440.avif 1440w" sizes="(max-width: 1100px) 64vw, 820px" />
+                <source media="(min-width: 901px)" type="image/webp" srcset="/assets/folio/accounts-desktop-1080.webp 1080w, /assets/folio/accounts-desktop-1440.webp 1440w" sizes="(max-width: 1100px) 64vw, 820px" />
+                <source media="(min-width: 901px)" type="image/png" srcset="/assets/folio/accounts-desktop-1440.png" />
+                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="1440" height="900" alt="Folio cards on desktop, using demo data. Issuers expanded, with synthetic last four digits from 1001 to 1007." decoding="async" loading="lazy" />
+              </picture>
+            </a>
+          </figure>
+          <figure class="device device-phone">
+            <a href="/assets/folio/accounts-iphone-1170.png">
+              <picture>
+                <source type="image/avif" srcset="/assets/folio/accounts-iphone-780.avif 780w, /assets/folio/accounts-iphone-1170.avif 1170w" sizes="(max-width: 900px) 92vw, 232px" />
+                <source type="image/webp" srcset="/assets/folio/accounts-iphone-780.webp 780w, /assets/folio/accounts-iphone-1170.webp 1170w" sizes="(max-width: 900px) 92vw, 232px" />
+                <img src="/assets/folio/accounts-iphone-1170.png" width="1170" height="2532" alt="Folio cards on iPhone, using demo data. CIBC, Wealthsimple, and Amex groups expanded, with the same synthetic last four digits." decoding="async" loading="lazy" />
+              </picture>
+            </a>
+          </figure>
+        </div>
+      </section>
+      <section class="product-band">
+        <div class="wrap product-copy">
+          <h2>Income.</h2>
+          <p>Payroll grouped from the deposit name, cash-account balances beside it, and an optional pay rate.</p>
+        </div>
+        <div class="device-pair">
+          <figure class="device device-desktop">
+            <a href="/assets/folio/income-desktop-1440.png">
+              <picture>
+                <source media="(min-width: 901px)" type="image/avif" srcset="/assets/folio/income-desktop-1080.avif 1080w, /assets/folio/income-desktop-1440.avif 1440w" sizes="(max-width: 1100px) 64vw, 820px" />
+                <source media="(min-width: 901px)" type="image/webp" srcset="/assets/folio/income-desktop-1080.webp 1080w, /assets/folio/income-desktop-1440.webp 1440w" sizes="(max-width: 1100px) 64vw, 820px" />
+                <source media="(min-width: 901px)" type="image/png" srcset="/assets/folio/income-desktop-1440.png" />
+                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="1440" height="900" alt="Folio income on desktop, using demo data. Payroll detected from deposit names, Employer Payroll and Secondary Payroll, with monthly totals." decoding="async" loading="lazy" />
+              </picture>
+            </a>
+          </figure>
+          <figure class="device device-phone">
+            <a href="/assets/folio/income-iphone-1170.png">
+              <picture>
+                <source type="image/avif" srcset="/assets/folio/income-iphone-780.avif 780w, /assets/folio/income-iphone-1170.avif 1170w" sizes="(max-width: 900px) 92vw, 232px" />
+                <source type="image/webp" srcset="/assets/folio/income-iphone-780.webp 780w, /assets/folio/income-iphone-1170.webp 1170w" sizes="(max-width: 900px) 92vw, 232px" />
+                <img src="/assets/folio/income-iphone-1170.png" width="1170" height="2532" alt="Folio income on iPhone, using demo data. The same payroll summary and November Employer Payroll deposits." decoding="async" loading="lazy" />
+              </picture>
+            </a>
+          </figure>
+        </div>
+      </section>
+      <section class="product-band alt">
+        <div class="wrap product-copy">
+          <h2>Settings.</h2>
+          <p>Connect a bank or card through Plaid. Consent comes first. Sign-in, export, and an access log sit on the same screen.</p>
+        </div>
+        <div class="device-pair">
+          <figure class="device device-desktop">
+            <a href="/assets/folio/settings-desktop-1440.png">
+              <picture>
+                <source media="(min-width: 901px)" type="image/avif" srcset="/assets/folio/settings-desktop-1080.avif 1080w, /assets/folio/settings-desktop-1440.avif 1440w" sizes="(max-width: 1100px) 64vw, 820px" />
+                <source media="(min-width: 901px)" type="image/webp" srcset="/assets/folio/settings-desktop-1080.webp 1080w, /assets/folio/settings-desktop-1440.webp 1440w" sizes="(max-width: 1100px) 64vw, 820px" />
+                <source media="(min-width: 901px)" type="image/png" srcset="/assets/folio/settings-desktop-1440.png" />
+                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="1440" height="900" alt="Folio settings on desktop, using demo data. Connect with Plaid and a consent checkbox, with no bank linked." decoding="async" loading="lazy" />
+              </picture>
+            </a>
+          </figure>
+          <figure class="device device-phone">
+            <a href="/assets/folio/settings-iphone-1170.png">
+              <picture>
+                <source type="image/avif" srcset="/assets/folio/settings-iphone-780.avif 780w, /assets/folio/settings-iphone-1170.avif 1170w" sizes="(max-width: 900px) 92vw, 232px" />
+                <source type="image/webp" srcset="/assets/folio/settings-iphone-780.webp 780w, /assets/folio/settings-iphone-1170.webp 1170w" sizes="(max-width: 900px) 92vw, 232px" />
+                <img src="/assets/folio/settings-iphone-1170.png" width="1170" height="2532" alt="Folio settings on iPhone, using demo data. The same Connect with Plaid state, with sign-in and export below." decoding="async" loading="lazy" />
+              </picture>
+            </a>
+          </figure>
+        </div>
       </section>
     </div>
 
@@ -173,11 +325,11 @@
             </div>
             <div>
               <dt>What I built</dt>
-              <dd>Card sync through Plaid, categories that can remember a merchant, recurring-charge detection, an income view, an avalanche payoff planner, adaptive budgets with alerts and web push, a pay and shift estimator, a net worth view, and a budget copilot that writes a plan from what the accounts already show.</dd>
+              <dd>Overview for the month, activity with search and a CSV export, income grouped from deposit names, recurring charges, and category budgets. Budget copilot confirms pay, cards, and recurring charges, then fills in the gaps. Cards are grouped by issuer. Settings covers appearance, card names, Plaid connect, export, and an access log. Net worth, payoff, alerts, and pay (a cheque or hours) are in the app as well.</dd>
             </div>
             <div>
               <dt>Stack</dt>
-              <dd>Next.js, deployed to Cloudflare Workers with vinext. Plaid for linking accounts. Web push for alerts.</dd>
+              <dd>Next.js, deployed to Cloudflare Workers with vinext. D1 for the database. Plaid for linking a bank. A PWA, with passkeys through WebAuthn. Dark by default, with a Dark, Light, or System toggle.</dd>
             </div>
             <div>
               <dt>Outcome</dt>
@@ -187,7 +339,7 @@
           </dl>
 
           <h2>How it's built</h2>
-          <p>Folio is a Next.js app, deployed to Cloudflare Workers with vinext. Plaid links the accounts. The interface is dark, and it is laid out for a phone as well as a wide window. Alerts use web push.</p>
+          <p>Folio is a Next.js app, deployed to Cloudflare Workers with vinext, and D1 holds the data. Plaid links a bank from Settings, after consent. It installs as a PWA, and a passkey can sign in through WebAuthn. The interface is dark by default. Settings offers Dark, Light, or System. The same screens work on a phone and in a wide window.</p>
 
           <p class="folio-back"><a class="text-link" href="/#projects">← All projects</a></p>
         </div>
@@ -228,6 +380,6 @@
   </div>
   <button type="button" class="to-top" id="toTop" aria-label="Back to top">↑</button>
   <button type="button" class="term-fab" id="termFab" aria-label="Open terminal">&gt;_</button>
-  <script src="/script.js?v=46"></script>
+  <script src="/script.js?v=47"></script>
 </body>
 </html>
