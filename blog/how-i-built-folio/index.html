@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>How I built Folio — Sarthak Bhot</title>
+  <meta name="description" content="How Sarthak Bhot built Folio, an expense tracker and budget copilot, with Next.js on Cloudflare Workers." />
+  <meta name="theme-color" content="#000000" />
+  <link rel="canonical" href="https://sarthakbhot.com/blog/how-i-built-folio/" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/styles.css?v=46" />
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('sb-theme');
+        var theme = saved === 'light' || saved === 'dark' ? saved : (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#content">Skip to content</a>
+  <nav id="nav" aria-label="Primary">
+    <div class="nav-inner">
+      <a href="/" class="logo">SB</a>
+      <div class="nav-links" id="navLinks">
+        <a href="/#now">Now</a>
+        <a href="/#about">About</a>
+        <a href="/#projects">Projects</a>
+        <a href="/#experience">Experience</a>
+        <a href="/blog/">Blog</a>
+        <a href="/Sarthak-Bhot-Resume.pdf?v=3" target="_blank" rel="noopener">Resume</a>
+        <a href="/#contact" class="nav-cta">Contact</a>
+      </div>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to light mode">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="menu-btn" id="menuBtn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span></button>
+    </div>
+  </nav>
+  <main id="content">
+    <article class="hero">
+      <div class="wrap post">
+
+        <p class="eyebrow">Build log · Nov 2026</p>
+        <h1>How I built Folio</h1>
+        <p class="hero-sub">An expense tracker and budget copilot. This note is the product and the stack, nothing else.</p>
+        <p>A list of transactions is not a budget. I wanted one place that could pull spending in, sort it, notice the charges that repeat, and tell me whether the month was still on track.</p>
+        <h2>What it does</h2>
+        <ul>
+          <li>Card transactions sync through Plaid. A category can remember a merchant, so the next charge lands in the same place.</li>
+          <li>Recurring charges are pulled out on their own, including what is still committed for the month.</li>
+          <li>An income view sits next to spending.</li>
+          <li>Budgets show a limit and a pace for each category, and can roll unused room forward. Alerts and web push, including from a home-screen install on iPhone, flag what needs a look.</li>
+          <li>A payoff planner lines balances up so the expensive debt goes first.</li>
+          <li>Logging a shift produces a paycheque estimate, including tax, CPP, and EI. The figures in the screenshots are examples.</li>
+          <li>Savings and investment accounts roll into a net worth view.</li>
+          <li>Budget copilot asks about pay, a savings goal, and priorities, starts from what the accounts already show, and writes a budget that updates as new transactions land.</li>
+        </ul>
+        <h2>Stack</h2>
+        <p>Folio is a Next.js app, deployed to Cloudflare Workers with vinext. Plaid links the accounts. Alerts use web push. The interface is dark, and it is laid out for a phone as well as a wide window.</p>
+        <p>The screenshots on the <a href="/projects/folio/">project page</a> use fake demo data. There is no public app link on this site.</p>
+        <p class="page-back"><a class="text-link" href="/blog/">← All notes</a></p>
+
+      </div>
+    </article>
+  </main>
+  <footer><div class="wrap"><p>© 2026 Sarthak Bhot · <a href="/">sarthakbhot.com</a></p></div></footer>
+  <script src="/script.js?v=46"></script>
+</body>
+</html>
