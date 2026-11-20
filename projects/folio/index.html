@@ -22,7 +22,7 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="/assets/favicon-32.png" type="image/png" sizes="32x32" />
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
-  <link rel="stylesheet" href="/styles.css?v=44" />
+  <link rel="stylesheet" href="/styles.css?v=45" />
   <script>
     (function () {
       try {
@@ -57,10 +57,11 @@
     <div class="nav-inner">
       <a href="/" class="logo">SB</a>
       <div class="nav-links" id="navLinks">
+        <a href="/#now">Now</a>
         <a href="/#about">About</a>
-        <a href="/#skills">Skills</a>
         <a href="/#projects" aria-current="page">Projects</a>
         <a href="/#experience">Experience</a>
+        <a href="/blog/">Blog</a>
         <a href="/Sarthak-Bhot-Resume.pdf?v=3" target="_blank" rel="noopener">Resume</a>
         <a href="/#contact" class="nav-cta">Contact</a>
       </div>
@@ -143,7 +144,26 @@
         </div>
 
         <div class="folio-prose">
-          <p>I built Folio because a list of transactions is not a budget. Card activity syncs through Plaid and can remember a merchant, so the next charge lands in the same category. Recurring charges are pulled out on their own. A payoff planner lines balances up so the expensive debt goes first. Net worth rolls savings and investments into one view. Budget copilot asks a few questions about pay, a savings goal, and priorities, starts from what the accounts already show, and writes a budget that updates as new transactions land.</p>
+          <h2>Case study</h2>
+          <dl class="case-grid">
+            <div>
+              <dt>Problem</dt>
+              <dd>A list of transactions is not a budget. I wanted one place that could pull spending in, sort it, notice repeating charges, and show whether the month was still on track.</dd>
+            </div>
+            <div>
+              <dt>What I built</dt>
+              <dd>Card sync through Plaid, categories that can remember a merchant, recurring-charge detection, an income view, an avalanche payoff planner, adaptive budgets with alerts and web push, a pay and shift estimator, a net worth view, and a budget copilot that writes a plan from what the accounts already show.</dd>
+            </div>
+            <div>
+              <dt>Stack</dt>
+              <dd>Next.js, deployed to Cloudflare Workers with vinext. Plaid for linking accounts. Web push for alerts.</dd>
+            </div>
+            <div>
+              <dt>Outcome</dt>
+              <dd>Folio is built and shown on this page with fake demo data. It is not linked as a public app.</dd>
+              <!-- TODO: Sarthak — add what you want an interviewer to remember, such as what you learned or what you would build next. Do not add amounts, employers, a password, or a live URL unless you choose to publish one. -->
+            </div>
+          </dl>
 
           <h2>How it's built</h2>
           <p>Folio is a Next.js app, deployed to Cloudflare Workers with vinext. Plaid links the accounts. The interface is dark, and it is laid out for a phone as well as a wide window. Alerts use web push.</p>
@@ -187,6 +207,6 @@
   </div>
   <button type="button" class="to-top" id="toTop" aria-label="Back to top">↑</button>
   <button type="button" class="term-fab" id="termFab" aria-label="Open terminal">&gt;_</button>
-  <script src="/script.js?v=44"></script>
+  <script src="/script.js?v=45"></script>
 </body>
 </html>

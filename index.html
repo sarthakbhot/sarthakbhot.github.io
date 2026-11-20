@@ -24,7 +24,7 @@
   <link rel="icon" href="/assets/favicon-32.png" type="image/png" sizes="32x32" />
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
   <link rel="preload" as="image" href="/assets/headshot-960.jpg" />
-  <link rel="stylesheet" href="/styles.css?v=44" />
+  <link rel="stylesheet" href="/styles.css?v=45" />
   <script>
     (function () {
       try {
@@ -69,10 +69,11 @@
     <div class="nav-inner">
       <a href="#top" class="logo">SB</a>
       <div class="nav-links" id="navLinks">
+        <a href="#now">Now</a>
         <a href="#about">About</a>
-        <a href="#skills">Skills</a>
         <a href="#projects">Projects</a>
         <a href="#experience">Experience</a>
+        <a href="/blog/">Blog</a>
         <a href="/Sarthak-Bhot-Resume.pdf?v=3" target="_blank" rel="noopener">Resume</a>
         <a href="#contact" class="nav-cta">Contact</a>
       </div>
@@ -114,17 +115,35 @@
     </div>
   </header>
 
-  <div class="currently">
-    <div class="wrap reveal">
-      <span class="currently-label">Currently</span>
-      <span>CS (AI) at Sheridan</span><i aria-hidden="true">·</i>
-      <a href="/projects/folio/">Building Folio</a><i aria-hidden="true">·</i>
-      <span>AWS Cloud Practitioner</span><i aria-hidden="true">·</i>
-      <span>Designing a real-life BB-8</span>
-    </div>
-  </div>
-
   <main id="content">
+    <section id="now" class="section section-tight">
+      <div class="wrap">
+        <p class="section-eyebrow reveal">Now</p>
+        <h2 class="section-title reveal">What I'm building and learning.</h2>
+        <div class="now-grid">
+          <a class="now-card reveal" href="/projects/folio/">
+            <span class="now-kicker">Building</span>
+            <h3>Folio</h3>
+            <p>An expense tracker and budget copilot. Card sync, budgets, and a plan for the month.</p>
+          </a>
+          <div class="now-card reveal">
+            <span class="now-kicker">Studying</span>
+            <h3>CS (AI)</h3>
+            <p>First-year Honours Computer Science, artificial intelligence, at Sheridan College.</p>
+          </div>
+          <div class="now-card reveal">
+            <span class="now-kicker">Learning</span>
+            <h3>AWS Cloud Practitioner</h3>
+            <p>Working toward the exam. Not issued yet.</p>
+          </div>
+          <a class="now-card reveal" href="/projects/bb-8/">
+            <span class="now-kicker">Designing</span>
+            <h3>BB-8</h3>
+            <p>A real-life droid. Still in the design phase, starting with the parts.</p>
+          </a>
+        </div>
+      </div>
+    </section>
     <section id="about" class="section">
       <div class="wrap">
         <p class="section-eyebrow reveal">About</p>
@@ -202,9 +221,12 @@
               <p>Six connected locations, hidden treasures, and NPCs including the Mad Hatter and the Queen of Hearts, plus an inventory and a stash. The world loads from plain text files. Pure Java, no dependencies.</p>
             </details>
             <div class="pills"><span>Java</span><span>OOP</span><span>File I/O</span></div>
+            <div class="card-links">
+            <a class="project-link" href="/projects/wonderland/">Case study</a>
             <a class="project-link" href="https://github.com/sarthakbhot/wonderland-text-adventure" target="_blank" rel="noopener">View on GitHub
               <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55v-2.15c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.59.23 2.76.11 3.05.74.81 1.18 1.83 1.18 3.09 0 4.42-2.7 5.39-5.26 5.68.41.35.77 1.05.77 2.12v3.15c0 .3.2.67.8.55A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
             </a>
+            </div>
           </article>
 
           <article class="project-card reveal">
@@ -218,7 +240,7 @@
               <p>The plan is a Pi camera for face recognition, a speaker so it can greet people by name, and AI-driven interaction. I'm starting by 3D modeling the parts.</p>
             </details>
             <div class="pills"><span>Raspberry Pi</span><span>Python</span><span>AI</span><span>3D printing</span></div>
-            <span class="project-link muted">Build log coming soon</span>
+            <a class="project-link" href="/projects/bb-8/">Case study</a>
           </article>
 
           <article class="project-card reveal">
@@ -232,6 +254,7 @@
               <p>I set up Raspberry Pi OS, turned on SSH, and practiced command-line administration, networking, and Nmap on my own network.</p>
             </details>
             <div class="pills"><span>Raspberry Pi</span><span>Linux</span><span>SSH</span><span>Networking</span></div>
+            <a class="project-link" href="/projects/pi-server/">Case study</a>
           </article>
 
           <article class="project-card reveal">
@@ -245,9 +268,12 @@
               <p>HTML, CSS, and JavaScript. Scroll motion, a light and dark theme, and Git all the way to GitHub Pages.</p>
             </details>
             <div class="pills"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>GitHub Pages</span></div>
+            <div class="card-links">
+            <a class="project-link" href="/projects/this-site/">Case study</a>
             <a class="project-link" href="https://github.com/sarthakbhot/sarthakbhot.github.io" target="_blank" rel="noopener">View on GitHub
               <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55v-2.15c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.59.23 2.76.11 3.05.74.81 1.18 1.83 1.18 3.09 0 4.42-2.7 5.39-5.26 5.68.41.35.77 1.05.77 2.12v3.15c0 .3.2.67.8.55A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
             </a>
+            </div>
           </article>
 
           <article class="project-card reveal">
@@ -261,12 +287,23 @@
               <p>Configuration and troubleshooting across Raspberry Pi, Arduino Uno, Raspberry Pi Pico, and camera modules. Wiring, flashing, and debugging the actual board.</p>
             </details>
             <div class="pills"><span>Arduino</span><span>Raspberry Pi</span><span>Electronics</span></div>
+            <a class="project-link" href="/projects/hardware/">Case study</a>
           </article>
         </div>
       </div>
     </section>
 
-    <section id="experience" class="section section-alt">
+    <section id="github" class="section section-alt">
+      <div class="wrap">
+        <p class="section-eyebrow reveal">GitHub</p>
+        <h2 class="section-title reveal">Recent public work.</h2>
+        <div id="ghActivity" class="reveal">
+          <p class="gh-fallback">Recent repositories load here when GitHub allows it. Otherwise, see <a href="https://github.com/sarthakbhot" target="_blank" rel="noopener">github.com/sarthakbhot</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience" class="section">
       <div class="wrap">
         <p class="section-eyebrow reveal">Experience</p>
         <h2 class="section-title reveal">Where I've been.</h2>
@@ -302,8 +339,17 @@
           <span class="tl-date">2026 — 2030</span>
         </div>
 
-        <h2 class="section-title subhead reveal">Certifications and training.</h2>
-        <p class="section-lead reveal">The courses behind the uniform, with photos from each one.</p>
+        <h2 class="section-title subhead reveal" id="certs">Certifications and training.</h2>
+        <p class="section-lead reveal">Army courses are done. AWS Cloud Practitioner is still in progress, so it has no verification link.</p>
+        <!-- TODO: Sarthak — when you pass AWS Cloud Practitioner, add the verification URL on this card. Nothing in the site or resume has one today, so the badge is not a link. -->
+        <div class="cert-badge reveal">
+          <div class="badge-mark" aria-hidden="true">AWS</div>
+          <div>
+            <h3>AWS Cloud Practitioner</h3>
+            <p>In progress. Working toward the exam. Not issued, and not linked.</p>
+          </div>
+          <span class="tl-date">In progress</span>
+        </div>
         <div class="cert-block reveal">
           <div class="cert-photos cols-2">
             <a href="/assets/army/army-bmq.jpg"><img src="/assets/army/army-bmq.jpg" alt="BMQ platoon during field training" width="1200" height="675" loading="lazy"></a>
@@ -333,13 +379,40 @@
       </div>
     </section>
 
+    <section id="blog" class="section section-alt">
+      <div class="wrap">
+        <p class="section-eyebrow reveal">Build log</p>
+        <h2 class="section-title reveal">Notes from the work.</h2>
+        <div class="blog-list">
+          <a class="blog-card reveal" href="/blog/how-i-built-folio/">
+            <time datetime="2026-11-20">Nov 2026</time>
+            <h3>How I built Folio</h3>
+            <p>What the app does, and the stack behind it. Next.js on Cloudflare Workers, Plaid, and web push.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
     <section id="contact" class="section">
       <div class="wrap contact-wrap">
         <p class="section-eyebrow reveal">Contact</p>
         <h2 class="section-title reveal">Let's connect.</h2>
         <p class="section-lead reveal">I'm looking for internships and part-time software roles. If a team is building something interesting, or you just want to talk, my inbox is open.</p>
+        <form id="contactForm" class="contact-form reveal" action="mailto:sarthakbhot1@gmail.com" method="post" enctype="text/plain">
+          <label>Name
+            <input name="name" type="text" required autocomplete="name" maxlength="80" />
+          </label>
+          <label>Email
+            <input name="email" type="email" required autocomplete="email" maxlength="120" />
+          </label>
+          <label>Message
+            <textarea name="message" required maxlength="2000"></textarea>
+          </label>
+          <button type="submit" class="btn btn-primary">Open in email</button>
+          <p class="form-note">This opens your mail app with the note addressed to me. The site does not store it. A hosted form would need an account, so this stays on GitHub Pages with no backend.</p>
+        </form>
         <div class="contact-btns reveal">
-          <a href="mailto:sarthakbhot1@gmail.com" class="btn btn-primary">Email me</a>
+          <a href="mailto:sarthakbhot1@gmail.com" class="btn btn-ghost">Email me</a>
           <button type="button" class="btn btn-ghost" id="copyEmail">Copy email</button>
         </div>
         <div class="socials reveal">
@@ -391,6 +464,6 @@
   <button type="button" class="to-top" id="toTop" aria-label="Back to top">↑</button>
   <button type="button" class="term-fab" id="termFab" aria-label="Open terminal">&gt;_</button>
 
-  <script src="/script.js?v=44"></script>
+  <script src="/script.js?v=45"></script>
 </body>
 </html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>This website — Sarthak Bhot</title>
+  <meta name="description" content="Case study: Sarthak Bhot's portfolio, built by hand and hosted on GitHub Pages." />
+  <meta name="theme-color" content="#000000" />
+  <link rel="canonical" href="https://sarthakbhot.com/projects/this-site/" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/styles.css?v=45" />
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('sb-theme');
+        var theme = saved === 'light' || saved === 'dark' ? saved : (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#content">Skip to content</a>
+  <nav id="nav" aria-label="Primary">
+    <div class="nav-inner">
+      <a href="/" class="logo">SB</a>
+      <div class="nav-links" id="navLinks">
+        <a href="/#now">Now</a>
+        <a href="/#about">About</a>
+        <a href="/#projects">Projects</a>
+        <a href="/#experience">Experience</a>
+        <a href="/blog/">Blog</a>
+        <a href="/Sarthak-Bhot-Resume.pdf?v=3" target="_blank" rel="noopener">Resume</a>
+        <a href="/#contact" class="nav-cta">Contact</a>
+      </div>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to light mode">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="menu-btn" id="menuBtn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span></button>
+    </div>
+  </nav>
+  <main id="content">
+    <article class="hero">
+      <div class="wrap post">
+
+        <p class="eyebrow">Case study</p>
+        <h1>This website</h1>
+        <p class="hero-sub">Hand-built and hosted on GitHub Pages, on my own domain.</p>
+        <div class="pills"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>GitHub Pages</span></div>
+        <dl class="case-grid">
+          <div><dt>Problem</dt><dd>A hand-built portfolio for the work and a way to get in touch, hosted on GitHub Pages.</dd></div>
+          <div><dt>What I built</dt><dd>This site. Custom HTML, CSS, and JavaScript, a light and dark theme, project write-ups, and a build log. Versioned with Git and deployed on GitHub Pages.</dd></div>
+          <div><dt>Stack</dt><dd>HTML, CSS, JavaScript, and GitHub Pages. No build step.</dd></div>
+          <div><dt>Outcome</dt><dd>It is the site you are on, at sarthakbhot.com.</dd>
+          <!-- TODO: Sarthak — add anything you want remembered about building the site. Do not invent traffic numbers. -->
+          </div>
+        </dl>
+
+        <p class="page-back"><a class="text-link" href="/#projects">← All projects</a></p>
+      </div>
+    </article>
+  </main>
+  <footer><div class="wrap"><p>© 2026 Sarthak Bhot · <a href="/">sarthakbhot.com</a></p></div></footer>
+  <script src="/script.js?v=45"></script>
+</body>
+</html>

@@ -339,3 +339,62 @@ if (!reduceMotion && heroInner && heroSection && window.matchMedia('(pointer: fi
     window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
   });
 })();
+
+(function () {
+  const form = document.getElementById('contactForm');
+  if (!form) return;
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const name = String(data.get('name') || '').trim();
+    const email = String(data.get('email') || '').trim();
+    const message = String(data.get('message') || '').trim();
+    const subject = encodeURIComponent('Note from ' + name);
+    const body = encodeURIComponent(message + '\n\n— ' + name + '\n' + email);
+    window.location.href = 'mailto:sarthakbhot1@gmail.com?subject=' + subject + '&body=' + body;
+  });
+})();
+
+(function () {
+  const root = document.getElementById('ghActivity');
+  if (!root) return;
+  const fallback = root.innerHTML;
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), 4500);
+  fetch('https://api.github.com/users/sarthakbhot/repos?sort=updated&per_page=12', {
+    headers: { Accept: 'application/vnd.github+json' },
+    signal: ctrl.signal
+  }).then((res) => {
+    if (!res.ok) throw new Error(String(res.status));
+    return res.json();
+  }).then((repos) => {
+    clearTimeout(timer);
+    if (!Array.isArray(repos)) throw new Error('bad');
+    const list = repos.filter((r) => r && !r.fork).slice(0, 4);
+    if (!list.length) return;
+    root.replaceChildren();
+    const grid = document.createElement('div');
+    grid.className = 'gh-list';
+    list.forEach((repo) => {
+      const a = document.createElement('a');
+      a.className = 'gh-card';
+      a.href = repo.html_url;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      const h = document.createElement('h3');
+      h.textContent = repo.name;
+      const p = document.createElement('p');
+      p.textContent = repo.description || 'Public repository';
+      const meta = document.createElement('p');
+      meta.className = 'gh-meta';
+      const when = repo.pushed_at ? new Date(repo.pushed_at).toLocaleDateString('en', { month: 'short', year: 'numeric' }) : '';
+      meta.textContent = [repo.language, when].filter(Boolean).join(' · ');
+      a.append(h, p, meta);
+      grid.append(a);
+    });
+    root.append(grid);
+  }).catch(() => {
+    clearTimeout(timer);
+    root.innerHTML = fallback;
+  });
+})();

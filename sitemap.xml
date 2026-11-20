@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://sarthakbhot.com/</loc>
-  </url>
-  <url>
-    <loc>https://sarthakbhot.com/projects/folio/</loc>
-  </url>
+  <url><loc>https://sarthakbhot.com/</loc></url>
+  <url><loc>https://sarthakbhot.com/projects/folio/</loc></url>
+  <url><loc>https://sarthakbhot.com/projects/wonderland/</loc></url>
+  <url><loc>https://sarthakbhot.com/projects/bb-8/</loc></url>
+  <url><loc>https://sarthakbhot.com/projects/pi-server/</loc></url>
+  <url><loc>https://sarthakbhot.com/projects/this-site/</loc></url>
+  <url><loc>https://sarthakbhot.com/projects/hardware/</loc></url>
+  <url><loc>https://sarthakbhot.com/blog/</loc></url>
+  <url><loc>https://sarthakbhot.com/blog/how-i-built-folio/</loc></url>
 </urlset>
