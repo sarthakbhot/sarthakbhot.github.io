@@ -155,65 +155,6 @@ if (!reduceMotion && heroInner && heroSection && window.matchMedia('(pointer: fi
 }
 
 (function () {
-  const typedEl = document.getElementById('typed');
-  const outEl = document.getElementById('termOut');
-  const termBody = document.querySelector('.term-body');
-  if (!typedEl || !outEl || !termBody) return;
-  const cmd = 'whoami';
-  const PREFIX = 'sarthak-bhot: ';
-  const hour = new Date().getHours();
-  const greet = hour >= 5 && hour < 12 ? 'good morning'
-    : hour >= 12 && hour < 17 ? 'good afternoon'
-    : hour >= 17 && hour < 22 ? 'good evening' : 'up late, huh';
-  const ROLES = [
-    'software and AI builder',
-    greet + ', visitor',
-    'building folio',
-    'cs (ai) · army signals',
-    'python · java · javascript'
-  ];
-  const startRoles = () => {
-    let ri = 0, ci = ROLES[0].length, deleting = true;
-    const step = () => {
-      if (deleting) {
-        ci--;
-        outEl.textContent = PREFIX + ROLES[ri].slice(0, Math.max(ci, 0));
-        if (ci <= 0) { deleting = false; ri = (ri + 1) % ROLES.length; setTimeout(step, 420); }
-        else setTimeout(step, 22);
-      } else {
-        const role = ROLES[ri];
-        ci++;
-        outEl.textContent = PREFIX + role.slice(0, ci);
-        if (ci >= role.length) { deleting = true; setTimeout(step, 2400); }
-        else setTimeout(step, 42);
-      }
-    };
-    setTimeout(step, 2400);
-  };
-  const finish = () => {
-    typedEl.textContent = cmd;
-    outEl.textContent = PREFIX + ROLES[0];
-    outEl.classList.add('show');
-    const oldCaret = termBody.querySelector('.term-line .caret');
-    if (oldCaret) oldCaret.remove();
-    const next = document.createElement('div');
-    next.className = 'term-line';
-    next.innerHTML = '<span class="prompt">$</span><span class="caret"></span>';
-    termBody.appendChild(next);
-    if (!reduceMotion) startRoles();
-  };
-  if (reduceMotion) { finish(); return; }
-  let i = 0;
-  setTimeout(function tick() {
-    if (i <= cmd.length) {
-      typedEl.textContent = cmd.slice(0, i);
-      i++;
-      setTimeout(tick, 70);
-    } else setTimeout(finish, 280);
-  }, 500);
-})();
-
-(function () {
   const art = String.raw` ____    _    ____ _____ _   _    _    _  __
 / ___|  / \  |  _ \_   _| | | |  / \  | |/ /
 \___ \ / _ \ | |_) || | | |_| | / _ \ | ' /
