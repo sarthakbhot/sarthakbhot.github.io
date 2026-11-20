@@ -85,7 +85,7 @@ if (menuBtn && navLinks) {
   });
 }
 
-const photoLinks = [...document.querySelectorAll('.cert-photos a, .tl-photos a, .zoom-gallery a')];
+const photoLinks = [...document.querySelectorAll('.cert-photos a, .tl-photos a, .zoom-gallery a, .device a')];
 const lightbox = document.getElementById('lightbox');
 const lbImg = document.getElementById('lightbox-img');
 const lbPrev = document.getElementById('lightbox-prev');
@@ -104,7 +104,7 @@ if (lightbox && lbImg && lbPrev && lbNext) {
     lbNext.hidden = !multi;
   }
   function lbOpen(link) {
-    const container = link.closest('.cert-photos, .tl-photos, .zoom-gallery');
+    const container = link.closest('.cert-photos, .tl-photos, .zoom-gallery, .product-stage');
     lbGroup = [...container.querySelectorAll('a')];
     lbIndex = Math.max(0, lbGroup.indexOf(link));
     lbShow();
