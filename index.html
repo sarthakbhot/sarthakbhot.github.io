@@ -2,27 +2,70 @@
 <html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#0a0b0e" />
-  <title>Sarthak Bhot</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0b0e'/%3E%3Ctext x='32' y='44' font-family='ui-monospace,Menlo,Consolas,monospace' font-size='30' font-weight='bold' fill='%23f2a33c' text-anchor='middle'%3E%3E_%3C/text%3E%3C/svg%3E" />
-  <meta name="description" content="Sarthak Bhot — Computer Science (AI) student at Sheridan College, Signals Operator in the Canadian Army Reserve, and aspiring IT professional. Portfolio of projects, skills, and experience." />
-  <meta property="og:title" content="Sarthak Bhot" />
-  <meta property="og:description" content="Computer Science (AI) student at Sheridan College and Signals Operator in the Canadian Army Reserve. Projects, experience, and more." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Sarthak Bhot — Software and AI Builder</title>
+  <meta name="description" content="Sarthak Bhot builds software and AI products. Computer Science (AI) student at Sheridan College and Signals Operator in the Canadian Army Reserve." />
+  <meta name="author" content="Sarthak Bhot" />
+  <meta name="theme-color" content="#000000" />
+  <link rel="canonical" href="https://sarthakbhot.com/" />
+  <meta property="og:title" content="Sarthak Bhot — Software and AI Builder" />
+  <meta property="og:description" content="Software and AI builder. Computer Science (AI) student at Sheridan College and Signals Operator in the Canadian Army Reserve." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://sarthakbhot.com" />
-  <meta property="og:image" content="https://sarthakbhot.com/assets/headshot.jpg?v=2" />
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Sarthak Bhot" />
-  <meta name="twitter:description" content="Computer Science (AI) student at Sheridan College and Signals Operator in the Canadian Army Reserve." />
-  <meta name="twitter:image" content="https://sarthakbhot.com/assets/headshot.jpg?v=2" />
-  <link rel="stylesheet" href="styles.css?v=33" />
+  <meta property="og:url" content="https://sarthakbhot.com/" />
+  <meta property="og:image" content="https://sarthakbhot.com/assets/og.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Sarthak Bhot, software and AI builder" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Sarthak Bhot — Software and AI Builder" />
+  <meta name="twitter:description" content="Software and AI builder. Computer Science (AI) student at Sheridan College and Signals Operator in the Canadian Army Reserve." />
+  <meta name="twitter:image" content="https://sarthakbhot.com/assets/og.jpg" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/assets/favicon-32.png" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+  <link rel="preload" as="image" href="/assets/headshot-960.jpg" />
+  <link rel="stylesheet" href="/styles.css?v=42" />
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('sb-theme');
+        var theme = saved === 'light' || saved === 'dark' ? saved : (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+        document.documentElement.setAttribute('data-theme', theme);
+        var meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute('content', theme === 'dark' ? '#000000' : '#fbfbfd');
+      } catch (e) {}
+    })();
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "url": "https://sarthakbhot.com/",
+    "mainEntity": {
+      "@type": "Person",
+      "name": "Sarthak Bhot",
+      "url": "https://sarthakbhot.com/",
+      "email": "mailto:sarthakbhot1@gmail.com",
+      "jobTitle": "Software and AI builder",
+      "description": "Software and AI builder. Computer Science (AI) student at Sheridan College and Signals Operator in the Canadian Army Reserve.",
+      "sameAs": [
+        "https://github.com/sarthakbhot",
+        "https://www.linkedin.com/in/sarthakbhot/"
+      ],
+      "affiliation": {
+        "@type": "CollegeOrUniversity",
+        "name": "Sheridan College"
+      },
+      "knowsAbout": ["Software development", "Artificial intelligence", "Python", "Java", "JavaScript"]
+    }
+  }
+  </script>
 </head>
 <body>
-
+  <a class="skip-link" href="#content">Skip to content</a>
   <div id="progress"></div>
-  <!-- ============ NAV ============ -->
-  <nav id="nav">
+
+  <nav id="nav" aria-label="Primary">
     <div class="nav-inner">
       <a href="#top" class="logo">SB</a>
       <div class="nav-links" id="navLinks">
@@ -30,128 +73,137 @@
         <a href="#skills">Skills</a>
         <a href="#projects">Projects</a>
         <a href="#experience">Experience</a>
-        <a href="Sarthak-Bhot-Resume.pdf?v=2" target="_blank" rel="noopener">Resume</a>
+        <a href="/Sarthak-Bhot-Resume.pdf?v=3" target="_blank" rel="noopener">Resume</a>
         <a href="#contact" class="nav-cta">Contact</a>
       </div>
-      <button class="theme-toggle" id="themeToggle" aria-label="Switch to light mode">
-        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
-        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to light mode">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
       </button>
-      <button class="menu-btn" id="menuBtn" aria-label="Menu">
+      <button class="menu-btn" id="menuBtn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="navLinks">
         <span></span><span></span>
       </button>
     </div>
   </nav>
 
-  <!-- ============ HERO ============ -->
   <header class="hero" id="top">
-    <div class="hero-glow"></div>
-    <canvas id="netCanvas" aria-hidden="true"></canvas>
     <div class="hero-inner">
       <div class="hero-text">
-        <p class="eyebrow reveal">Oakville, Ontario, Canada</p>
-        <h1 class="reveal">Sarthak Bhot<span class="accent">.</span></h1>
-        <p class="hero-sub reveal">Computer Science <span class="hl">(AI)</span> student at Sheridan College and Signals Operator in the Canadian Army Reserve, working toward a career in IT. Software and AI are my focus — building things is my hobby.</p>
+        <p class="eyebrow reveal">Software and AI</p>
+        <h1 class="reveal">Sarthak Bhot</h1>
+        <p class="hero-sub reveal">I build software and AI products. Computer Science (AI) student at Sheridan College, and a Signals Operator in the Canadian Army Reserve.</p>
+        <p class="hero-note reveal">Latest: <a href="/projects/folio/">Folio</a>, an expense tracker and budget copilot.</p>
         <div class="terminal reveal" aria-hidden="true">
           <div class="term-bar"><span></span><span></span><span></span></div>
           <div class="term-body">
             <div class="term-line"><span class="prompt">$</span><span id="typed"></span><span class="caret"></span></div>
-            <div class="term-out" id="termOut">sarthak-bhot: cs undergrad · army signals · builder of things</div>
+            <div class="term-out" id="termOut">sarthak-bhot: software and AI builder</div>
           </div>
         </div>
         <div class="hero-btns reveal">
           <a href="#projects" class="btn btn-primary">View my work</a>
-          <a href="Sarthak-Bhot-Resume.pdf?v=2" target="_blank" rel="noopener" class="btn btn-ghost">Resume</a>
+          <a href="/Sarthak-Bhot-Resume.pdf?v=3" target="_blank" rel="noopener" class="btn btn-ghost">Resume</a>
           <a href="#contact" class="btn btn-ghost">Get in touch</a>
         </div>
       </div>
       <div class="hero-photo reveal">
-        <!-- TODO: replace this placeholder with a real photo:
-             <img src="photo.jpg" alt="Sarthak Bhot" /> -->
-        <div class="photo-frame"><img src="assets/headshot.jpg?v=2" alt="Sarthak Bhot" /></div>
+        <div class="photo-frame">
+          <img src="/assets/headshot-960.jpg" width="960" height="960" alt="Sarthak Bhot" fetchpriority="high" />
+        </div>
       </div>
     </div>
   </header>
 
-  <!-- ============ CURRENTLY ============ -->
   <div class="currently">
     <div class="wrap reveal">
       <span class="currently-label">Currently</span>
-      <span>First-year CS (AI) at Sheridan</span><i>·</i>
-      <span>Working toward AWS Cloud Practitioner</span><i>·</i>
+      <span>CS (AI) at Sheridan</span><i aria-hidden="true">·</i>
+      <a href="/projects/folio/">Building Folio</a><i aria-hidden="true">·</i>
+      <span>AWS Cloud Practitioner</span><i aria-hidden="true">·</i>
       <span>Designing a real-life BB-8</span>
     </div>
   </div>
 
-  <main>
-    <!-- ============ ABOUT ============ -->
+  <main id="content">
     <section id="about" class="section">
       <div class="wrap">
-        <p class="section-eyebrow reveal">About me</p>
-        <h2 class="section-title reveal">A software and AI guy who <span class="accent">builds for fun</span>.</h2>
+        <p class="section-eyebrow reveal">About</p>
+        <h2 class="section-title reveal">A software and AI guy who builds for fun.</h2>
         <div class="about-grid">
           <div class="reveal">
-            <p>I'm a first-year Honours Computer Science (AI) student at Sheridan College, focused on software development and artificial intelligence. I've been into technology for as long as I can remember, and I'm convinced AI is the next era of it.</p>
-            <p>I also serve part-time as a Signals Operator in the Canadian Army Reserve, where I operate and troubleshoot communications equipment and keep systems running under pressure. I'm working toward a career in IT — and I'm currently looking for part-time roles and internships in the Oakville/Toronto area.</p>
+            <p>I'm a first-year Honours Computer Science (AI) student at Sheridan College. Software and artificial intelligence are what I study, and what I actually build. I've been into technology for as long as I can remember, and I think AI is the next era of it.</p>
+            <p>I also serve part-time as a Signals Operator in the Canadian Army Reserve. I operate and troubleshoot communications equipment and keep systems running under pressure. I'm looking for internships and part-time roles on software teams.</p>
           </div>
           <div class="reveal">
-            <p>In my free time, I'm a builder: I 3D model and print my own parts, tinker with Raspberry Pi and Arduino boards, and I'm planning my most ambitious project yet — a real-life BB-8 droid with AI. Outside of all that, I'm a gym regular, I play badminton, and I'm a story-mode gamer on PS5 — give me a good single-player campaign over multiplayer any day.</p>
+            <p>In my free time I'm a builder. I 3D model and print my own parts, tinker with Raspberry Pi and Arduino boards, and I'm designing a real-life BB-8 with AI. Outside of that I'm a gym regular, I play badminton, and I would take a good single-player story on PS5 over multiplayer any day.</p>
           </div>
         </div>
         <div class="chips reveal">
           <span class="chip">Gym</span>
           <span class="chip">Badminton</span>
           <span class="chip">Story-driven games</span>
-          <span class="chip">3D printing &amp; modeling</span>
-          <span class="chip">Raspberry Pi tinkering</span>
+          <span class="chip">3D printing and modeling</span>
+          <span class="chip">Raspberry Pi</span>
           <span class="chip">Hands-on builds</span>
         </div>
       </div>
     </section>
 
-    <!-- ============ SKILLS ============ -->
     <section id="skills" class="section section-alt">
       <div class="wrap">
         <p class="section-eyebrow reveal">Skills</p>
-        <h2 class="section-title reveal">What I work with<span class="accent">.</span></h2>
+        <h2 class="section-title reveal">What I work with.</h2>
         <div class="skills-grid">
           <div class="skill-card reveal">
             <h3>Languages</h3>
-            <div class="pills"><span>Python</span><span>Java</span><span>C</span></div>
+            <div class="pills"><span>Python</span><span>Java</span><span>C</span><span>JavaScript</span></div>
           </div>
           <div class="skill-card reveal">
-            <h3>Tools &amp; Platforms</h3>
-            <div class="pills"><span>Git</span><span>Linux</span><span>VS Code</span></div>
+            <h3>Tools and platforms</h3>
+            <div class="pills"><span>Git</span><span>Linux</span><span>VS Code</span><span>Next.js</span><span>Cloudflare Workers</span></div>
           </div>
           <div class="skill-card reveal">
-            <h3>IT &amp; Support</h3>
-            <div class="pills"><span>Network Troubleshooting</span><span>Computer Hardware</span><span>TCP/IP</span></div>
+            <h3>IT and support</h3>
+            <div class="pills"><span>Network troubleshooting</span><span>Computer hardware</span><span>TCP/IP</span></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ============ PROJECTS ============ -->
     <section id="projects" class="section">
       <div class="wrap">
         <p class="section-eyebrow reveal">Projects</p>
-        <h2 class="section-title reveal">Things I've built<span class="accent">.</span></h2>
-        <div class="projects-grid">
+        <h2 class="section-title reveal">Things I've built.</h2>
+        <p class="section-lead reveal">Software first. Folio is the one I'd open in an interview.</p>
 
+        <a class="feature reveal" id="folio" href="/projects/folio/">
+          <div class="feature-copy">
+            <span class="status featured">Featured</span>
+            <h3>Folio</h3>
+            <p>A personal expense tracker and budget copilot. Card transactions, categories that remember a merchant, recurring charges, adaptive budgets, and a plan for what to do next.</p>
+            <div class="pills"><span>Next.js</span><span>Cloudflare Workers</span><span>Plaid</span></div>
+            <p class="text-link">View project <span aria-hidden="true">→</span></p>
+          </div>
+          <div class="feature-media">
+            <img src="/assets/folio/budgets-desktop.png" width="1440" height="1100" alt="" />
+          </div>
+        </a>
+
+        <div class="projects-grid">
           <article class="project-card reveal">
             <div class="project-top">
               <span class="status done">Completed</span>
               <span class="project-date">Apr 2026</span>
             </div>
-            <h3>Wonderland — Text Adventure Game</h3>
-            <p class="project-teaser">A console text adventure in Java — explore Wonderland, gather treasures, and outsmart the Queen of Hearts.</p>
+            <h3>Wonderland</h3>
+            <p class="project-teaser">A console text adventure in Java. Explore Wonderland, gather treasures, and outsmart the Queen of Hearts.</p>
             <details class="project-more">
-              <summary>Read more</summary>
-              <p>Explore 6 interconnected locations, collect hidden treasures, talk to NPCs like the Mad Hatter and the Queen of Hearts, and manage an inventory and stash system. The whole game world loads from plain text files — pure Java, zero dependencies.</p>
+              <summary><span class="more">Read more</span><span class="less">Show less</span></summary>
+              <p>Six connected locations, hidden treasures, and NPCs including the Mad Hatter and the Queen of Hearts, plus an inventory and a stash. The world loads from plain text files. Pure Java, no dependencies.</p>
             </details>
             <div class="pills"><span>Java</span><span>OOP</span><span>File I/O</span></div>
             <a class="project-link" href="https://github.com/sarthakbhot/wonderland-text-adventure" target="_blank" rel="noopener">View on GitHub
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55v-2.15c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.59.23 2.76.11 3.05.74.81 1.18 1.83 1.18 3.09 0 4.42-2.7 5.39-5.26 5.68.41.35.77 1.05.77 2.12v3.15c0 .3.2.67.8.55A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55v-2.15c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.59.23 2.76.11 3.05.74.81 1.18 1.83 1.18 3.09 0 4.42-2.7 5.39-5.26 5.68.41.35.77 1.05.77 2.12v3.15c0 .3.2.67.8.55A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
             </a>
           </article>
 
@@ -159,13 +211,13 @@
             <div class="project-top">
               <span class="status planning">In planning</span>
             </div>
-            <h3>BB-8 — Real-Life Droid</h3>
-            <p class="project-teaser">A life-size BB-8 droid with a Raspberry Pi brain. Currently in the design phase.</p>
+            <h3>BB-8</h3>
+            <p class="project-teaser">A life-size BB-8 with a Raspberry Pi for a brain. Currently in the design phase.</p>
             <details class="project-more">
-              <summary>Read more</summary>
-              <p>The plan — a Pi Camera for face recognition, a speaker system so it can greet people by name, and AI-driven interaction. Starting with 3D modeling the parts.</p>
+              <summary><span class="more">Read more</span><span class="less">Show less</span></summary>
+              <p>The plan is a Pi camera for face recognition, a speaker so it can greet people by name, and AI-driven interaction. I'm starting by 3D modeling the parts.</p>
             </details>
-            <div class="pills"><span>Raspberry Pi</span><span>Python</span><span>AI</span><span>3D Printing</span></div>
+            <div class="pills"><span>Raspberry Pi</span><span>Python</span><span>AI</span><span>3D printing</span></div>
             <span class="project-link muted">Build log coming soon</span>
           </article>
 
@@ -173,11 +225,11 @@
             <div class="project-top">
               <span class="status done">Completed</span>
             </div>
-            <h3>Raspberry Pi Linux Server</h3>
-            <p class="project-teaser">Raspberry Pi OS set up from scratch — SSH, command line, and network exploration.</p>
+            <h3>Raspberry Pi Linux server</h3>
+            <p class="project-teaser">Raspberry Pi OS from scratch. SSH, the command line, and a look around the local network.</p>
             <details class="project-more">
-              <summary>Read more</summary>
-              <p>Configured Raspberry Pi OS from scratch, enabled SSH remote access, and practiced command-line administration, networking, and Nmap-based local network exploration.</p>
+              <summary><span class="more">Read more</span><span class="less">Show less</span></summary>
+              <p>I set up Raspberry Pi OS, turned on SSH, and practiced command-line administration, networking, and Nmap on my own network.</p>
             </details>
             <div class="pills"><span>Raspberry Pi</span><span>Linux</span><span>SSH</span><span>Networking</span></div>
           </article>
@@ -186,15 +238,15 @@
             <div class="project-top">
               <span class="status done">Completed</span>
             </div>
-            <h3>Personal Portfolio Website</h3>
-            <p class="project-teaser">This very site — hand-built and deployed on GitHub Pages.</p>
+            <h3>This website</h3>
+            <p class="project-teaser">Hand-built and hosted on GitHub Pages, with a custom domain.</p>
             <details class="project-more">
-              <summary>Read more</summary>
-              <p>Designed and built this very site — custom HTML, CSS, and JavaScript with scroll animations, version-controlled with Git, and deployed through GitHub Pages.</p>
+              <summary><span class="more">Read more</span><span class="less">Show less</span></summary>
+              <p>HTML, CSS, and JavaScript. Scroll motion, a light and dark theme, and Git all the way to GitHub Pages.</p>
             </details>
             <div class="pills"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>GitHub Pages</span></div>
             <a class="project-link" href="https://github.com/sarthakbhot/sarthakbhot.github.io" target="_blank" rel="noopener">View on GitHub
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55v-2.15c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.59.23 2.76.11 3.05.74.81 1.18 1.83 1.18 3.09 0 4.42-2.7 5.39-5.26 5.68.41.35.77 1.05.77 2.12v3.15c0 .3.2.67.8.55A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55v-2.15c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.59.23 2.76.11 3.05.74.81 1.18 1.83 1.18 3.09 0 4.42-2.7 5.39-5.26 5.68.41.35.77 1.05.77 2.12v3.15c0 .3.2.67.8.55A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
             </a>
           </article>
 
@@ -202,34 +254,32 @@
             <div class="project-top">
               <span class="status done">Completed</span>
             </div>
-            <h3>Hardware &amp; Electronics</h3>
-            <p class="project-teaser">Real circuits, wired and debugged by hand — Pi, Arduino, and camera modules.</p>
+            <h3>Hardware and electronics</h3>
+            <p class="project-teaser">Real circuits, wired and debugged by hand. Pi, Arduino, and camera modules.</p>
             <details class="project-more">
-              <summary>Read more</summary>
-              <p>Hands-on configuration and troubleshooting across Raspberry Pi, Arduino Uno, Raspberry Pi Pico, and camera modules — wiring, flashing, and debugging real circuits.</p>
+              <summary><span class="more">Read more</span><span class="less">Show less</span></summary>
+              <p>Configuration and troubleshooting across Raspberry Pi, Arduino Uno, Raspberry Pi Pico, and camera modules. Wiring, flashing, and debugging the actual board.</p>
             </details>
             <div class="pills"><span>Arduino</span><span>Raspberry Pi</span><span>Electronics</span></div>
           </article>
-
         </div>
       </div>
     </section>
 
-    <!-- ============ EXPERIENCE ============ -->
     <section id="experience" class="section section-alt">
       <div class="wrap">
         <p class="section-eyebrow reveal">Experience</p>
-        <h2 class="section-title reveal">Where I've been<span class="accent">.</span></h2>
+        <h2 class="section-title reveal">Where I've been.</h2>
         <div class="timeline">
           <div class="tl-item reveal">
             <div class="tl-dot"></div>
             <div class="tl-body">
               <span class="tl-date">Apr 2025 — Present</span>
               <h3>Signals Operator <span>· Canadian Army Reserve</span></h3>
-              <p>Operate and troubleshoot military communications equipment — HF radio, SATCOM, and tactical networks. Train on Nivis/QRT systems and keep comms running under pressure.</p>
+              <p>Operate and troubleshoot military communications equipment. HF radio, SATCOM, and tactical networks. Train on Nivis and QRT systems and keep comms up under pressure.</p>
               <div class="tl-photos">
-                <a href="assets/army/army-enrolment-1.jpg"><img src="assets/army/army-enrolment-1.jpg" alt="Sarthak at his Army enrolment ceremony holding his certificate" loading="lazy"></a>
-                <a href="assets/army/army-enrolment-2.jpg"><img src="assets/army/army-enrolment-2.jpg" alt="Sarthak shaking hands at his enrolment ceremony" loading="lazy"></a>
+                <a href="/assets/army/army-enrolment-1.jpg"><img src="/assets/army/army-enrolment-1.jpg" alt="Sarthak at his Army enrolment ceremony, holding his certificate" width="800" height="600" loading="lazy"></a>
+                <a href="/assets/army/army-enrolment-2.jpg"><img src="/assets/army/army-enrolment-2.jpg" alt="Sarthak shaking hands at his enrolment ceremony" width="800" height="600" loading="lazy"></a>
               </div>
             </div>
           </div>
@@ -238,44 +288,44 @@
             <div class="tl-body">
               <span class="tl-date">Aug 2024 — Apr 2026</span>
               <h3>Supervisor <span>· Tim Hortons</span></h3>
-              <p>Led shifts, trained new team members, and kept service running at pace — customer-first problem solving, every day.</p>
+              <p>Led shifts, trained new team members, and kept service moving. Customer-first problem solving, every day.</p>
             </div>
           </div>
         </div>
 
-        <h2 class="section-title reveal" style="margin-top:4rem">Education<span class="accent">.</span></h2>
+        <h2 class="section-title subhead reveal">Education.</h2>
         <div class="edu-card reveal">
           <div>
             <h3>Honours Bachelor of Computer Science — Artificial Intelligence</h3>
-            <p>Sheridan College · Trafalgar Road Campus, Oakville</p>
+            <p>Sheridan College</p>
           </div>
           <span class="tl-date">2026 — 2030</span>
         </div>
 
-        <h2 class="section-title reveal" style="margin-top:4rem">Certifications &amp; Training<span class="accent">.</span></h2>
-        <p class="reveal" style="color:var(--text-dim);max-width:640px;margin:-.5rem 0 1.75rem">The courses behind the uniform — with photos from each one.</p>
-        <div class="edu-card with-photos reveal">
+        <h2 class="section-title subhead reveal">Certifications and training.</h2>
+        <p class="section-lead reveal">The courses behind the uniform, with photos from each one.</p>
+        <div class="cert-block reveal">
           <div class="cert-photos cols-2">
-            <a href="assets/army/army-bmq.jpg"><img src="assets/army/army-bmq.jpg" alt="BMQ platoon during field training" loading="lazy"></a>
-            <a href="assets/army/army-portrait.jpg"><img src="assets/army/army-portrait.jpg" alt="Sarthak in uniform during BMQ" loading="lazy" style="object-position:center 38%"></a>
+            <a href="/assets/army/army-bmq.jpg"><img src="/assets/army/army-bmq.jpg" alt="BMQ platoon during field training" width="1200" height="675" loading="lazy"></a>
+            <a href="/assets/army/army-portrait.jpg"><img class="photo-portrait" src="/assets/army/army-portrait.jpg" alt="Sarthak in uniform during BMQ" width="800" height="1000" loading="lazy"></a>
           </div>
           <div class="cert-row">
             <div>
               <h3>Basic Military Qualification (BMQ)</h3>
-              <p>Canadian Army Reserve · Completed — built discipline, teamwork under pressure, weapons handling, fieldcraft, and first aid.</p>
+              <p>Canadian Army Reserve. Discipline, teamwork under pressure, weapons handling, fieldcraft, and first aid.</p>
             </div>
             <span class="tl-date">Completed</span>
           </div>
         </div>
-        <div class="edu-card with-photos reveal">
+        <div class="cert-block reveal">
           <div class="cert-photos cols-2">
-            <a href="assets/army/army-dp1.jpg"><img src="assets/army/army-dp1.jpg" alt="DP1 course group photo" loading="lazy"></a>
-            <a href="assets/army/army-dp1-grad.jpg"><img src="assets/army/army-dp1-grad.jpg" alt="DP1 graduates holding certificates" loading="lazy"></a>
+            <a href="/assets/army/army-dp1.jpg"><img src="/assets/army/army-dp1.jpg" alt="DP1 course group photo" width="1200" height="675" loading="lazy"></a>
+            <a href="/assets/army/army-dp1-grad.jpg"><img src="/assets/army/army-dp1-grad.jpg" alt="DP1 graduates holding certificates" width="1200" height="675" loading="lazy"></a>
           </div>
           <div class="cert-row">
             <div>
               <h3>DP1 — Signal Operator</h3>
-              <p>Canadian Army Reserve · Completed — trained in military communications: radio systems, signal procedures, and keeping units connected in the field, including time with a quick reaction team (QRT).</p>
+              <p>Canadian Army Reserve. Radio systems, signal procedure, and keeping a unit connected in the field, including time with a quick reaction team.</p>
             </div>
             <span class="tl-date">Completed</span>
           </div>
@@ -283,24 +333,23 @@
       </div>
     </section>
 
-    <!-- ============ CONTACT ============ -->
     <section id="contact" class="section">
       <div class="wrap contact-wrap">
         <p class="section-eyebrow reveal">Contact</p>
-        <h2 class="section-title reveal">Let's connect<span class="accent">.</span></h2>
-        <p class="reveal" style="max-width:560px">I'm looking for part-time IT roles and internships in the Oakville/Toronto area. If something fits — or you just want to talk tech — my inbox is open.</p>
+        <h2 class="section-title reveal">Let's connect.</h2>
+        <p class="section-lead reveal">I'm looking for internships and part-time software roles. If a team is building something interesting, or you just want to talk, my inbox is open.</p>
         <div class="contact-btns reveal">
           <a href="mailto:sarthakbhot1@gmail.com" class="btn btn-primary">Email me</a>
           <button type="button" class="btn btn-ghost" id="copyEmail">Copy email</button>
         </div>
         <div class="socials reveal">
-          <a href="https://github.com/sarthakbhot" target="_blank" rel="noopener" aria-label="GitHub">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55v-2.15c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.59.23 2.76.11 3.05.74.81 1.18 1.83 1.18 3.09 0 4.42-2.7 5.39-5.26 5.68.41.35.77 1.05.77 2.12v3.15c0 .3.2.67.8.55A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
-            <span>GitHub</span>
+          <a href="https://github.com/sarthakbhot" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55v-2.15c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.59.23 2.76.11 3.05.74.81 1.18 1.83 1.18 3.09 0 4.42-2.7 5.39-5.26 5.68.41.35.77 1.05.77 2.12v3.15c0 .3.2.67.8.55A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+            GitHub
           </a>
-          <a href="https://www.linkedin.com/in/sarthakbhot/" target="_blank" rel="noopener" aria-label="LinkedIn">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
-            <span>LinkedIn</span>
+          <a href="https://www.linkedin.com/in/sarthakbhot/" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+            LinkedIn
           </a>
         </div>
       </div>
@@ -309,19 +358,19 @@
 
   <footer>
     <div class="wrap">
-      <p>© 2026 Sarthak Bhot · Designed &amp; built by me · Hosted on GitHub Pages</p>
-      <p class="foot-tip">Tip: press <kbd>~</kbd> for a hidden terminal.</p>
+      <p>© 2026 Sarthak Bhot · Designed and built by me · Hosted on GitHub Pages</p>
+      <p class="foot-tip">Tip: press <kbd>~</kbd> for a terminal, or <button type="button" class="text-btn" data-open-terminal>open it here</button>. Press <kbd>B</kbd> if you like droids.</p>
     </div>
   </footer>
 
-  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Photo viewer">
+  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Photo viewer">
     <div class="lightbox-backdrop" data-lb-close></div>
-    <button class="lightbox-close" data-lb-close aria-label="Close">×</button>
-    <button class="lightbox-prev" id="lightbox-prev" aria-label="Previous photo">‹</button>
+    <button class="lightbox-close" type="button" data-lb-close aria-label="Close">×</button>
+    <button class="lightbox-prev" id="lightbox-prev" type="button" aria-label="Previous photo">‹</button>
     <figure class="lightbox-figure">
-      <img id="lightbox-img" src="" alt="" />
+      <img id="lightbox-img" alt="" />
     </figure>
-    <button class="lightbox-next" id="lightbox-next" aria-label="Next photo">›</button>
+    <button class="lightbox-next" id="lightbox-next" type="button" aria-label="Next photo">›</button>
   </div>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -329,8 +378,8 @@
     <div class="tx" role="dialog" aria-modal="true" aria-label="Terminal">
       <div class="tx-bar">
         <span class="tx-dots"><i></i><i></i><i></i></span>
-        <span class="tx-title">sarthak@portfolio: ~</span>
-        <button class="tx-close" id="termClose" aria-label="Close terminal">×</button>
+        <span class="tx-title">sarthak@portfolio</span>
+        <button class="tx-close" id="termClose" type="button" aria-label="Close terminal">×</button>
       </div>
       <div class="tx-body" id="termBody"></div>
       <div class="tx-input">
@@ -339,10 +388,9 @@
       </div>
     </div>
   </div>
-  <button type="button" class="to-top" id="toTop" aria-label="Back to top">&uarr;</button>
-  <button class="term-fab" id="termFab" aria-label="Open terminal">&gt;_</button>
+  <button type="button" class="to-top" id="toTop" aria-label="Back to top">↑</button>
+  <button type="button" class="term-fab" id="termFab" aria-label="Open terminal">&gt;_</button>
 
-  <script src="script.js?v=34"></script>
-<!-- pages rebuild trigger -->
+  <script src="/script.js?v=42"></script>
 </body>
 </html>
