@@ -10,7 +10,7 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="/assets/favicon-32.png" type="image/png" sizes="32x32" />
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
-  <link rel="stylesheet" href="/styles.css?v=47" />
+  <link rel="stylesheet" href="/styles.css?v=50" />
   <script>
     (function () {
       try {
@@ -136,16 +136,47 @@
 
     <section class="section folio-body">
       <div class="wrap">
-        <div class="folio-prose">
-          <h2>Case study</h2>
-          <dl class="case-grid">
-            <div><dt>Problem</dt><dd>Build a console text adventure in pure Java: a world you can walk, people you can talk to, and items you can carry, loaded from plain text files, with no dependencies.</dd></div>
-            <div><dt>What I built</dt><dd>Six connected locations, hidden treasures, and NPCs including the Mad Hatter and the Queen of Hearts. An inventory and a stash. The whole world loads from plain text files.</dd></div>
-            <div><dt>Stack</dt><dd>Java. Object-oriented design and file I/O. No libraries.</dd></div>
-            <div><dt>Outcome</dt><dd>Completed in April 2026. The source is on <a href="https://github.com/sarthakbhot/wonderland-text-adventure" target="_blank" rel="noopener">GitHub</a>.</dd>
-          <!-- TODO: Sarthak — say whether this was a course project, and what you would add next. Do not invent a grade or a player count. -->
-            </div>
-          </dl>
+        <header class="case-intro">
+          <h2>Case study.</h2>
+        </header>
+        <div class="case-points">
+          <article class="case-card">
+            <h3>Problem</h3>
+            <p>Build a console text adventure in pure Java: a world you can walk, people you can talk to, and items you can carry, loaded from plain text files, with no dependencies.</p>
+          </article>
+          <article class="case-card">
+            <h3>What I built</h3>
+            <p>Six connected locations, hidden treasures, and NPCs including the Mad Hatter and the Queen of Hearts. An inventory and a stash.</p>
+            <p>The whole world loads from plain text files.</p>
+          </article>
+          <article class="case-card">
+            <h3>Results</h3>
+            <p>Completed in April 2026. The source is on <a href="https://github.com/sarthakbhot/wonderland-text-adventure" target="_blank" rel="noopener">GitHub</a>.</p>
+            <!-- TODO: Sarthak — say whether this was a course project, and what you would add next. Do not invent a grade or a player count. -->
+          </article>
+        </div>
+      </div>
+
+      <div class="case-built">
+        <div class="wrap">
+          <header class="case-intro">
+            <h2>How it's built.</h2>
+            <p>Java. Object-oriented design and file I/O. No libraries.</p>
+          </header>
+          <ul class="stack-grid">
+            <li>
+              <h3>Java</h3>
+              <p>Pure Java. No libraries.</p>
+            </li>
+            <li>
+              <h3>Object-oriented design</h3>
+              <p>A world you can walk, people you can talk to, and items you can carry.</p>
+            </li>
+            <li>
+              <h3>File I/O</h3>
+              <p>The whole world loads from plain text files.</p>
+            </li>
+          </ul>
           <p class="folio-back"><a class="text-link" href="/#projects">← All projects</a></p>
         </div>
       </div>

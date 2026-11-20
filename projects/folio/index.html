@@ -22,7 +22,7 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="/assets/favicon-32.png" type="image/png" sizes="32x32" />
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
-  <link rel="stylesheet" href="/styles.css?v=47" />
+  <link rel="stylesheet" href="/styles.css?v=50" />
   <script>
     (function () {
       try {
@@ -316,31 +316,60 @@
 
     <section class="section folio-body">
       <div class="wrap">
-        <div class="folio-prose">
-          <h2>Case study</h2>
-          <dl class="case-grid">
-            <div>
-              <dt>Problem</dt>
-              <dd>A list of transactions is not a budget. I wanted one place that could pull spending in, sort it, notice repeating charges, and show whether the month was still on track.</dd>
-            </div>
-            <div>
-              <dt>What I built</dt>
-              <dd>Overview for the month, activity with search and a CSV export, income grouped from deposit names, recurring charges, and category budgets. Budget copilot confirms pay, cards, and recurring charges, then fills in the gaps. Cards are grouped by issuer. Settings covers appearance, card names, Plaid connect, export, and an access log. Net worth, payoff, alerts, and pay (a cheque or hours) are in the app as well.</dd>
-            </div>
-            <div>
-              <dt>Stack</dt>
-              <dd>Next.js, deployed to Cloudflare Workers with vinext. D1 for the database. Plaid for linking a bank. A PWA, with passkeys through WebAuthn. Dark by default, with a Dark, Light, or System toggle.</dd>
-            </div>
-            <div>
-              <dt>Outcome</dt>
-              <dd>Folio is built and shown on this page with fake demo data. It is not linked as a public app.</dd>
-              <!-- TODO: Sarthak — add what you want an interviewer to remember, such as what you learned or what you would build next. Do not add amounts, employers, a password, or a live URL unless you choose to publish one. -->
-            </div>
-          </dl>
+        <header class="case-intro">
+          <h2>Case study.</h2>
+        </header>
+        <div class="case-points">
+          <article class="case-card">
+            <h3>Problem</h3>
+            <p>A list of transactions is not a budget. I wanted one place that could pull spending in, sort it, notice repeating charges, and show whether the month was still on track.</p>
+          </article>
+          <article class="case-card">
+            <h3>What I built</h3>
+            <p>Overview for the month, activity with search and a CSV export, income grouped from deposit names, recurring charges, and category budgets.</p>
+            <p>Budget copilot confirms pay, cards, and recurring charges, then fills in the gaps. Cards are grouped by issuer.</p>
+            <p>Settings covers appearance, card names, Plaid connect, export, and an access log. Net worth, payoff, alerts, and pay (a cheque or hours) are in the app as well.</p>
+          </article>
+          <article class="case-card">
+            <h3>Results</h3>
+            <p>Folio is built and shown on this page with fake demo data. It is not linked as a public app.</p>
+            <!-- TODO: Sarthak — add what you want an interviewer to remember, such as what you learned or what you would build next. Do not add amounts, employers, a password, or a live URL unless you choose to publish one. -->
+          </article>
+        </div>
+      </div>
 
-          <h2>How it's built</h2>
-          <p>Folio is a Next.js app, deployed to Cloudflare Workers with vinext, and D1 holds the data. Plaid links a bank from Settings, after consent. It installs as a PWA, and a passkey can sign in through WebAuthn. The interface is dark by default. Settings offers Dark, Light, or System. The same screens work on a phone and in a wide window.</p>
-
+      <div class="case-built">
+        <div class="wrap">
+          <header class="case-intro">
+            <h2>How it's built.</h2>
+            <p>Folio is a Next.js app, deployed to Cloudflare Workers with vinext, and D1 holds the data. The same screens work on a phone and in a wide window.</p>
+          </header>
+          <ul class="stack-grid">
+            <li>
+              <h3>Next.js</h3>
+              <p>Folio is a Next.js app.</p>
+            </li>
+            <li>
+              <h3>vinext</h3>
+              <p>Deployed to Cloudflare Workers.</p>
+            </li>
+            <li>
+              <h3>D1</h3>
+              <p>Holds the data.</p>
+            </li>
+            <li>
+              <h3>Plaid</h3>
+              <p>Links a bank from Settings, after consent.</p>
+            </li>
+            <li>
+              <h3>PWA</h3>
+              <p>Installs as an app, with passkeys through WebAuthn.</p>
+            </li>
+            <li>
+              <h3>Dark by default</h3>
+              <p>Settings offers Dark, Light, or System.</p>
+            </li>
+          </ul>
           <p class="folio-back"><a class="text-link" href="/#projects">← All projects</a></p>
         </div>
       </div>
